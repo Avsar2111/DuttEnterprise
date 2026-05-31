@@ -82,9 +82,9 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-22 py-3">
                 <div class="flex items-center gap-3">
-                    <div class="bg-gradient-to-tr from-brand-cyan to-brand-teal p-3 rounded-xl shadow-lg">
-                        <i class="fa-solid fa-flask-vial text-2xl text-white"></i>
-                    </div>
+                    <div class="bg-gradient-to-tr from-brand-cyan to-brand-teal p-3 rounded-xl shadow-lg w-14 h-14 flex items-center justify-center overflow-hidden shrink-0">
+    <img src="images/Dutt_Enterprise_Logo_PNG.png" alt="Dutt Enterprise Logo" class="w-full h-full object-contain">
+</div>
                     <div>
                         <span class="text-xl font-extrabold tracking-tight block">DUTT ENTERPRISE</span>
                         <span class="text-[10px] tracking-wider text-slate-300 block uppercase font-medium max-w-[280px] truncate">Lab Chemicals • Glassware • Instruments</span>
@@ -603,8 +603,169 @@
             </div>
         </div>
     </section>
+<section id="contact" class="py-24 bg-slate-50" x-data="{ activeBranch: 'anand' }">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Section Header -->
+        <div class="mb-16" data-aos="fade-up">
+            <span class="text-xs font-bold text-brand-cyan tracking-widest uppercase block mb-2">Connect With Us</span>
+            <h2 class="text-3xl md:text-4xl font-black text-brand-dark tracking-tight">Get in Touch with Our Experts</h2>
+            <div class="w-16 h-1 bg-brand-cyan mt-4 rounded-full"></div>
+        </div>
 
-    <section id="contact" class="py-24 bg-white">
+        <div class="grid lg:grid-cols-12 gap-12 items-start">
+            
+            <!-- Left Side: Dual-Location Connectivity Hub -->
+            <div class="lg:col-span-5 space-y-8" data-aos="fade-right">
+                <div>
+                    <p class="text-brand-gray text-sm leading-relaxed max-w-sm">
+                        Whether you're looking for specialized laboratory glassware or bulk chemical supplies, our technical teams across our locations are ready to assist your procurement needs.
+                    </p>
+                </div>
+
+                <!-- Location Selector Tabs -->
+                <div class="flex bg-slate-200/60 p-1.5 rounded-xl gap-1 border border-slate-200">
+                    <button @click="activeBranch = 'anand'" 
+                            :class="activeBranch === 'anand' ? 'bg-white text-brand-dark shadow-xs font-bold' : 'text-slate-500 hover:text-brand-dark font-semibold'"
+                            class="flex-1 text-center py-2.5 text-xs rounded-lg transition-all">
+                        Anand (HO)
+                    </button>
+                    <button @click="activeBranch = 'branch2'" 
+                            :class="activeBranch === 'branch2' ? 'bg-white text-brand-dark shadow-xs font-bold' : 'text-slate-500 hover:text-brand-dark font-semibold'"
+                            class="flex-1 text-center py-2.5 text-xs rounded-lg transition-all">
+                        Branch Office
+                    </button>
+                </div>
+
+                <!-- Dynamic Branch Information Content Panels -->
+                <div class="space-y-6">
+                    <!-- ANAND HEADQUARTERS PANEL -->
+                    <div x-show="activeBranch === 'anand'" x-transition:enter="transition ease-out duration-200" class="space-y-6">
+                        <!-- Location Card -->
+                        <div class="flex gap-5 p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center text-brand-cyan shrink-0 border border-slate-100">
+                                <i class="fa-solid fa-location-dot text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Corporate Headquarters</h4>
+                                <p class="text-brand-dark text-sm font-semibold leading-snug">
+                                   A/5, Krishna Complex, Borsad Chokdi,<br> Anand-Sojitra Road, Anand - 388001
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Email/Phone Card -->
+                        <div class="flex gap-5 p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center text-emerald-600 shrink-0 border border-slate-100">
+                                <i class="fa-solid fa-headset text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Anand Desk Support</h4>
+                                <p class="text-brand-dark text-sm font-semibold mb-1">+91 99748 63555</p>
+                                <p class="text-brand-cyan text-sm font-medium">anand@duttenterprise.com</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECOND BRANCH PANEL -->
+                    <div x-show="activeBranch === 'branch2'" x-transition:enter="transition ease-out duration-200" class="space-y-6" x-cloak>
+                        <!-- Location Card -->
+                        <div class="flex gap-5 p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center text-brand-cyan shrink-0 border border-slate-100">
+                                <i class="fa-solid fa-building text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Regional Branch</h4>
+                                <p class="text-brand-dark text-sm font-semibold leading-snug">
+                                    Dutt Enterprise, 2nd Floor, Science Arcade,<br>Opp. GIDC, Gujarat
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Email/Phone Card -->
+                        <div class="flex gap-5 p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center text-emerald-600 shrink-0 border border-slate-100">
+                                <i class="fa-solid fa-phone-volume text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Branch Desk Support</h4>
+                                <p class="text-brand-dark text-sm font-semibold mb-1">+91 99748 63556</p>
+                                <p class="text-brand-cyan text-sm font-medium">branch@duttenterprise.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Operating Hours Summary Matrix -->
+                <div class="p-6 bg-brand-dark rounded-2xl text-white shadow-xl shadow-brand-dark/10">
+                    <h4 class="text-[10px] font-bold opacity-60 uppercase tracking-widest mb-4">Laboratory Operational Windows</h4>
+                    <div class="space-y-3">
+                        <div class="flex justify-between text-xs border-b border-white/10 pb-2">
+                            <span class="opacity-80">Monday – Saturday</span>
+                            <span class="font-bold">09:00 AM – 07:00 PM</span>
+                        </div>
+                        <div class="flex justify-between text-xs pt-1">
+                            <span class="opacity-80">Sunday</span>
+                            <span class="text-rose-400 font-bold uppercase">Closed Across Branches</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Professional Inquiry Terminal -->
+            <div class="lg:col-span-7 bg-white rounded-3xl p-8 md:p-10 shadow-xl shadow-slate-200/50 border border-slate-100" data-aos="fade-left">
+                <form action="#" class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Full Name -->
+                        <div class="space-y-2">
+                            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide ml-1">Full Name</label>
+                            <input type="text" placeholder="e.g. John Doe" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all text-brand-dark">
+                        </div>
+                        <!-- Email Address -->
+                        <div class="space-y-2">
+                            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide ml-1">Email Address</label>
+                            <input type="email" placeholder="name@company.com" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all text-brand-dark">
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Target Location Routing Dropdown -->
+                        <div class="space-y-2">
+                            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide ml-1">Route Inquiry To</label>
+                            <select class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all appearance-none cursor-pointer text-brand-dark">
+                                <option value="Anand">Anand Head Office</option>
+                                <option value="Branch 2">Branch Office Location</option>
+                            </select>
+                        </div>
+                        <!-- Inquiry Type -->
+                        <div class="space-y-2">
+                            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide ml-1">Inquiry Type</label>
+                            <select class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all appearance-none cursor-pointer text-brand-dark">
+                                <option>Bulk Product Quotation</option>
+                                <option>Technical Specification Request</option>
+                                <option>Order Status Inquiry</option>
+                                <option>Other Support</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Message Textarea -->
+                    <div class="space-y-2">
+                        <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide ml-1">Your Message</label>
+                        <textarea rows="4" placeholder="How can our branch assist your laboratory today?" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all resize-none text-brand-dark"></textarea>
+                    </div>
+
+                    <!-- Submit Action -->
+                    <button type="submit" class="w-full bg-brand-dark hover:bg-brand-cyan text-white font-bold text-xs uppercase tracking-widest py-4 rounded-xl shadow-lg shadow-brand-dark/10 transition-all transform active:scale-[0.98] flex items-center justify-center gap-2">
+                        Dispatch Inquiry <i class="fa-solid fa-paper-plane text-[10px]"></i>
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>
+    <!-- <section id="contact" class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
                 <h2 class="text-3xl font-extrabold text-brand-dark tracking-tight">Our Regional Logistics Branches</h2>
@@ -709,9 +870,85 @@
                 </form>
             </div>
         </div>
-    </section>
+    </section> -->
+<footer class="bg-brand-dark text-slate-400 pt-12 pb-8 border-t border-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Highly Compressed Executive Row Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start pb-8 border-b border-slate-800/60">
+            
+            <!-- Left Side: Brand & Social Block (Compact) -->
+            <div class="md:col-span-4 space-y-3">
+               <div class="flex items-center gap-3 text-white">
+    <!-- Brand Identity Image Logo Integration -->
+    <div class="w-12 h-12 rounded-xl bg-white/5 border border-slate-700/30 p-1 flex items-center justify-center overflow-hidden shrink-0 shadow-md">
+        <img src="/images/Dutt_Enterprise_Logo_PNG.png" alt="Dutt Enterprise Logo" class="w-full h-full object-contain">
+    </div>
+    <span class="text-sm font-black tracking-tight uppercase">DUTT ENTERPRISE</span>
+</div>
+                <p class="text-[11px] text-slate-400 leading-relaxed max-w-xs">
+                    Certified chemical indicators, calibrated scientific glassware instruments, and custom apparatus components.
+                </p>
+                <div class="flex space-x-3 pt-1">
+                    <a href="#" class="text-slate-500 hover:text-brand-cyan transition-colors"><i class="fa-brands fa-facebook-f text-xs"></i></a>
+                    <a href="#" class="text-slate-500 hover:text-brand-cyan transition-colors"><i class="fa-brands fa-linkedin-in text-xs"></i></a>
+                    <a href="https://wa.me/919974863555" target="_blank" class="text-slate-500 hover:text-emerald-500 transition-colors"><i class="fa-brands fa-whatsapp text-xs"></i></a>
+                </div>
+            </div>
 
-    <footer class="bg-brand-dark text-slate-400 pt-16 pb-8 border-t border-slate-900">
+            <!-- Middle/Right Side: Links & Locations Inline Matrix -->
+            <div class="md:col-span-8 grid sm:grid-cols-3 gap-6 md:pl-4">
+                
+                <!-- Compact Column 1: Links Combined -->
+                <div>
+                    <h4 class="text-white font-bold text-[10px] uppercase tracking-wider mb-3 text-slate-300">Navigation</h4>
+                    <ul class="space-y-2 text-[11px]">
+                        <li><a href="#about" class="hover:text-brand-cyan transition-colors">History Framework</a></li>
+                        <li><a href="#why-choose" class="hover:text-brand-cyan transition-colors">Procurement Edge</a></li>
+                        <li><a href="#contact" class="hover:text-brand-cyan transition-colors">Logistics Hubs</a></li>
+                    </ul>
+                </div>
+
+                <!-- Compact Column 2: Anand HQ Box -->
+                <div class="border-l border-slate-800/80 pl-4 sm:pl-3 md:pl-4">
+                    <div class="flex items-center gap-1.5 mb-2">
+                        <span class="w-1 h-1 rounded-full bg-brand-cyan"></span>
+                        <h4 class="text-white font-bold text-[10px] uppercase tracking-wider text-slate-300">Anand HQ</h4>
+                    </div>
+                    <p class="text-[11px] text-slate-400 leading-relaxed mb-1.5">
+                        A/5, Krishna Complex, Borsad Chokdi, Anand - 388001
+                    </p>
+                    <a href="tel:+919974863555" class="inline-flex items-center gap-1 text-[11px] font-bold text-white hover:text-brand-cyan transition-colors">
+                        <i class="fa-solid fa-phone text-[9px] text-brand-cyan"></i> +91 99748 63555
+                    </a>
+                </div>
+
+                <!-- Compact Column 3: Regional Branch Box -->
+                <div class="border-l border-slate-800/80 pl-4 sm:pl-3 md:pl-4">
+                    <div class="flex items-center gap-1.5 mb-2">
+                        <span class="w-1 h-1 rounded-full bg-slate-500"></span>
+                        <h4 class="text-slate-400 font-bold text-[10px] uppercase tracking-wider">Branch</h4>
+                    </div>
+                    <p class="text-[11px] text-slate-400 leading-relaxed mb-1.5">
+                        2nd Floor, Science Arcade, Opp. GIDC, Gujarat
+                    </p>
+                    <a href="tel:+919974863556" class="inline-flex items-center gap-1 text-[11px] font-bold text-white hover:text-brand-cyan transition-colors">
+                        <i class="fa-solid fa-building text-[9px] text-slate-500"></i> +91 99748 63556
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Clean, Flat Copyright Utility Strip -->
+        <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[10px] text-slate-500 font-medium">
+            <p>© 2026 Dutt Enterprise. Manufacturing & Trading Framework Secured.</p>
+            <p class="text-slate-600 uppercase tracking-widest">Industrial Standard Interface</p>
+        </div>
+
+    </div>
+</footer>
+    <!-- <footer class="bg-brand-dark text-slate-400 pt-16 pb-8 border-t border-slate-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
             
             <div class="col-span-2 md:col-span-1 space-y-4">
@@ -759,7 +996,7 @@
             <p>© 2026 Dutt Enterprise. All Rights Reserved. Manufacturing and Trading Framework Secured.</p>
             <p class="text-slate-600">Industrial Procurement System Standard Interface.</p>
         </div>
-    </footer>
+    </footer> -->
 
     <a href="https://wa.me/919974863555?text=Hello%20Dutt%20Enterprise,%20I%20have%20an%20urgent%20laboratory%20product%20inquiry." target="_blank" class="fixed bottom-6 right-6 z-50 bg-emerald-600 hover:bg-emerald-500 text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-2xl transition-all transform hover:scale-110 active:scale-95 animate-bounce" style="animation-duration: 4s;">
         <i class="fa-brands fa-whatsapp"></i>
