@@ -7,7 +7,16 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
+        // Apply saved theme before paint to avoid flash-of-wrong-theme
+        (function () {
+            const saved = localStorage.getItem('dutt-theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const useDark = saved ? saved === 'dark' : prefersDark;
+            if (useDark) document.documentElement.classList.add('dark');
+        })();
+
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -19,6 +28,16 @@
                             dark: '#001C30',
                             gray: '#64748B'
                         }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s ease-out both',
+                        'float-slow': 'floatSlow 6s ease-in-out infinite',
+                        'shimmer': 'shimmer 2.5s linear infinite',
+                    },
+                    keyframes: {
+                        fadeIn: { '0%': { opacity: 0, transform: 'translateY(8px)' }, '100%': { opacity: 1, transform: 'translateY(0)' } },
+                        floatSlow: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
+                        shimmer: { '0%': { backgroundPosition: '-200% 0' }, '100%': { backgroundPosition: '200% 0' } },
                     }
                 }
             }
@@ -35,11 +54,19 @@
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: background-color 0.4s ease, border-color 0.4s ease;
+        }
+        .dark .glass-card {
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
         .glass-nav {
             background: rgba(0, 28, 48, 0.95);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
+        }
+        .dark .glass-nav {
+            background: rgba(0, 10, 18, 0.92);
         }
         @keyframes infiniteScroll {
             0% { transform: translateX(0); }
@@ -56,6 +83,13 @@
         html {
             scroll-behavior: smooth;
         }
+        /* Smooth theme transition across all elements */
+        html.theme-transition,
+        html.theme-transition *,
+        html.theme-transition *::before,
+        html.theme-transition *::after {
+            transition: background-color 0.45s ease, border-color 0.45s ease, color 0.45s ease, box-shadow 0.45s ease !important;
+        }
          .hide-scrollbar::-webkit-scrollbar {
         display: none;
     }
@@ -63,9 +97,73 @@
         -ms-overflow-style: none;
         scrollbar-width: none;
     }
+
+    /* ---------- Dark mode surface remaps ---------- */
+    .dark body { background-color: #0B1220; }
+    .dark .bg-white { background-color: #0F172A !important; }
+    .dark .bg-slate-50 { background-color: #0B1220 !important; }
+    .dark .bg-slate-100 { background-color: #111A2E !important; }
+    .dark .bg-slate-200\/60,
+    .dark .bg-slate-200\/40 { background-color: rgba(30, 41, 59, 0.6) !important; }
+    .dark .text-brand-dark { color: #E2E8F0 !important; }
+    .dark .text-brand-gray { color: #94A3B8 !important; }
+    .dark .text-slate-500,
+    .dark .text-slate-400 { color: #94A3B8 !important; }
+    .dark .border-slate-200,
+    .dark .border-slate-100,
+    .dark .border-slate-200\/70,
+    .dark .border-slate-200\/60 { border-color: rgba(148, 163, 184, 0.15) !important; }
+    .dark .bg-gradient-to-b.from-slate-50.to-white,
+    .dark .bg-gradient-to-b.from-slate-50.via-white.to-slate-50 { background-image: linear-gradient(to bottom, #0B1220, #0F172A) !important; }
+    .dark .bg-brand-lightBg\/50 { background-color: rgba(8, 131, 149, 0.06) !important; }
+    .dark input, .dark select, .dark textarea { background-color: #0B1220 !important; color: #E2E8F0 !important; }
+    .dark input::placeholder, .dark textarea::placeholder { color: #64748B !important; }
+
+    /* Theme toggle switch */
+    .theme-toggle {
+        position: relative;
+        width: 52px;
+        height: 28px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #088395, #05BFDB);
+        display: inline-flex;
+        align-items: center;
+        padding: 3px;
+        cursor: pointer;
+        transition: background 0.4s ease;
+        flex-shrink: 0;
+    }
+    .dark .theme-toggle {
+        background: linear-gradient(135deg, #1E293B, #334155);
+    }
+    .theme-toggle .knob {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        color: #088395;
+        transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1), color 0.3s ease;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+    }
+    .dark .theme-toggle .knob {
+        transform: translateX(24px);
+        color: #05BFDB;
+    }
     </style>
 </head>
-<body class="bg-slate-50 text-brand-dark overflow-x-hidden" x-data="{ mobileMenu: false, searchKey: '', selectedCat: 'All', certModal: false, certImg: '' }">
+<body class="bg-slate-50 text-brand-dark overflow-x-hidden transition-colors duration-500" x-data="{ mobileMenu: false, searchKey: '', selectedCat: 'All', certModal: false, certImg: '', darkMode: document.documentElement.classList.contains('dark'),
+    toggleTheme() {
+        document.documentElement.classList.add('theme-transition');
+        this.darkMode = !this.darkMode;
+        document.documentElement.classList.toggle('dark', this.darkMode);
+        localStorage.setItem('dutt-theme', this.darkMode ? 'dark' : 'light');
+        setTimeout(() => document.documentElement.classList.remove('theme-transition'), 500);
+    }
+}">
 
     <div id="preloader" class="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-brand-dark to-brand-blue transition-opacity duration-500">
         <div class="text-center">
@@ -92,23 +190,33 @@
                 </div>
                 
                 <div class="hidden lg:flex space-x-7 font-semibold text-sm tracking-wide">
-                    <a href="#home" class="hover:text-brand-teal transition-colors">Home</a>
-                    <a href="#about" class="hover:text-brand-teal transition-colors">About Us</a>
-                    <a href="#categories" class="hover:text-brand-teal transition-colors">Categories</a>
-                    <a href="#products" class="hover:text-brand-teal transition-colors">Products</a>
-                    <a href="#awards" class="hover:text-brand-teal transition-colors">Awards</a>
-                    <a href="#why-choose" class="hover:text-brand-teal transition-colors">Why Choose Us</a>
-                    <a href="#contact" class="hover:text-brand-teal transition-colors">Branches</a>
+                    <a href="#home" class="relative hover:text-brand-teal transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-brand-teal after:transition-all after:duration-300 hover:after:w-full">Home</a>
+                    <a href="#about" class="relative hover:text-brand-teal transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-brand-teal after:transition-all after:duration-300 hover:after:w-full">About Us</a>
+                    <a href="#categories" class="relative hover:text-brand-teal transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-brand-teal after:transition-all after:duration-300 hover:after:w-full">Categories</a>
+                    <a href="#products" class="relative hover:text-brand-teal transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-brand-teal after:transition-all after:duration-300 hover:after:w-full">Products</a>
+                    <a href="#awards" class="relative hover:text-brand-teal transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-brand-teal after:transition-all after:duration-300 hover:after:w-full">Awards</a>
+                    <a href="#why-choose" class="relative hover:text-brand-teal transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-brand-teal after:transition-all after:duration-300 hover:after:w-full">Why Choose Us</a>
+                    <a href="#contact" class="relative hover:text-brand-teal transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-brand-teal after:transition-all after:duration-300 hover:after:w-full">Branches</a>
                 </div>
                 
-                <div class="hidden sm:flex items-center gap-3">
-                    <a href="https://wa.me/919974863555?text=Hello%20Dutt%20Enterprise,%20I'm%20visiting%20your%20website%20and%20want%20to%20connect." target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-4 py-2.5 rounded-xl font-bold flex items-center gap-2 shadow-lg shadow-emerald-900/20 transition-all transform hover:-translate-y-0.5">
+                <div class="hidden sm:flex items-center gap-4">
+                    <button @click="toggleTheme()" class="theme-toggle" :aria-pressed="darkMode" aria-label="Toggle dark mode" title="Toggle dark / light theme">
+                        <span class="knob">
+                            <i class="fa-solid" :class="darkMode ? 'fa-moon' : 'fa-sun'"></i>
+                        </span>
+                    </button>
+                    <a href="https://wa.me/919974863555?text=Hello%20Dutt%20Enterprise,%20I'm%20visiting%20your%20website%20and%20want%20to%20connect." target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-4 py-2.5 rounded-xl font-bold flex items-center gap-2 shadow-lg shadow-emerald-900/20 transition-all transform hover:-translate-y-0.5 hover:shadow-emerald-500/30">
                         <i class="fa-brands fa-whatsapp text-sm"></i> Direct Chat
                     </a>
                 </div>
                 
-                <div class="lg:hidden">
-                    <button @click="mobileMenu = !mobileMenu" class="text-white focus:outline-none p-2 rounded-lg bg-white/5">
+                <div class="lg:hidden flex items-center gap-2">
+                    <button @click="toggleTheme()" class="theme-toggle" :aria-pressed="darkMode" aria-label="Toggle dark mode">
+                        <span class="knob">
+                            <i class="fa-solid" :class="darkMode ? 'fa-moon' : 'fa-sun'"></i>
+                        </span>
+                    </button>
+                    <button @click="mobileMenu = !mobileMenu" class="text-white focus:outline-none p-2 rounded-lg bg-white/5 transition-transform active:scale-90">
                         <i class="fa-solid" :class="mobileMenu ? 'fa-xmark text-xl' : 'fa-bars text-xl'"></i>
                     </button>
                 </div>
@@ -130,14 +238,14 @@
         </div>
     </nav>
 
-    <header id="home" class="relative min-h-screen pt-24 flex items-center bg-brand-dark overflow-hidden">
+    <header id="home" class="relative min-h-screen pt-24 flex items-center bg-brand-dark dark:bg-[#060B14] overflow-hidden">
         <div class="absolute inset-0 z-0 opacity-25">
             <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&q=80&w=1920" alt="Laboratory Facility" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/80 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/80 to-transparent dark:from-[#060B14] dark:via-[#060B14]/85"></div>
         </div>
         
         <div class="absolute inset-0 pointer-events-none z-10 hidden xl:block">
-            <i class="fa-solid fa-atom text-brand-teal/20 text-6xl absolute top-1/4 right-1/4 animate-spin" style="animation-duration: 20s;"></i>
+            <i class="fa-solid fa-atom text-brand-teal/20 text-6xl absolute top-1/4 right-1/4 animate-spin animate-float-slow" style="animation-duration: 20s, 6s;"></i>
             <i class="fa-solid fa-dna text-brand-cyan/20 text-5xl absolute bottom-1/4 right-1/3 animate-pulse" style="animation-duration: 6s;"></i>
             <i class="fa-solid fa-vial-circle-check text-white/10 text-4xl absolute top-1/3 left-12 animate-bounce" style="animation-duration: 5s;"></i>
         </div>
@@ -155,21 +263,21 @@
                         Dealers in high-compliance Lab Chemicals, Glassware, and High-Precision Instruments. Trusted industrial manufacturers of the specialized <strong class="text-brand-teal font-semibold">Laboratory Nexus Brand</strong> miscellaneous apparatus utilities.
                     </p>
                     <div class="mt-8 flex flex-col sm:flex-row gap-4">
-                        <a href="#products" class="bg-gradient-to-r from-brand-cyan to-brand-teal hover:from-brand-teal hover:to-brand-cyan text-white font-bold px-8 py-4 rounded-xl shadow-lg shadow-brand-cyan/20 text-center transition-all flex items-center justify-center gap-2 group">
+                        <a href="#products" class="bg-gradient-to-r from-brand-cyan to-brand-teal hover:from-brand-teal hover:to-brand-cyan text-white font-bold px-8 py-4 rounded-xl shadow-lg shadow-brand-cyan/20 text-center transition-all duration-300 flex items-center justify-center gap-2 group hover:shadow-brand-teal/40 hover:-translate-y-0.5 active:scale-95">
                             Explore Products <i class="fa-solid fa-circle-chevron-right group-hover:translate-x-1 transition-transform"></i>
                         </a>
-                        <a href="https://wa.me/919974863555?text=Hello%20Dutt%20Enterprise,%20I%20want%20to%20inquire%20about%20laboratory%20supplies." target="_blank" class="bg-slate-800/90 border border-slate-700 text-white font-bold px-8 py-4 rounded-xl hover:bg-slate-700 text-center transition-all flex items-center justify-center gap-2">
+                        <a href="https://wa.me/919974863555?text=Hello%20Dutt%20Enterprise,%20I%20want%20to%20inquire%20about%20laboratory%20supplies." target="_blank" class="bg-slate-800/90 dark:bg-white/5 border border-slate-700 dark:border-white/10 text-white font-bold px-8 py-4 rounded-xl hover:bg-slate-700 dark:hover:bg-white/10 text-center transition-all duration-300 flex items-center justify-center gap-2 hover:-translate-y-0.5 active:scale-95">
                             <i class="fa-brands fa-whatsapp text-emerald-400 text-xl"></i> WhatsApp Inquiry
                         </a>
                     </div>
                 </div>
                 
                 <div class="lg:col-span-5 hidden lg:block" data-aos="fade-left" data-aos-duration="1000">
-                    <div class="glass-card p-5 rounded-3xl border border-white/10 shadow-2xl relative">
+                    <div class="glass-card p-5 rounded-3xl border border-white/10 shadow-2xl relative animate-float-slow">
                         <div class="overflow-hidden rounded-2xl h-[380px] bg-slate-900">
                             <img src="https://images.unsplash.com/photo-1581093588401-fbb62a02f120?auto=format&fit=crop&q=80&w=600" alt="Lab Infrastructure" class="w-full h-full object-cover opacity-90 hover:scale-105 transition-transform duration-700">
                         </div>
-                        <div class="absolute -bottom-6 -left-6 bg-brand-cyan text-white p-5 rounded-2xl shadow-xl flex items-center gap-4 border border-brand-teal/30">
+                        <div class="absolute -bottom-6 -left-6 bg-brand-cyan text-white p-5 rounded-2xl shadow-xl flex items-center gap-4 border border-brand-teal/30 hover:shadow-brand-teal/30 transition-shadow duration-500">
                             <i class="fa-solid fa-shield-halved text-3xl text-white"></i>
                             <div>
                                 <span class="font-extrabold text-lg block">ISO Standard</span>
@@ -200,22 +308,22 @@
                 </div>
                 
                 <div class="lg:col-span-6 grid sm:grid-cols-2 gap-6" data-aos="fade-left">
-                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm">
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                         <div class="w-10 h-10 bg-brand-blue text-white rounded-xl flex items-center justify-center text-lg mb-4"><i class="fa-solid fa-school"></i></div>
                         <h4 class="font-bold text-brand-dark text-base mb-1">Educational Distribution</h4>
                         <p class="text-brand-gray text-xs">Custom safe configurations optimized for school and university chemistry/biology modules.</p>
                     </div>
-                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm">
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                         <div class="w-10 h-10 bg-brand-cyan text-white rounded-xl flex items-center justify-center text-lg mb-4"><i class="fa-solid fa-hospital-user"></i></div>
                         <h4 class="font-bold text-brand-dark text-base mb-1">Clinical Diagnostics</h4>
                         <p class="text-brand-gray text-xs">High throughput components configured specifically for multi-branch hospital diagnostics.</p>
                     </div>
-                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm">
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                         <div class="w-10 h-10 bg-emerald-600 text-white rounded-xl flex items-center justify-center text-lg mb-4"><i class="fa-solid fa-industry"></i></div>
                         <h4 class="font-bold text-brand-dark text-base mb-1">Industrial Processing</h4>
                         <p class="text-brand-gray text-xs">Batch verification acids, analytical reagents, and high precision chemical indicators.</p>
                     </div>
-                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm">
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                         <div class="w-10 h-10 bg-brand-teal text-white rounded-xl flex items-center justify-center text-lg mb-4"><i class="fa-solid fa-microscope"></i></div>
                         <h4 class="font-bold text-brand-dark text-base mb-1">Research Facilities</h4>
                         <p class="text-brand-gray text-xs">Ultra pure standard compositions supporting specific research execution metrics.</p>
@@ -234,38 +342,38 @@
             </div>
 
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-                <div @click="selectedCat = 'Chemicals'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl transition-all cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="50">
-                    <div class="w-14 h-14 mx-auto bg-blue-100 text-blue-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-brand-blue group-hover:text-white transition-all"><i class="fa-solid fa-vial"></i></div>
+                <div @click="selectedCat = 'Chemicals'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="50">
+                    <div class="w-14 h-14 mx-auto bg-blue-100 text-blue-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-brand-blue group-hover:text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-300"><i class="fa-solid fa-vial"></i></div>
                     <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Chemicals</h3>
                 </div>
 
-                <div @click="selectedCat = 'Glassware'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl transition-all cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="w-14 h-14 mx-auto bg-cyan-100 text-cyan-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-brand-cyan group-hover:text-white transition-all"><i class="fa-solid fa-flask"></i></div>
+                <div @click="selectedCat = 'Glassware'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="w-14 h-14 mx-auto bg-cyan-100 text-cyan-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-brand-cyan group-hover:text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-300"><i class="fa-solid fa-flask"></i></div>
                     <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Glassware</h3>
                 </div>
 
-                <div @click="selectedCat = 'Plasticware'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl transition-all cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="150">
-                    <div class="w-14 h-14 mx-auto bg-teal-100 text-teal-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-brand-teal group-hover:text-white transition-all"><i class="fa-solid fa-prescription-bottle"></i></div>
+                <div @click="selectedCat = 'Plasticware'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="150">
+                    <div class="w-14 h-14 mx-auto bg-teal-100 text-teal-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-brand-teal group-hover:text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-300"><i class="fa-solid fa-prescription-bottle"></i></div>
                     <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Plasticware</h3>
                 </div>
 
-                <div @click="selectedCat = 'Filter Papers'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl transition-all cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="w-14 h-14 mx-auto bg-indigo-100 text-indigo-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-all"><i class="fa-solid fa-copy"></i></div>
+                <div @click="selectedCat = 'Filter Papers'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="w-14 h-14 mx-auto bg-indigo-100 text-indigo-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-indigo-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-300"><i class="fa-solid fa-copy"></i></div>
                     <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Filter Papers</h3>
                 </div>
 
-                <div @click="selectedCat = 'Instruments'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl transition-all cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="250">
-                    <div class="w-14 h-14 mx-auto bg-emerald-100 text-emerald-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-emerald-600 group-hover:text-white transition-all"><i class="fa-solid fa-gauge-high"></i></div>
+                <div @click="selectedCat = 'Instruments'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="250">
+                    <div class="w-14 h-14 mx-auto bg-emerald-100 text-emerald-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-emerald-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-300"><i class="fa-solid fa-gauge-high"></i></div>
                     <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Instruments</h3>
                 </div>
 
-                <div @click="selectedCat = 'Pathology Products'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl transition-all cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="w-14 h-14 mx-auto bg-red-100 text-red-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-red-600 group-hover:text-white transition-all"><i class="fa-solid fa-droplet"></i></div>
+                <div @click="selectedCat = 'Pathology Products'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="w-14 h-14 mx-auto bg-red-100 text-red-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-red-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-300"><i class="fa-solid fa-droplet"></i></div>
                     <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Pathology Products</h3>
                 </div>
 
-                <div @click="selectedCat = 'Miscellaneous Products'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl transition-all cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="350">
-                    <div class="w-14 h-14 mx-auto bg-amber-100 text-amber-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-amber-600 group-hover:text-white transition-all"><i class="fa-solid fa-boxes-packing"></i></div>
+                <div @click="selectedCat = 'Miscellaneous Products'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="350">
+                    <div class="w-14 h-14 mx-auto bg-amber-100 text-amber-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-amber-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-300"><i class="fa-solid fa-boxes-packing"></i></div>
                     <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Laboratory Nexus Line</h3>
                 </div>
             </div>
@@ -349,8 +457,8 @@
         <div class="lg:col-span-3 lg:sticky lg:top-28 z-20 overflow-x-auto lg:overflow-x-visible hide-scrollbar flex lg:flex-col gap-2 pb-4 lg:pb-0 border-b border-slate-100 lg:border-none">
             <template x-for="catItem in ['All', 'Chemicals', 'Glassware', 'Plasticware', 'Filter Papers', 'Instruments', 'Miscellaneous Products', 'Pathology Products']">
                 <button @click="selectedCat = catItem" 
-                        :class="selectedCat === catItem ? 'bg-brand-dark text-white shadow-lg shadow-brand-dark/10 border-brand-dark' : 'bg-white text-brand-gray hover:text-brand-dark hover:bg-slate-50 border-slate-200'"
-                        class="whitespace-nowrap lg:whitespace-normal text-left px-4 py-3 rounded-xl border text-xs font-bold tracking-wide transition-all duration-200 flex items-center justify-between gap-3 min-w-[140px] lg:w-full group">
+                        :class="selectedCat === catItem ? 'bg-brand-dark text-white shadow-lg shadow-brand-dark/10 border-brand-dark' : 'bg-white dark:bg-slate-900 text-brand-gray hover:text-brand-dark dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 border-slate-200 dark:border-white/10'"
+                        class="whitespace-nowrap lg:whitespace-normal text-left px-4 py-3 rounded-xl border text-xs font-bold tracking-wide transition-all duration-300 flex items-center justify-between gap-3 min-w-[140px] lg:w-full group hover:-translate-y-0.5">
                     <span x-text="catItem === 'Miscellaneous Products' ? 'Laboratory Nexus Line' : catItem"></span>
                     <i class="fa-solid fa-chevron-right text-[10px] opacity-0 group-hover:opacity-100 transform translate-x-[-4px] group-hover:translate-x-0 transition-all hidden lg:block" :class="selectedCat === catItem ? 'text-brand-teal opacity-100' : ''"></i>
                 </button>
@@ -360,18 +468,18 @@
         <div class="lg:col-span-9">
             <div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
                 <template x-for="product in paginatedProducts" :key="product.id">
-                    <div class="bg-white rounded-2xl border border-slate-200/70 hover:border-brand-cyan/40 overflow-hidden flex flex-col h-full shadow-sm hover:shadow-xl transition-all duration-300 group" data-aos="fade-up">
+                    <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/70 dark:border-white/10 hover:border-brand-cyan/40 overflow-hidden flex flex-col h-full shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group" data-aos="fade-up">
                         
-                        <div class="relative bg-gradient-to-b from-slate-50 to-white h-60 flex items-center justify-center p-6 border-b border-slate-100 overflow-hidden">
-                            <img :src="product.img" :alt="product.name" class="max-w-full max-h-full object-contain transform group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1530026405186-ed1ea0ac7a63?auto=format&fit=crop&q=80&w=500';">
+                        <div class="relative bg-gradient-to-b from-slate-50 to-white dark:from-slate-800 dark:to-slate-900 h-60 flex items-center justify-center p-6 border-b border-slate-100 dark:border-white/5 overflow-hidden">
+                            <img :src="product.img" :alt="product.name" class="max-w-full max-h-full object-contain transform group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1530026405186-ed1ea0ac7a63?auto=format&fit=crop&q=80&w=500';">
                             
                             <div class="absolute top-4 left-4 right-4 flex items-center justify-between gap-2 pointer-events-none">
-                                <span x-text="product.cat === 'Miscellaneous Products' ? 'Nexus Line' : product.cat" class="bg-white/90 backdrop-blur-md border border-slate-200/60 text-brand-dark text-[9px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md shadow-xs select-none"></span>
+                                <span x-text="product.cat === 'Miscellaneous Products' ? 'Nexus Line' : product.cat" class="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200/60 dark:border-white/10 text-brand-dark dark:text-slate-200 text-[9px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md shadow-xs select-none"></span>
                                 
                                 <a :href="'https://wa.me/919974863555?text=Hello%20Dutt%20Enterprise,%20I%20want%20to%20request%20a%20commercial%20quote%20for%20' + encodeURIComponent(product.name) + '.'" 
                                    target="_blank" 
                                    title="Request Quote"
-                                   class="pointer-events-auto inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[10px] uppercase rounded-md tracking-wide shadow-md transition-all transform active:scale-95">
+                                   class="pointer-events-auto inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[10px] uppercase rounded-md tracking-wide shadow-md transition-all duration-300 transform active:scale-95 hover:scale-105">
                                     <i class="fa-brands fa-whatsapp text-xs"></i> Quote
                                 </a>
                             </div>
@@ -435,9 +543,9 @@
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div @click="certImg = 'images/certificates/iso_9001.jpg'; certModal = true" 
-                     class="glass-card bg-white rounded-2xl p-8 text-center shadow-sm hover:shadow-xl hover:-translate-y-1 border border-slate-200/70 transition-all duration-300 cursor-pointer group"
+                     class="glass-card bg-white rounded-2xl p-8 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 border border-slate-200/70 transition-all duration-300 cursor-pointer group"
                      data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-16 h-16 mx-auto bg-slate-50 text-brand-gray border border-slate-100 rounded-full flex items-center justify-center text-2xl mb-6 shadow-xs group-hover:bg-brand-cyan/10 group-hover:text-brand-cyan transition-colors">
+                    <div class="w-16 h-16 mx-auto bg-slate-50 text-brand-gray border border-slate-100 rounded-full flex items-center justify-center text-2xl mb-6 shadow-xs group-hover:bg-brand-cyan/10 group-hover:text-brand-cyan group-hover:rotate-12 transition-all duration-300">
                         <i class="fa-solid fa-award"></i>
                     </div>
                     <h3 class="text-lg font-bold text-brand-dark group-hover:text-brand-cyan transition-colors mb-2">ISO 9001:2015 Certification</h3>
@@ -448,9 +556,9 @@
                 </div>
 
                 <div @click="certImg = 'images/certificates/gmp_compliance.jpg'; certModal = true" 
-                     class="glass-card bg-white rounded-2xl p-8 text-center shadow-sm hover:shadow-xl hover:-translate-y-1 border border-slate-200/70 transition-all duration-300 cursor-pointer group"
+                     class="glass-card bg-white rounded-2xl p-8 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 border border-slate-200/70 transition-all duration-300 cursor-pointer group"
                      data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-16 h-16 mx-auto bg-slate-50 text-brand-gray border border-slate-100 rounded-full flex items-center justify-center text-2xl mb-6 shadow-xs group-hover:bg-brand-cyan/10 group-hover:text-brand-cyan transition-colors">
+                    <div class="w-16 h-16 mx-auto bg-slate-50 text-brand-gray border border-slate-100 rounded-full flex items-center justify-center text-2xl mb-6 shadow-xs group-hover:bg-brand-cyan/10 group-hover:text-brand-cyan group-hover:rotate-12 transition-all duration-300">
                         <i class="fa-solid fa-shield-halved"></i>
                     </div>
                     <h3 class="text-lg font-bold text-brand-dark group-hover:text-brand-cyan transition-colors mb-2">GMP Compliance Mark</h3>
@@ -461,9 +569,9 @@
                 </div>
 
                 <div @click="certImg = 'images/certificates/excellence_award.jpg'; certModal = true" 
-                     class="glass-card bg-white rounded-2xl p-8 text-center shadow-sm hover:shadow-xl hover:-translate-y-1 border border-slate-200/70 transition-all duration-300 cursor-pointer group"
+                     class="glass-card bg-white rounded-2xl p-8 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 border border-slate-200/70 transition-all duration-300 cursor-pointer group"
                      data-aos="fade-up" data-aos-delay="300">
-                    <div class="w-16 h-16 mx-auto bg-slate-50 text-brand-gray border border-slate-100 rounded-full flex items-center justify-center text-2xl mb-6 shadow-xs group-hover:bg-brand-cyan/10 group-hover:text-brand-cyan transition-colors">
+                    <div class="w-16 h-16 mx-auto bg-slate-50 text-brand-gray border border-slate-100 rounded-full flex items-center justify-center text-2xl mb-6 shadow-xs group-hover:bg-brand-cyan/10 group-hover:text-brand-cyan group-hover:rotate-12 transition-all duration-300">
                         <i class="fa-solid fa-medal"></i>
                     </div>
                     <h3 class="text-lg font-bold text-brand-dark group-hover:text-brand-cyan transition-colors mb-2">Regional Sourcing Excellence</h3>
@@ -521,33 +629,33 @@
             </div>
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="p-8 bg-slate-50 border border-slate-100 rounded-2xl shadow-sm hover:shadow-md transition-all group" data-aos="fade-up">
-                    <div class="w-12 h-12 bg-brand-blue text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-md"><i class="fa-solid fa-building-shield"></i></div>
+                <div class="p-8 bg-slate-50 border border-slate-100 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 group" data-aos="fade-up">
+                    <div class="w-12 h-12 bg-brand-blue text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-md group-hover:scale-110 transition-transform duration-300"><i class="fa-solid fa-building-shield"></i></div>
                     <h3 class="text-lg font-bold mb-2 text-brand-dark">Trusted Laboratory Supplier</h3>
                     <p class="text-brand-gray text-xs leading-relaxed">Securing batch networks for healthcare clusters, research blocks, and industrial sectors flawlessly.</p>
                 </div>
-                <div class="p-8 bg-slate-50 border border-slate-100 rounded-2xl shadow-sm hover:shadow-md transition-all group" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-12 h-12 bg-brand-cyan text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-md"><i class="fa-solid fa-flask-vial"></i></div>
+                <div class="p-8 bg-slate-50 border border-slate-100 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-12 h-12 bg-brand-cyan text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-md group-hover:scale-110 transition-transform duration-300"><i class="fa-solid fa-flask-vial"></i></div>
                     <h3 class="text-lg font-bold mb-2 text-brand-dark">Premium Quality Products</h3>
                     <p class="text-brand-gray text-xs leading-relaxed">Procured only from highly regulated global manufacturers providing certified purity documentation channels.</p>
                 </div>
-                <div class="p-8 bg-slate-50 border border-slate-100 rounded-2xl shadow-sm hover:shadow-md transition-all group" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-12 h-12 bg-brand-teal text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-md"><i class="fa-solid fa-network-wired"></i></div>
+                <div class="p-8 bg-slate-50 border border-slate-100 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-12 h-12 bg-brand-teal text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-md group-hover:scale-110 transition-transform duration-300"><i class="fa-solid fa-network-wired"></i></div>
                     <h3 class="text-lg font-bold mb-2 text-brand-dark">Wide Product Range</h3>
                     <p class="text-brand-gray text-xs leading-relaxed">A completely unified procurement line handling compound acids to fine borosilicate equipment.</p>
                 </div>
-                <div class="p-8 bg-slate-50 border border-slate-100 rounded-2xl shadow-sm hover:shadow-md transition-all group" data-aos="fade-up" data-aos-delay="300">
-                    <div class="w-12 h-12 bg-emerald-600 text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-md"><i class="fa-solid fa-truck-fast"></i></div>
+                <div class="p-8 bg-slate-50 border border-slate-100 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-12 h-12 bg-emerald-600 text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-md group-hover:scale-110 transition-transform duration-300"><i class="fa-solid fa-truck-fast"></i></div>
                     <h3 class="text-lg font-bold mb-2 text-brand-dark">Fast Delivery</h3>
                     <p class="text-brand-gray text-xs leading-relaxed">Integrated cold chain logistics and shock proof material dispatch loops across regional operational fields.</p>
                 </div>
-                <div class="p-8 bg-slate-50 border border-slate-100 rounded-2xl shadow-sm hover:shadow-md transition-all group" data-aos="fade-up" data-aos-delay="400">
-                    <div class="w-12 h-12 bg-indigo-600 text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-md"><i class="fa-solid fa-headset"></i></div>
+                <div class="p-8 bg-slate-50 border border-slate-100 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 group" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-12 h-12 bg-indigo-600 text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-md group-hover:scale-110 transition-transform duration-300"><i class="fa-solid fa-headset"></i></div>
                     <h3 class="text-lg font-bold mb-2 text-brand-dark">Best Customer Support</h3>
                     <p class="text-brand-gray text-xs leading-relaxed">Dedicated logistics desks verifying technical safety standards, dynamic certifications, and structural specifications.</p>
                 </div>
-                <div class="p-8 bg-slate-50 border border-slate-100 rounded-2xl shadow-sm hover:shadow-md transition-all group" data-aos="fade-up" data-aos-delay="500">
-                    <div class="w-12 h-12 bg-purple-600 text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-md"><i class="fa-solid fa-star"></i></div>
+                <div class="p-8 bg-slate-50 border border-slate-100 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 group" data-aos="fade-up" data-aos-delay="500">
+                    <div class="w-12 h-12 bg-purple-600 text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-md group-hover:scale-110 transition-transform duration-300"><i class="fa-solid fa-star"></i></div>
                     <h3 class="text-lg font-bold mb-2 text-brand-dark">Trusted Brands</h3>
                     <p class="text-brand-gray text-xs leading-relaxed">Official regional clearing partner handling leading elite scientific development manufacturing frameworks globally.</p>
                 </div>
@@ -571,7 +679,7 @@
   }
 </style>
 
-<section class="py-16 bg-gradient-to-b from-slate-50 via-white to-slate-50 border-y border-slate-200/60 overflow-hidden relative">
+<section class="py-16 bg-gradient-to-b from-slate-50 via-white to-slate-50 dark:from-[#0B1220] dark:via-[#0F172A] dark:to-[#0B1220] border-y border-slate-200/60 dark:border-white/5 overflow-hidden relative">
     <!-- Subtle Golden Ambient Glow -->
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[250px] bg-amber-500/5 blur-[100px] pointer-events-none rounded-full"></div>
 
@@ -712,8 +820,8 @@
             </div>
 
             <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 relative" data-aos="fade-up" data-aos-delay="100">
-                    <i class="fa-solid fa-quote-left text-slate-200 text-4xl absolute top-6 left-6"></i>
+                <div class="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 border border-slate-200 dark:border-white/10 relative transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fa-solid fa-quote-left text-slate-200 dark:text-white/10 text-4xl absolute top-6 left-6"></i>
                     <div class="relative z-10">
                         <p class="text-brand-dark italic mb-6 text-xs leading-relaxed">"Dutt Enterprise has structuralized our reagent supply chain operations perfectly. The batch clarity documentation on analytics chemical metrics matches top industrial guidelines."</p>
                         <div class="flex items-center gap-3">
@@ -725,8 +833,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 relative" data-aos="fade-up" data-aos-delay="200">
-                    <i class="fa-solid fa-quote-left text-slate-200 text-4xl absolute top-6 left-6"></i>
+                <div class="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 border border-slate-200 dark:border-white/10 relative transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fa-solid fa-quote-left text-slate-200 dark:text-white/10 text-4xl absolute top-6 left-6"></i>
                     <div class="relative z-10">
                         <p class="text-brand-dark italic mb-6 text-xs leading-relaxed">"The customized tools designed within the Laboratory Nexus series match exact parameters required for our research setups. Prompt delivery routes are consistently accurate."</p>
                         <div class="flex items-center gap-3">
@@ -738,8 +846,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 relative" data-aos="fade-up" data-aos-delay="300">
-                    <i class="fa-solid fa-quote-left text-slate-200 text-4xl absolute top-6 left-6"></i>
+                <div class="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 border border-slate-200 dark:border-white/10 relative transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fa-solid fa-quote-left text-slate-200 dark:text-white/10 text-4xl absolute top-6 left-6"></i>
                     <div class="relative z-10">
                         <p class="text-brand-dark italic mb-6 text-xs leading-relaxed">"Procurement transitions have been effortless since deploying WhatsApp integration tracking with Dutt Enterprise. Highly resilient glassware structures reduce long term replacement costs."</p>
                         <div class="flex items-center gap-3">
@@ -852,7 +960,7 @@
                 </div>
             </div>
 
-            <div class="lg:col-span-7 bg-white rounded-3xl p-8 md:p-10 shadow-xl shadow-slate-200/50 border border-slate-100" data-aos="fade-left">
+            <div class="lg:col-span-7 bg-white dark:bg-slate-900 rounded-3xl p-8 md:p-10 shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-white/10" data-aos="fade-left">
                 <form action="#" class="space-y-6">
                     <div class="grid md:grid-cols-2 gap-6">
                         <div class="space-y-2">
@@ -887,7 +995,7 @@
                         <textarea rows="4" placeholder="How can our branch assist your laboratory today?" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all resize-none text-brand-dark"></textarea>
                     </div>
 
-                    <button type="submit" class="w-full bg-brand-dark hover:bg-brand-cyan text-white font-bold text-xs uppercase tracking-widest py-4 rounded-xl shadow-lg shadow-brand-dark/10 transition-all transform active:scale-[0.98] flex items-center justify-center gap-2">
+                    <button type="submit" class="w-full bg-brand-dark hover:bg-brand-cyan text-white font-bold text-xs uppercase tracking-widest py-4 rounded-xl shadow-lg shadow-brand-dark/10 transition-all duration-300 transform active:scale-[0.98] hover:shadow-brand-cyan/30 flex items-center justify-center gap-2">
                         Dispatch Inquiry <i class="fa-solid fa-paper-plane text-[10px]"></i>
                     </button>
                 </form>
@@ -907,8 +1015,8 @@
                     Dealers in verified Laboratory Chemicals, Glassware, Instruments, Pathology Products, Plasticware, Filter Papers and custom Laboratory Nexus Brand Miscellaneous Products. Sourcing structural science since deployment inception.
                 </p>
                 <div class="pt-2 flex items-center gap-3">
-                    <a href="https://wa.me/919974863555" target="_blank" rel="noopener" class="w-9 h-9 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center hover:bg-emerald-600 hover:text-white transition-all"><i class="fa-brands fa-whatsapp text-sm"></i></a>
-                    <a href="mailto:duttenterpriseanand@gmail.com" class="w-9 h-9 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center hover:bg-brand-cyan hover:text-white transition-all"><i class="fa-solid fa-envelope text-xs"></i></a>
+                    <a href="https://wa.me/919974863555" target="_blank" rel="noopener" class="w-9 h-9 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center hover:bg-emerald-600 hover:text-white hover:-translate-y-1 transition-all duration-300"><i class="fa-brands fa-whatsapp text-sm"></i></a>
+                    <a href="mailto:duttenterpriseanand@gmail.com" class="w-9 h-9 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center hover:bg-brand-cyan hover:text-white hover:-translate-y-1 transition-all duration-300"><i class="fa-solid fa-envelope text-xs"></i></a>
                 </div>
             </div>
 
@@ -962,8 +1070,9 @@
         </div>
     </footer>
 
-    <a href="https://wa.me/919974863555?text=Hello%20Dutt%20Enterprise,%20I%20have%20an%20urgent%20laboratory%20product%20inquiry." target="_blank" class="fixed bottom-6 right-6 z-50 bg-emerald-600 hover:bg-emerald-500 text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-2xl transition-all transform hover:scale-110 active:scale-95 animate-bounce" style="animation-duration: 4s;">
-        <i class="fa-brands fa-whatsapp"></i>
+    <a href="https://wa.me/919974863555?text=Hello%20Dutt%20Enterprise,%20I%20have%20an%20urgent%20laboratory%20product%20inquiry." target="_blank" class="fixed bottom-6 right-6 z-50 bg-emerald-600 hover:bg-emerald-500 text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-2xl transition-all transform hover:scale-110 active:scale-95">
+        <span class="absolute inset-0 rounded-full bg-emerald-500 opacity-60 animate-ping"></span>
+        <i class="fa-brands fa-whatsapp relative z-10"></i>
     </a>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -972,7 +1081,9 @@
             // Wake Up Animate On Scroll (AOS) Engine
             AOS.init({
                 once: true,
-                duration: 750
+                duration: 800,
+                easing: 'ease-out-cubic',
+                offset: 60
             });
             
             // Cleanly dissolve preloader screen
