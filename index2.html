@@ -7,16 +7,7 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        // Apply saved theme before paint to avoid flash-of-wrong-theme
-        (function () {
-            const saved = localStorage.getItem('dutt-theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const useDark = saved ? saved === 'dark' : prefersDark;
-            if (useDark) document.documentElement.classList.add('dark');
-        })();
-
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -28,16 +19,6 @@
                             dark: '#001C30',
                             gray: '#64748B'
                         }
-                    },
-                    animation: {
-                        'fade-in': 'fadeIn 0.6s ease-out both',
-                        'float-slow': 'floatSlow 6s ease-in-out infinite',
-                        'shimmer': 'shimmer 2.5s linear infinite',
-                    },
-                    keyframes: {
-                        fadeIn: { '0%': { opacity: 0, transform: 'translateY(8px)' }, '100%': { opacity: 1, transform: 'translateY(0)' } },
-                        floatSlow: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
-                        shimmer: { '0%': { backgroundPosition: '-200% 0' }, '100%': { backgroundPosition: '200% 0' } },
                     }
                 }
             }
@@ -49,121 +30,84 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
    
     <style>
+        :root {
+            /* Premium spring-momentum curves */
+            --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --ease-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
         .glass-card {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.6);
-            transition: background-color 0.4s ease, border-color 0.4s ease;
+            transition: transform 0.4s var(--ease-spring), box-shadow 0.4s var(--ease-smooth);
         }
-        .dark .glass-card {
-            background: rgba(15, 23, 42, 0.75);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+        
+        .glass-card:hover {
+            transform: translateY(-6px) scale(1.01);
         }
+
         .glass-nav {
             background: rgba(0, 28, 48, 0.95);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
         }
-        .dark .glass-nav {
-            background: rgba(0, 10, 18, 0.92);
-        }
+
         @keyframes infiniteScroll {
             0% { transform: translateX(0); }
             100% { transform: translateX(calc(-220px * 9)); }
         }
+
         .brand-track {
             display: flex;
             width: calc(220px * 18);
             animation: infiniteScroll 25s linear infinite;
         }
+
         .brand-track:hover {
             animation-play-state: paused;
         }
+
         html {
             scroll-behavior: smooth;
         }
-        /* Smooth theme transition across all elements */
-        html.theme-transition,
-        html.theme-transition *,
-        html.theme-transition *::before,
-        html.theme-transition *::after {
-            transition: background-color 0.45s ease, border-color 0.45s ease, color 0.45s ease, box-shadow 0.45s ease !important;
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
         }
-         .hide-scrollbar::-webkit-scrollbar {
-        display: none;
-    }
-    .hide-scrollbar {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
 
-    /* ---------- Dark mode surface remaps ---------- */
-    .dark body { background-color: #0B1220; }
-    .dark .bg-white { background-color: #0F172A !important; }
-    .dark .bg-slate-50 { background-color: #0B1220 !important; }
-    .dark .bg-slate-100 { background-color: #111A2E !important; }
-    .dark .bg-slate-200\/60,
-    .dark .bg-slate-200\/40 { background-color: rgba(30, 41, 59, 0.6) !important; }
-    .dark .text-brand-dark { color: #E2E8F0 !important; }
-    .dark .text-brand-gray { color: #94A3B8 !important; }
-    .dark .text-slate-500,
-    .dark .text-slate-400 { color: #94A3B8 !important; }
-    .dark .border-slate-200,
-    .dark .border-slate-100,
-    .dark .border-slate-200\/70,
-    .dark .border-slate-200\/60 { border-color: rgba(148, 163, 184, 0.15) !important; }
-    .dark .bg-gradient-to-b.from-slate-50.to-white,
-    .dark .bg-gradient-to-b.from-slate-50.via-white.to-slate-50 { background-image: linear-gradient(to bottom, #0B1220, #0F172A) !important; }
-    .dark .bg-brand-lightBg\/50 { background-color: rgba(8, 131, 149, 0.06) !important; }
-    .dark input, .dark select, .dark textarea { background-color: #0B1220 !important; color: #E2E8F0 !important; }
-    .dark input::placeholder, .dark textarea::placeholder { color: #64748B !important; }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
 
-    /* Theme toggle switch */
-    .theme-toggle {
-        position: relative;
-        width: 52px;
-        height: 28px;
-        border-radius: 999px;
-        background: linear-gradient(135deg, #088395, #05BFDB);
-        display: inline-flex;
-        align-items: center;
-        padding: 3px;
-        cursor: pointer;
-        transition: background 0.4s ease;
-        flex-shrink: 0;
-    }
-    .dark .theme-toggle {
-        background: linear-gradient(135deg, #1E293B, #334155);
-    }
-    .theme-toggle .knob {
-        width: 22px;
-        height: 22px;
-        border-radius: 50%;
-        background: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 11px;
-        color: #088395;
-        transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1), color 0.3s ease;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.25);
-    }
-    .dark .theme-toggle .knob {
-        transform: translateX(24px);
-        color: #05BFDB;
-    }
+        /* Kinetic Staggered Product Cards */
+        .kinetic-card-entry {
+            opacity: 0;
+            transform: translateY(22px) scale(0.96);
+            animation: kineticEntrance 0.55s var(--ease-spring) forwards;
+        }
+
+        @keyframes kineticEntrance {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        /* Subtle continuous drift for Hero decoration assets */
+        .ambient-float {
+            animation: slowDrift 8s ease-in-out infinite alternate;
+        }
+        
+        @keyframes slowDrift {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-15px) rotate(5deg); }
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-brand-dark overflow-x-hidden transition-colors duration-500" x-data="{ mobileMenu: false, searchKey: '', selectedCat: 'All', certModal: false, certImg: '', darkMode: document.documentElement.classList.contains('dark'),
-    toggleTheme() {
-        document.documentElement.classList.add('theme-transition');
-        this.darkMode = !this.darkMode;
-        document.documentElement.classList.toggle('dark', this.darkMode);
-        localStorage.setItem('dutt-theme', this.darkMode ? 'dark' : 'light');
-        setTimeout(() => document.documentElement.classList.remove('theme-transition'), 500);
-    }
-}">
+<body class="bg-slate-50 text-brand-dark overflow-x-hidden" x-data="{ mobileMenu: false, searchKey: '', selectedCat: 'All' }">
 
     <div id="preloader" class="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-brand-dark to-brand-blue transition-opacity duration-500">
         <div class="text-center">
@@ -180,9 +124,9 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-22 py-3">
                 <div class="flex items-center gap-3">
-                    <div class=" from-brand-cyan to-brand-teal p-3 rounded-xl shadow-lg w-14 h-14 flex items-center justify-center overflow-hidden shrink-0">
-    <img src="images/Dutt_Enterprise_Logo_PNG.png" alt="Dutt Enterprise Logo" class="w-full h-full object-contain">
-</div>
+                    <div class="from-brand-cyan to-brand-teal p-3 rounded-xl shadow-lg w-14 h-14 flex items-center justify-center overflow-hidden shrink-0 transition-transform duration-300 hover:rotate-6">
+                        <img src="images/Dutt_Enterprise_Logo_PNG.png" alt="Dutt Enterprise Logo" class="w-full h-full object-contain">
+                    </div>
                     <div>
                         <span class="text-xl font-extrabold tracking-tight block">DUTT ENTERPRISE</span>
                         <span class="text-[10px] tracking-wider text-slate-300 block uppercase font-medium max-w-[280px] truncate">Lab Chemicals • Glassware • Instruments</span>
@@ -190,63 +134,51 @@
                 </div>
                 
                 <div class="hidden lg:flex space-x-7 font-semibold text-sm tracking-wide">
-                    <a href="#home" class="relative hover:text-brand-teal transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-brand-teal after:transition-all after:duration-300 hover:after:w-full">Home</a>
-                    <a href="#about" class="relative hover:text-brand-teal transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-brand-teal after:transition-all after:duration-300 hover:after:w-full">About Us</a>
-                    <a href="#categories" class="relative hover:text-brand-teal transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-brand-teal after:transition-all after:duration-300 hover:after:w-full">Categories</a>
-                    <a href="#products" class="relative hover:text-brand-teal transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-brand-teal after:transition-all after:duration-300 hover:after:w-full">Products</a>
-                    <a href="#awards" class="relative hover:text-brand-teal transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-brand-teal after:transition-all after:duration-300 hover:after:w-full">Awards</a>
-                    <a href="#why-choose" class="relative hover:text-brand-teal transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-brand-teal after:transition-all after:duration-300 hover:after:w-full">Why Choose Us</a>
-                    <a href="#contact" class="relative hover:text-brand-teal transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-brand-teal after:transition-all after:duration-300 hover:after:w-full">Branches</a>
+                    <a href="#home" class="relative hover:text-brand-teal transition-colors duration-200 group py-1">Home<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-teal transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="#about" class="relative hover:text-brand-teal transition-colors duration-200 group py-1">About Us<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-teal transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="#categories" class="relative hover:text-brand-teal transition-colors duration-200 group py-1">Categories<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-teal transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="#products" class="relative hover:text-brand-teal transition-colors duration-200 group py-1">Products<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-teal transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="#why-choose" class="relative hover:text-brand-teal transition-colors duration-200 group py-1">Why Choose Us<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-teal transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="#contact" class="relative hover:text-brand-teal transition-colors duration-200 group py-1">Branches<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-teal transition-all duration-300 group-hover:w-full"></span></a>
                 </div>
                 
-                <div class="hidden sm:flex items-center gap-4">
-                    <button @click="toggleTheme()" class="theme-toggle" :aria-pressed="darkMode" aria-label="Toggle dark mode" title="Toggle dark / light theme">
-                        <span class="knob">
-                            <i class="fa-solid" :class="darkMode ? 'fa-moon' : 'fa-sun'"></i>
-                        </span>
-                    </button>
-                    <a href="https://wa.me/919974863555?text=Hello%20Dutt%20Enterprise,%20I'm%20visiting%20your%20website%20and%20want%20to%20connect." target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-4 py-2.5 rounded-xl font-bold flex items-center gap-2 shadow-lg shadow-emerald-900/20 transition-all transform hover:-translate-y-0.5 hover:shadow-emerald-500/30">
+                <div class="hidden sm:flex items-center gap-3">
+                    <a href="https://wa.me/919974863555?text=Hello%20Dutt%20Enterprise,%20I'm%20visiting%20your%20website%20and%20want%20to%20connect." target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-4 py-2.5 rounded-xl font-bold flex items-center gap-2 shadow-lg shadow-emerald-900/20 transition-all transform hover:-translate-y-0.5 active:translate-y-0">
                         <i class="fa-brands fa-whatsapp text-sm"></i> Direct Chat
                     </a>
                 </div>
                 
-                <div class="lg:hidden flex items-center gap-2">
-                    <button @click="toggleTheme()" class="theme-toggle" :aria-pressed="darkMode" aria-label="Toggle dark mode">
-                        <span class="knob">
-                            <i class="fa-solid" :class="darkMode ? 'fa-moon' : 'fa-sun'"></i>
-                        </span>
-                    </button>
-                    <button @click="mobileMenu = !mobileMenu" class="text-white focus:outline-none p-2 rounded-lg bg-white/5 transition-transform active:scale-90">
-                        <i class="fa-solid" :class="mobileMenu ? 'fa-xmark text-xl' : 'fa-bars text-xl'"></i>
+                <div class="lg:hidden">
+                    <button @click="mobileMenu = !mobileMenu" class="text-white focus:outline-none p-2 rounded-lg bg-white/5 transition-colors duration-200">
+                        <i class="fa-solid text-xl" :class="mobileMenu ? 'fa-xmark' : 'fa-bars'"></i>
                     </button>
                 </div>
             </div>
         </div>
         
-        <div x-show="mobileMenu" x-transition class="lg:hidden bg-brand-dark/95 border-t border-slate-800 px-4 pt-2 pb-6 space-y-2">
-            <a href="#home" @click="mobileMenu = false" class="block py-2.5 px-3 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white">Home</a>
-            <a href="#about" @click="mobileMenu = false" class="block py-2.5 px-3 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white">About Us</a>
-            <a href="#categories" @click="mobileMenu = false" class="block py-2.5 px-3 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white">Product Categories</a>
-            <a href="#products" @click="mobileMenu = false" class="block py-2.5 px-3 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white">Products Catalog</a>
-            <a href="#awards" @click="mobileMenu = false" class="block py-2.5 px-3 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white">Awards & Compliance</a>
-            <a href="#contact" @click="mobileMenu = false" class="block py-2.5 px-3 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white">Branch Locations</a>
+        <div x-show="mobileMenu" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 -translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-200" class="lg:hidden bg-brand-dark/95 border-t border-slate-800 px-4 pt-2 pb-6 space-y-2">
+            <a href="#home" @click="mobileMenu = false" class="block py-2.5 px-3 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors">Home</a>
+            <a href="#about" @click="mobileMenu = false" class="block py-2.5 px-3 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors">About Us</a>
+            <a href="#categories" @click="mobileMenu = false" class="block py-2.5 px-3 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors">Product Categories</a>
+            <a href="#products" @click="mobileMenu = false" class="block py-2.5 px-3 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors">Products Catalog</a>
+            <a href="#contact" @click="mobileMenu = false" class="block py-2.5 px-3 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors">Branch Locations</a>
             <div class="pt-4 border-t border-slate-800 flex flex-col gap-2">
-                <a href="https://wa.me/919974863555" target="_blank" class="w-full text-center bg-emerald-600 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2">
+                <a href="https://wa.me/919974863555" target="_blank" class="w-full text-center bg-emerald-600 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg">
                     <i class="fa-brands fa-whatsapp text-lg"></i> Inquiry Desk
                 </a>
             </div>
         </div>
     </nav>
 
-    <header id="home" class="relative min-h-screen pt-24 flex items-center bg-brand-dark dark:bg-[#060B14] overflow-hidden">
+    <header id="home" class="relative min-h-screen pt-24 flex items-center bg-brand-dark overflow-hidden">
         <div class="absolute inset-0 z-0 opacity-25">
             <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&q=80&w=1920" alt="Laboratory Facility" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/80 to-transparent dark:from-[#060B14] dark:via-[#060B14]/85"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/80 to-transparent"></div>
         </div>
         
         <div class="absolute inset-0 pointer-events-none z-10 hidden xl:block">
-            <i class="fa-solid fa-atom text-brand-teal/20 text-6xl absolute top-1/4 right-1/4 animate-spin animate-float-slow" style="animation-duration: 20s, 6s;"></i>
-            <i class="fa-solid fa-dna text-brand-cyan/20 text-5xl absolute bottom-1/4 right-1/3 animate-pulse" style="animation-duration: 6s;"></i>
+            <i class="fa-solid fa-atom text-brand-teal/20 text-6xl absolute top-1/4 right-1/4 animate-spin" style="animation-duration: 20s;"></i>
+            <i class="fa-solid fa-dna text-brand-cyan/20 text-5xl absolute bottom-1/4 right-1/3 ambient-float"></i>
             <i class="fa-solid fa-vial-circle-check text-white/10 text-4xl absolute top-1/3 left-12 animate-bounce" style="animation-duration: 5s;"></i>
         </div>
 
@@ -263,21 +195,21 @@
                         Dealers in high-compliance Lab Chemicals, Glassware, and High-Precision Instruments. Trusted industrial manufacturers of the specialized <strong class="text-brand-teal font-semibold">Laboratory Nexus Brand</strong> miscellaneous apparatus utilities.
                     </p>
                     <div class="mt-8 flex flex-col sm:flex-row gap-4">
-                        <a href="#products" class="bg-gradient-to-r from-brand-cyan to-brand-teal hover:from-brand-teal hover:to-brand-cyan text-white font-bold px-8 py-4 rounded-xl shadow-lg shadow-brand-cyan/20 text-center transition-all duration-300 flex items-center justify-center gap-2 group hover:shadow-brand-teal/40 hover:-translate-y-0.5 active:scale-95">
+                        <a href="#products" class="bg-gradient-to-r from-brand-cyan to-brand-teal hover:from-brand-teal hover:to-brand-cyan text-white font-bold px-8 py-4 rounded-xl shadow-lg shadow-brand-cyan/20 text-center transition-all duration-300 flex items-center justify-center gap-2 group transform hover:-translate-y-0.5">
                             Explore Products <i class="fa-solid fa-circle-chevron-right group-hover:translate-x-1 transition-transform"></i>
                         </a>
-                        <a href="https://wa.me/919974863555?text=Hello%20Dutt%20Enterprise,%20I%20want%20to%20inquire%20about%20laboratory%20supplies." target="_blank" class="bg-slate-800/90 dark:bg-white/5 border border-slate-700 dark:border-white/10 text-white font-bold px-8 py-4 rounded-xl hover:bg-slate-700 dark:hover:bg-white/10 text-center transition-all duration-300 flex items-center justify-center gap-2 hover:-translate-y-0.5 active:scale-95">
+                        <a href="https://wa.me/919974863555?text=Hello%20Dutt%20Enterprise,%20I%20want%20to%20inquire%20about%20laboratory%20supplies." target="_blank" class="bg-slate-800/90 border border-slate-700 text-white font-bold px-8 py-4 rounded-xl hover:bg-slate-700 text-center transition-colors flex items-center justify-center gap-2 transform hover:-translate-y-0.5 duration-300">
                             <i class="fa-brands fa-whatsapp text-emerald-400 text-xl"></i> WhatsApp Inquiry
                         </a>
                     </div>
                 </div>
                 
                 <div class="lg:col-span-5 hidden lg:block" data-aos="fade-left" data-aos-duration="1000">
-                    <div class="glass-card p-5 rounded-3xl border border-white/10 shadow-2xl relative animate-float-slow">
+                    <div class="glass-card p-5 rounded-3xl border border-white/10 shadow-2xl relative group hover:shadow-brand-cyan/10">
                         <div class="overflow-hidden rounded-2xl h-[380px] bg-slate-900">
-                            <img src="https://images.unsplash.com/photo-1581093588401-fbb62a02f120?auto=format&fit=crop&q=80&w=600" alt="Lab Infrastructure" class="w-full h-full object-cover opacity-90 hover:scale-105 transition-transform duration-700">
+                            <img src="https://images.unsplash.com/photo-1581093588401-fbb62a02f120?auto=format&fit=crop&q=80&w=600" alt="Lab Infrastructure" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700">
                         </div>
-                        <div class="absolute -bottom-6 -left-6 bg-brand-cyan text-white p-5 rounded-2xl shadow-xl flex items-center gap-4 border border-brand-teal/30 hover:shadow-brand-teal/30 transition-shadow duration-500">
+                        <div class="absolute -bottom-6 -left-6 bg-brand-cyan text-white p-5 rounded-2xl shadow-xl flex items-center gap-4 border border-brand-teal/30 transition-transform duration-300 group-hover:scale-105">
                             <i class="fa-solid fa-shield-halved text-3xl text-white"></i>
                             <div>
                                 <span class="font-extrabold text-lg block">ISO Standard</span>
@@ -300,7 +232,7 @@
                     <p class="text-brand-gray text-base leading-relaxed mb-6">
                         Dutt Enterprise is a trusted supplier and manufacturer of laboratory chemicals, glassware, scientific instruments, pathology products, and miscellaneous laboratory essentials. With strategic branches established in both Anand and Nadiad, we efficiently route high-quality laboratory workflows to educational institutes, hospitals, commercial testing facilities, complex industries, and high-tier research centers across Gujarat.
                     </p>
-                    <div class="bg-slate-50 border-l-4 border-brand-teal p-5 rounded-r-xl mb-6">
+                    <div class="bg-slate-50 border-l-4 border-brand-teal p-5 rounded-r-xl mb-6 shadow-xs">
                         <p class="text-sm font-medium text-brand-dark italic">
                             "In addition to handling operations for top-tier universal pharmaceutical entities, we anchor production infrastructure for our in-house premium line: <strong>Laboratory Nexus Brand Miscellaneous Products</strong>."
                         </p>
@@ -308,22 +240,22 @@
                 </div>
                 
                 <div class="lg:col-span-6 grid sm:grid-cols-2 gap-6" data-aos="fade-left">
-                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm transition-all duration-300 hover:shadow-md hover:bg-white">
                         <div class="w-10 h-10 bg-brand-blue text-white rounded-xl flex items-center justify-center text-lg mb-4"><i class="fa-solid fa-school"></i></div>
                         <h4 class="font-bold text-brand-dark text-base mb-1">Educational Distribution</h4>
                         <p class="text-brand-gray text-xs">Custom safe configurations optimized for school and university chemistry/biology modules.</p>
                     </div>
-                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm transition-all duration-300 hover:shadow-md hover:bg-white">
                         <div class="w-10 h-10 bg-brand-cyan text-white rounded-xl flex items-center justify-center text-lg mb-4"><i class="fa-solid fa-hospital-user"></i></div>
                         <h4 class="font-bold text-brand-dark text-base mb-1">Clinical Diagnostics</h4>
                         <p class="text-brand-gray text-xs">High throughput components configured specifically for multi-branch hospital diagnostics.</p>
                     </div>
-                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm transition-all duration-300 hover:shadow-md hover:bg-white">
                         <div class="w-10 h-10 bg-emerald-600 text-white rounded-xl flex items-center justify-center text-lg mb-4"><i class="fa-solid fa-industry"></i></div>
                         <h4 class="font-bold text-brand-dark text-base mb-1">Industrial Processing</h4>
                         <p class="text-brand-gray text-xs">Batch verification acids, analytical reagents, and high precision chemical indicators.</p>
                     </div>
-                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm transition-all duration-300 hover:shadow-md hover:bg-white">
                         <div class="w-10 h-10 bg-brand-teal text-white rounded-xl flex items-center justify-center text-lg mb-4"><i class="fa-solid fa-microscope"></i></div>
                         <h4 class="font-bold text-brand-dark text-base mb-1">Research Facilities</h4>
                         <p class="text-brand-gray text-xs">Ultra pure standard compositions supporting specific research execution metrics.</p>
@@ -342,38 +274,38 @@
             </div>
 
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-                <div @click="selectedCat = 'Chemicals'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="50">
-                    <div class="w-14 h-14 mx-auto bg-blue-100 text-blue-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-brand-blue group-hover:text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-300"><i class="fa-solid fa-vial"></i></div>
+                <div @click="selectedCat = 'Chemicals'; document.getElementById('products').scrollIntoView({behavior: 'smooth'});" class="glass-card rounded-2xl p-6 text-center shadow-sm cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="50">
+                    <div class="w-14 h-14 mx-auto bg-blue-100 text-blue-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-brand-blue group-hover:text-white transition-all duration-300"><i class="fa-solid fa-vial"></i></div>
                     <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Chemicals</h3>
                 </div>
 
-                <div @click="selectedCat = 'Glassware'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="w-14 h-14 mx-auto bg-cyan-100 text-cyan-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-brand-cyan group-hover:text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-300"><i class="fa-solid fa-flask"></i></div>
+                <div @click="selectedCat = 'Glassware'; document.getElementById('products').scrollIntoView({behavior: 'smooth'});" class="glass-card rounded-2xl p-6 text-center shadow-sm cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="w-14 h-14 mx-auto bg-cyan-100 text-cyan-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-brand-cyan group-hover:text-white transition-all duration-300"><i class="fa-solid fa-flask"></i></div>
                     <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Glassware</h3>
                 </div>
 
-                <div @click="selectedCat = 'Plasticware'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="150">
-                    <div class="w-14 h-14 mx-auto bg-teal-100 text-teal-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-brand-teal group-hover:text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-300"><i class="fa-solid fa-prescription-bottle"></i></div>
+                <div @click="selectedCat = 'Plasticware'; document.getElementById('products').scrollIntoView({behavior: 'smooth'});" class="glass-card rounded-2xl p-6 text-center shadow-sm cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="150">
+                    <div class="w-14 h-14 mx-auto bg-teal-100 text-teal-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-brand-teal group-hover:text-white transition-all duration-300"><i class="fa-solid fa-prescription-bottle"></i></div>
                     <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Plasticware</h3>
                 </div>
 
-                <div @click="selectedCat = 'Filter Papers'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="w-14 h-14 mx-auto bg-indigo-100 text-indigo-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-indigo-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-300"><i class="fa-solid fa-copy"></i></div>
+                <div @click="selectedCat = 'Filter Papers'; document.getElementById('products').scrollIntoView({behavior: 'smooth'});" class="glass-card rounded-2xl p-6 text-center shadow-sm cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="w-14 h-14 mx-auto bg-indigo-100 text-indigo-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300"><i class="fa-solid fa-copy"></i></div>
                     <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Filter Papers</h3>
                 </div>
 
-                <div @click="selectedCat = 'Instruments'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="250">
-                    <div class="w-14 h-14 mx-auto bg-emerald-100 text-emerald-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-emerald-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-300"><i class="fa-solid fa-gauge-high"></i></div>
+                <div @click="selectedCat = 'Instruments'; document.getElementById('products').scrollIntoView({behavior: 'smooth'});" class="glass-card rounded-2xl p-6 text-center shadow-sm cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="250">
+                    <div class="w-14 h-14 mx-auto bg-emerald-100 text-emerald-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300"><i class="fa-solid fa-gauge-high"></i></div>
                     <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Instruments</h3>
                 </div>
 
-                <div @click="selectedCat = 'Pathology Products'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="w-14 h-14 mx-auto bg-red-100 text-red-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-red-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-300"><i class="fa-solid fa-droplet"></i></div>
+                <div @click="selectedCat = 'Pathology Products'; document.getElementById('products').scrollIntoView({behavior: 'smooth'});" class="glass-card rounded-2xl p-6 text-center shadow-sm cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="w-14 h-14 mx-auto bg-red-100 text-red-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-red-600 group-hover:text-white transition-all duration-300"><i class="fa-solid fa-droplet"></i></div>
                     <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Pathology Products</h3>
                 </div>
 
-                <div @click="selectedCat = 'Miscellaneous Products'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="350">
-                    <div class="w-14 h-14 mx-auto bg-amber-100 text-amber-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-amber-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-300"><i class="fa-solid fa-boxes-packing"></i></div>
+                <div @click="selectedCat = 'Miscellaneous Products'; document.getElementById('products').scrollIntoView({behavior: 'smooth'});" class="glass-card rounded-2xl p-6 text-center shadow-sm cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="350">
+                    <div class="w-14 h-14 mx-auto bg-amber-100 text-amber-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-amber-600 group-hover:text-white transition-all duration-300"><i class="fa-solid fa-boxes-packing"></i></div>
                     <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Laboratory Nexus Line</h3>
                 </div>
             </div>
@@ -386,7 +318,6 @@
             { id: 2, cat: 'Chemicals', name: 'Sodium Chloride', desc: 'High analytical standard pure composition grading for crystal testing baseline vectors.', img: 'https://images.unsplash.com/photo-1518156677180-95a2893f3e9f?auto=format&fit=crop&q=80&w=500' },
             { id: 3, cat: 'Chemicals', name: 'Sulfuric Acid', desc: 'Concentrated industrial reagent compound engineered for extreme environmental processing stability.', img: 'https://images.unsplash.com/photo-1603126857599-f6e157fa2fe6?auto=format&fit=crop&q=80&w=500' },
             
-            /* Glassware Category Mapping to Provided Assets */
             { id: 4, cat: 'Glassware', name: 'Borosil Round Bottom Flask (250 ml)', desc: 'Premium Borosil clear round flask with heavy duty standard neck joints for industrial distilling setups.', img: 'images/3.png' },
             { id: 5, cat: 'Glassware', name: 'JSGW Boro 3.3 Grade-1 Beaker (30 ml)', desc: 'High thermal stability JSGW compact laboratory cylinder beaker built from premium Boro 3.3 raw stock materials.', img: 'images/4.png' },
             { id: 6, cat: 'Glassware', name: 'Borosil Straight Gas Washing Bottle (250 ml)', desc: 'Precision industrial straight cylinder washing bottle line optimized safely for chemical separation gas pathways.', img: 'images/5.png' },
@@ -398,16 +329,14 @@
             { id: 11, cat: 'Filter Papers', name: 'Qualitative Filter Paper', desc: 'Precision standard timing ashless filter lines ensuring separation tracking benchmarks.', img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=500' },
             { id: 12, cat: 'Filter Papers', name: 'Quantitative Filter Paper', desc: 'Acid hardened low ash residue filtration membranes optimized for analytical gravimetric solutions.', img: 'https://images.unsplash.com/photo-1581093588401-fbb62a02f120?auto=format&fit=crop&q=80&w=500' },
             
-            /* Instruments Mapping to Provided Assets */
             { id: 13, cat: 'Instruments', name: 'Erma Stage Micrometer (SM-001)', desc: 'Genuine Erma Tokyo certified micrometer. Size: 1x3 in, Scale: 1 mm, Division: 0.01 mm parameters for premium lens calibrations.', img: 'images/1.jpeg' },
             { id: 14, cat: 'Instruments', name: 'Precision Vernier Caliper (0-150mm)', desc: 'High-accuracy dual structural calibration slide metrics tool protected cleanly within a heavy impact-resistant transport case.', img: 'images/6.png' },
             { id: 15, cat: 'Instruments', name: 'Laboratory Microscope', desc: 'Advanced multi focal focal compound resolution lens assemblies tracking structural configurations.', img: 'https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&q=80&w=500' },
             
             { id: 16, cat: 'Miscellaneous Products', name: 'Safety Gloves (Nexus Line)', desc: 'Nitrile chemical splash defensive barriers built inside the custom Laboratory Nexus series.', img: 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&q=80&w=500' },
-            { id: 17, cat: 'Miscellaneous Products', name: 'Laboratory Apron (Nexus Line)', desc: 'Ergonomic corrosion resistant workplace cover layers from Laboratory Nexus processing pipelines.', img: 'images/1624344965199-ed40391d20f2?auto=format&fit=crop&q=80&w=500' },
+            { id: 17, cat: 'Miscellaneous Products', name: 'Laboratory Apron (Nexus Line)', desc: 'Ergonomic corrosion resistant workplace cover layers from Laboratory Nexus processing pipelines.', img: 'images/624344965199-ed40391d20f2?auto=format&fit=crop&q=80&w=500' },
             { id: 18, cat: 'Miscellaneous Products', name: 'Face Shield (Nexus Line)', desc: 'Polycarbonate anti fog fluid perimeter protection layers built by Laboratory Nexus apparatus.', img: 'https://images.unsplash.com/photo-1618961734760-466979cb35b0?auto=format&fit=crop&q=80&w=500' },
             
-            /* Pathology Products Mapping to Provided Assets */
             { id: 19, cat: 'Pathology Products', name: 'Rohem Silverlite Counting Chamber', desc: 'Premium dynamic Rohem India BS 748 / IS 10269 certified Improved Neubauer grid chamber slide system. Depth: 0.1mm, 1/400 mm2 accuracy layout.', img: 'images/2.webp' },
             { id: 20, cat: 'Pathology Products', name: 'Blood Collection Tubes', desc: 'Evacuated clinical standard separation vacuum tubes loaded with custom process stabilization additives.', img: 'https://images.unsplash.com/photo-1614859324967-bdf461fcf769?auto=format&fit=crop&q=80&w=500' },
             { id: 21, cat: 'Pathology Products', name: 'Microscope Slides', desc: 'Pre cleaned optoelectronic ground glass presentation panels protecting delicate specimens.', img: 'https://images.unsplash.com/photo-1631557685999-52e85a6a2a5a?auto=format&fit=crop&q=80&w=500' }
@@ -420,204 +349,117 @@
             });
         }
     }">
- <div class="w-full max-w-none px-4 sm:px-6 lg:px-32" x-data="{ 
-    currentPage: 1, 
-    itemsPerPage: 6,
-    get totalPages() { 
-        return Math.ceil(this.filteredProducts.length / this.itemsPerPage) || 1; 
-    },
-    get paginatedProducts() {
-        const start = (this.currentPage - 1) * this.itemsPerPage;
-        return this.filteredProducts.slice(start, start + this.itemsPerPage);
-    }
-}" x-init="$watch('selectedCat', () => currentPage = 1); $watch('searchKey', () => currentPage = 1);">
+    <div class="w-full max-w-none px-4 sm:px-6 lg:px-32" x-data="{ 
+        currentPage: 1, 
+        itemsPerPage: 6,
+        renderNonce: 0,
+        get totalPages() { 
+            return Math.ceil(this.filteredProducts.length / this.itemsPerPage) || 1; 
+        },
+        get paginatedProducts() {
+            const start = (this.currentPage - 1) * this.itemsPerPage;
+            return this.filteredProducts.slice(start, start + this.itemsPerPage);
+        }
+    }" x-init="$watch('selectedCat', () => { currentPage = 1; renderNonce++; }); $watch('searchKey', () => { currentPage = 1; renderNonce++; });">
 
-    <div class="border-b border-slate-200 pb-8 mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6" data-aos="fade-up">
-        <div>
-            <div class="flex items-center gap-2 text-brand-cyan font-semibold text-xs tracking-widest uppercase mb-1">
-                <span class="w-1.5 h-1.5 rounded-full bg-brand-cyan animate-pulse"></span>
-                Live Inventory Exhibition
+        <div class="border-b border-slate-200 pb-8 mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6" data-aos="fade-up">
+            <div>
+                <div class="flex items-center gap-2 text-brand-cyan font-semibold text-xs tracking-widest uppercase mb-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-brand-cyan animate-pulse"></span>
+                    Live Inventory Exhibition
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-black text-brand-dark tracking-tight">
+                    Our Premium Portfolio
+                </h2>
             </div>
-            <h2 class="text-3xl sm:text-4xl font-black text-brand-dark tracking-tight">
-                Our Premium Portfolio
-            </h2>
-        </div>
-        
-        <div class="relative w-full md:w-80">
-            <input type="text" x-model="searchKey" placeholder="Search product registry..." class="w-full bg-slate-50 border border-slate-200 focus:bg-white rounded-xl px-4 py-3.5 pl-11 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/30 focus:border-brand-cyan transition-all text-brand-dark placeholder-slate-400">
-            <i class="fa-solid fa-magnifying-glass absolute left-4 top-4.5 text-slate-400 text-xs"></i>
-            <button x-show="searchKey" @click="searchKey = ''" class="absolute right-4 top-4 text-slate-400 hover:text-brand-dark transition-colors text-xs">
-                <i class="fa-solid fa-circle-xmark"></i>
-            </button>
-        </div>
-    </div>
-
-    <div class="grid lg:grid-cols-12 gap-10 items-start">
-        
-        <div class="lg:col-span-3 lg:sticky lg:top-28 z-20 overflow-x-auto lg:overflow-x-visible hide-scrollbar flex lg:flex-col gap-2 pb-4 lg:pb-0 border-b border-slate-100 lg:border-none">
-            <template x-for="catItem in ['All', 'Chemicals', 'Glassware', 'Plasticware', 'Filter Papers', 'Instruments', 'Miscellaneous Products', 'Pathology Products']">
-                <button @click="selectedCat = catItem" 
-                        :class="selectedCat === catItem ? 'bg-brand-dark text-white shadow-lg shadow-brand-dark/10 border-brand-dark' : 'bg-white dark:bg-slate-900 text-brand-gray hover:text-brand-dark dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 border-slate-200 dark:border-white/10'"
-                        class="whitespace-nowrap lg:whitespace-normal text-left px-4 py-3 rounded-xl border text-xs font-bold tracking-wide transition-all duration-300 flex items-center justify-between gap-3 min-w-[140px] lg:w-full group hover:-translate-y-0.5">
-                    <span x-text="catItem === 'Miscellaneous Products' ? 'Laboratory Nexus Line' : catItem"></span>
-                    <i class="fa-solid fa-chevron-right text-[10px] opacity-0 group-hover:opacity-100 transform translate-x-[-4px] group-hover:translate-x-0 transition-all hidden lg:block" :class="selectedCat === catItem ? 'text-brand-teal opacity-100' : ''"></i>
+            
+            <div class="relative w-full md:w-80">
+                <input type="text" x-model="searchKey" placeholder="Search product registry..." class="w-full bg-slate-50 border border-slate-200 focus:bg-white rounded-xl px-4 py-3.5 pl-11 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/30 focus:border-brand-cyan transition-all text-brand-dark placeholder-slate-400 shadow-xs">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                <button x-show="searchKey" @click="searchKey = ''" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-brand-dark transition-colors text-xs">
+                    <i class="fa-solid fa-circle-xmark"></i>
                 </button>
-            </template>
+            </div>
         </div>
 
-        <div class="lg:col-span-9">
-            <div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                <template x-for="product in paginatedProducts" :key="product.id">
-                    <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/70 dark:border-white/10 hover:border-brand-cyan/40 overflow-hidden flex flex-col h-full shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group" data-aos="fade-up">
-                        
-                        <div class="relative bg-gradient-to-b from-slate-50 to-white dark:from-slate-800 dark:to-slate-900 h-60 flex items-center justify-center p-6 border-b border-slate-100 dark:border-white/5 overflow-hidden">
-                            <img :src="product.img" :alt="product.name" class="max-w-full max-h-full object-contain transform group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1530026405186-ed1ea0ac7a63?auto=format&fit=crop&q=80&w=500';">
-                            
-                            <div class="absolute top-4 left-4 right-4 flex items-center justify-between gap-2 pointer-events-none">
-                                <span x-text="product.cat === 'Miscellaneous Products' ? 'Nexus Line' : product.cat" class="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200/60 dark:border-white/10 text-brand-dark dark:text-slate-200 text-[9px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md shadow-xs select-none"></span>
-                                
-                                <a :href="'https://wa.me/919974863555?text=Hello%20Dutt%20Enterprise,%20I%20want%20to%20request%20a%20commercial%20quote%20for%20' + encodeURIComponent(product.name) + '.'" 
-                                   target="_blank" 
-                                   title="Request Quote"
-                                   class="pointer-events-auto inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[10px] uppercase rounded-md tracking-wide shadow-md transition-all duration-300 transform active:scale-95 hover:scale-105">
-                                    <i class="fa-brands fa-whatsapp text-xs"></i> Quote
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <div class="p-6 flex flex-col flex-grow">
-                            <h3 class="text-base font-bold text-brand-dark tracking-tight leading-snug mb-2 group-hover:text-brand-cyan transition-colors" x-text="product.name"></h3>
-                            <p class="text-slate-500 text-xs font-light leading-relaxed mb-6 flex-grow" x-text="product.desc"></p>
-                            
-                           
-                        </div>
-                    </div>
+        <div class="grid lg:grid-cols-12 gap-10 items-start">
+            
+            <div class="lg:col-span-3 lg:sticky lg:top-28 z-20 overflow-x-auto lg:overflow-x-visible hide-scrollbar flex lg:flex-col gap-2 pb-4 lg:pb-0 border-b border-slate-100 lg:border-none">
+                <template x-for="catItem in ['All', 'Chemicals', 'Glassware', 'Plasticware', 'Filter Papers', 'Instruments', 'Miscellaneous Products', 'Pathology Products']">
+                    <button @click="selectedCat = catItem" 
+                            :class="selectedCat === catItem ? 'bg-brand-dark text-white shadow-lg shadow-brand-dark/10 border-brand-dark scale-[1.02]' : 'bg-white text-brand-gray hover:text-brand-dark hover:bg-slate-50 border-slate-200'"
+                            class="whitespace-nowrap lg:whitespace-normal text-left px-4 py-3 rounded-xl border text-xs font-bold tracking-wide transition-all duration-300 flex items-center justify-between gap-3 min-w-[140px] lg:w-full group transform active:scale-95">
+                        <span x-text="catItem === 'Miscellaneous Products' ? 'Laboratory Nexus Line' : catItem"></span>
+                        <i class="fa-solid fa-chevron-right text-[10px] opacity-0 group-hover:opacity-100 transform translate-x-[-4px] group-hover:translate-x-0 transition-all duration-200 hidden lg:block" :class="selectedCat === catItem ? 'text-brand-teal opacity-100 translate-x-0' : ''"></i>
+                    </button>
                 </template>
             </div>
 
-            <div x-show="filteredProducts.length > itemsPerPage" class="mt-12 pt-6 border-t border-slate-200 flex items-center justify-between" x-transition>
-                <div class="text-xs text-brand-gray font-medium">
-                    Showing page <span class="text-brand-dark font-bold" x-text="currentPage"></span> of <span class="text-brand-dark font-bold" x-text="totalPages"></span>
+            <div class="lg:col-span-9">
+                <!-- Staggered Entry Pipeline linked directly to renderNonce mutations -->
+                <div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-6" :key="renderNonce">
+                    <template x-for="(product, index) in paginatedProducts" :key="product.id">
+                        <div class="kinetic-card-entry bg-white rounded-2xl border border-slate-200/70 hover:border-brand-cyan/40 overflow-hidden flex flex-col h-full shadow-sm hover:shadow-xl transition-all duration-300 group"
+                             :style="'animation-delay: ' + (index * 45) + 'ms'">
+                            
+                            <div class="relative bg-gradient-to-b from-slate-50 to-white h-60 flex items-center justify-center p-6 border-b border-slate-100 overflow-hidden">
+                                <img :src="product.img" :alt="product.name" class="max-w-full max-h-full object-contain transform group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1530026405186-ed1ea0ac7a63?auto=format&fit=crop&q=80&w=500';">
+                                
+                                <div class="absolute top-4 left-4 right-4 flex items-center justify-between gap-2 pointer-events-none">
+                                    <span x-text="product.cat === 'Miscellaneous Products' ? 'Nexus Line' : product.cat" class="bg-white/90 backdrop-blur-md border border-slate-200/60 text-brand-dark text-[9px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md shadow-xs select-none"></span>
+                                    
+                                    <a :href="'https://wa.me/919974863555?text=Hello%20Dutt%20Enterprise,%20I%20want%20to%20request%20a%20commercial%20quote%20for%20' + encodeURIComponent(product.name) + '.'" 
+                                       target="_blank" 
+                                       title="Request Quote"
+                                       class="pointer-events-auto inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[10px] uppercase rounded-md tracking-wide shadow-md transition-all transform hover:-translate-y-0.5 active:scale-95">
+                                        <i class="fa-brands fa-whatsapp text-xs"></i> Quote
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="p-6 flex flex-col flex-grow">
+                                <h3 class="text-base font-bold text-brand-dark tracking-tight leading-snug mb-2 group-hover:text-brand-cyan transition-colors duration-200" x-text="product.name"></h3>
+                                <p class="text-slate-500 text-xs font-light leading-relaxed mb-6 flex-grow" x-text="product.desc"></p>
+                            </div>
+                        </div>
+                    </template>
                 </div>
-                
-                <div class="flex items-center gap-2">
-                    <button @click="currentPage--; document.getElementById('products').scrollIntoView();" 
-                            :disabled="currentPage === 1"
-                            :class="currentPage === 1 ? 'opacity-40 cursor-not-allowed bg-slate-100 text-slate-400 border-slate-200' : 'bg-white text-brand-dark hover:bg-slate-50 border-slate-300'"
-                            class="px-3.5 py-2 rounded-xl border text-xs font-bold transition-all flex items-center gap-1">
-                        <i class="fa-solid fa-chevron-left text-[10px]"></i> Prev
-                    </button>
-                    
-                    <button @click="currentPage++; document.getElementById('products').scrollIntoView();" 
-                            :disabled="currentPage === totalPages"
-                            :class="currentPage === totalPages ? 'opacity-40 cursor-not-allowed bg-slate-100 text-slate-400 border-slate-200' : 'bg-white text-brand-dark hover:bg-slate-50 border-slate-300'"
-                            class="px-3.5 py-2 rounded-xl border text-xs font-bold transition-all flex items-center gap-1">
-                        Next <i class="fa-solid fa-chevron-right text-[10px]"></i>
-                    </button>
-                </div>
-            </div>
 
-            <div x-show="filteredProducts.length === 0" class="text-center py-24 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 max-w-xl mx-auto" x-transition>
-                <div class="w-14 h-14 bg-slate-100 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-slate-200 text-slate-400">
-                    <i class="fa-solid fa-box-open text-xl"></i>
+                <div x-show="filteredProducts.length > itemsPerPage" class="mt-12 pt-6 border-t border-slate-200 flex items-center justify-between" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0">
+                    <div class="text-xs text-brand-gray font-medium">
+                        Showing page <span class="text-brand-dark font-bold" x-text="currentPage"></span> of <span class="text-brand-dark font-bold" x-text="totalPages"></span>
+                    </div>
+                    
+                    <div class="flex items-center gap-2">
+                        <button @click="currentPage--; document.getElementById('products').scrollIntoView({behavior: 'smooth'}); renderNonce++;" 
+                                :disabled="currentPage === 1"
+                                :class="currentPage === 1 ? 'opacity-40 cursor-not-allowed bg-slate-100 text-slate-400 border-slate-200' : 'bg-white text-brand-dark hover:bg-slate-50 border-slate-300'"
+                                class="px-3.5 py-2 rounded-xl border text-xs font-bold transition-all duration-200 flex items-center gap-1 active:scale-95">
+                            <i class="fa-solid fa-chevron-left text-[10px]"></i> Prev
+                        </button>
+                        
+                        <button @click="currentPage++; document.getElementById('products').scrollIntoView({behavior: 'smooth'}); renderNonce++;" 
+                                :disabled="currentPage === totalPages"
+                                :class="currentPage === totalPages ? 'opacity-40 cursor-not-allowed bg-slate-100 text-slate-400 border-slate-200' : 'bg-white text-brand-dark hover:bg-slate-50 border-slate-300'"
+                                class="px-3.5 py-2 rounded-xl border text-xs font-bold transition-all duration-200 flex items-center gap-1 active:scale-95">
+                            Next <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                        </button>
+                    </div>
                 </div>
-                <h3 class="text-base font-bold text-brand-dark">No Lab Supplies Match Selection</h3>
-                <p class="text-slate-400 text-xs mt-1 max-w-xs mx-auto">We couldn't locate matching items. Refine your query spelling or select a different category option.</p>
-                <button @click="searchKey = ''; selectedCat = 'All'" class="mt-5 px-5 py-2.5 bg-white border border-slate-200 hover:bg-brand-dark hover:text-white rounded-xl font-bold text-xs shadow-xs transition-all">
-                    Reset Showroom Filters
-                </button>
+
+                <div x-show="filteredProducts.length === 0" class="text-center py-24 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 max-w-xl mx-auto" x-transition:enter="transition ease-out duration-300">
+                    <div class="w-14 h-14 bg-slate-100 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-slate-200 text-slate-400">
+                        <i class="fa-solid fa-box-open text-xl"></i>
+                    </div>
+                    <h3 class="text-base font-bold text-brand-dark">No Lab Supplies Match Selection</h3>
+                    <p class="text-slate-400 text-xs mt-1 max-w-xs mx-auto">We couldn't locate matching items. Refine your query spelling or select a different category option.</p>
+                    <button @click="searchKey = ''; selectedCat = 'All'; renderNonce++;" class="mt-5 px-5 py-2.5 bg-white border border-slate-200 hover:bg-brand-dark hover:text-white rounded-xl font-bold text-xs shadow-xs transition-all duration-300 transform active:scale-95">
+                        Reset Showroom Filters
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-    </section>
-
-    <section id="awards" class="py-24 bg-gradient-to-b from-slate-50 to-white border-t border-slate-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
-                <span class="text-brand-cyan font-bold uppercase tracking-widest text-xs block mb-2">Recognitions & Compliance</span>
-                <h2 class="text-3xl font-extrabold text-brand-dark tracking-tight">Awards & Certifications</h2>
-                <div class="w-12 h-1 bg-brand-cyan mx-auto mt-3 mb-4 rounded-full"></div>
-                <p class="text-brand-gray text-sm">Our operational practices and product portfolios remain verified under global regulatory standards.</p>
-            </div>
-
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div @click="certImg = 'images/certificates/iso_9001.jpg'; certModal = true" 
-                     class="glass-card bg-white rounded-2xl p-8 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 border border-slate-200/70 transition-all duration-300 cursor-pointer group"
-                     data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-16 h-16 mx-auto bg-slate-50 text-brand-gray border border-slate-100 rounded-full flex items-center justify-center text-2xl mb-6 shadow-xs group-hover:bg-brand-cyan/10 group-hover:text-brand-cyan group-hover:rotate-12 transition-all duration-300">
-                        <i class="fa-solid fa-award"></i>
-                    </div>
-                    <h3 class="text-lg font-bold text-brand-dark group-hover:text-brand-cyan transition-colors mb-2">ISO 9001:2015 Certification</h3>
-                    <p class="text-brand-gray text-xs leading-relaxed mb-5">Quality management standard certification reflecting compliance across supply workflows.</p>
-                    <span class="text-xs text-brand-teal font-bold tracking-wide inline-flex items-center gap-1 opacity-80 group-hover:opacity-100 transition-opacity">
-                        View Certificate <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                    </span>
-                </div>
-
-                <div @click="certImg = 'images/certificates/gmp_compliance.jpg'; certModal = true" 
-                     class="glass-card bg-white rounded-2xl p-8 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 border border-slate-200/70 transition-all duration-300 cursor-pointer group"
-                     data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-16 h-16 mx-auto bg-slate-50 text-brand-gray border border-slate-100 rounded-full flex items-center justify-center text-2xl mb-6 shadow-xs group-hover:bg-brand-cyan/10 group-hover:text-brand-cyan group-hover:rotate-12 transition-all duration-300">
-                        <i class="fa-solid fa-shield-halved"></i>
-                    </div>
-                    <h3 class="text-lg font-bold text-brand-dark group-hover:text-brand-cyan transition-colors mb-2">GMP Compliance Mark</h3>
-                    <p class="text-brand-gray text-xs leading-relaxed mb-5">Verified Good Manufacturing Practices ensuring top production quality for laboratory assets.</p>
-                    <span class="text-xs text-brand-teal font-bold tracking-wide inline-flex items-center gap-1 opacity-80 group-hover:opacity-100 transition-opacity">
-                        View Certificate <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                    </span>
-                </div>
-
-                <div @click="certImg = 'images/certificates/excellence_award.jpg'; certModal = true" 
-                     class="glass-card bg-white rounded-2xl p-8 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 border border-slate-200/70 transition-all duration-300 cursor-pointer group"
-                     data-aos="fade-up" data-aos-delay="300">
-                    <div class="w-16 h-16 mx-auto bg-slate-50 text-brand-gray border border-slate-100 rounded-full flex items-center justify-center text-2xl mb-6 shadow-xs group-hover:bg-brand-cyan/10 group-hover:text-brand-cyan group-hover:rotate-12 transition-all duration-300">
-                        <i class="fa-solid fa-medal"></i>
-                    </div>
-                    <h3 class="text-lg font-bold text-brand-dark group-hover:text-brand-cyan transition-colors mb-2">Regional Sourcing Excellence</h3>
-                    <p class="text-brand-gray text-xs leading-relaxed mb-5">Honored recognition for uninterrupted logistics supporting scientific research clusters.</p>
-                    <span class="text-xs text-brand-teal font-bold tracking-wide inline-flex items-center gap-1 opacity-80 group-hover:opacity-100 transition-opacity">
-                        View Certificate <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                    </span>
-                </div>
-            </div>
-        </div>
-
-        <div x-show="certModal" 
-             x-transition:enter="transition ease-out duration-300"
-             x-transition:enter-start="opacity-0"
-             x-transition:enter-end="opacity-100"
-             x-transition:leave="transition ease-in duration-200"
-             x-transition:leave-start="opacity-100"
-             x-transition:leave-end="opacity-0"
-             @keydown.escape.window="certModal = false"
-             class="fixed inset-0 z-50 overflow-hidden flex items-center justify-center bg-black/80 backdrop-blur-xs p-4 sm:p-6"
-             x-cloak>
-            
-            <div class="absolute inset-0 cursor-zoom-out" @click="certModal = false"></div>
-
-            <div x-show="certModal"
-                 x-transition:enter="transition ease-out duration-300 transform"
-                 x-transition:enter-start="scale-95 opacity-0"
-                 x-transition:enter-end="scale-100 opacity-100"
-                 x-transition:leave="transition ease-in duration-200 transform"
-                 x-transition:leave-start="scale-100 opacity-100"
-                 x-transition:leave-end="scale-95 opacity-0"
-                 class="bg-white rounded-2xl overflow-hidden shadow-2xl max-w-4xl w-full max-h-[85vh] relative z-10 flex flex-col border border-white/10"
-                 @click.stop>
-                
-                <div class="bg-slate-900 px-6 py-4 flex items-center justify-between border-b border-slate-800 shrink-0">
-                    <h4 class="text-sm font-bold text-white tracking-wide uppercase">Original Certificate Registry Document</h4>
-                    <button @click="certModal = false" class="text-slate-400 hover:text-white transition-colors p-1.5 rounded-lg bg-white/5 focus:outline-none">
-                        <i class="fa-solid fa-xmark text-lg leading-none block"></i>
-                    </button>
-                </div>
-
-                <div class="p-6 bg-slate-100 overflow-y-auto flex items-center justify-center flex-grow">
-                    <img :src="certImg" alt="Dutt Enterprise Certification Original File View" class="max-w-full max-h-[65vh] object-contain rounded-lg shadow-md border border-slate-200" onerror="this.onerror=null; this.src='https://via.placeholder.com/800x1100?text=Certificate+Image+File+Not+Found';">
-                </div>
-            </div>
-        </div>
     </section>
 
     <section id="why-choose" class="py-24 bg-white border-t border-slate-100">
@@ -629,182 +471,298 @@
             </div>
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="p-8 bg-slate-50 border border-slate-100 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 group" data-aos="fade-up">
-                    <div class="w-12 h-12 bg-brand-blue text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-md group-hover:scale-110 transition-transform duration-300"><i class="fa-solid fa-building-shield"></i></div>
-                    <h3 class="text-lg font-bold mb-2 text-brand-dark">Trusted Laboratory Supplier</h3>
+                <div class="p-8 bg-slate-50 border border-slate-100 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 group" data-aos="fade-up">
+                    <div class="w-12 h-12 bg-brand-blue text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-md transition-transform duration-300 group-hover:scale-110"><i class="fa-solid fa-building-shield"></i></div>
+                    <h3 class="text-lg font-bold mb-2 text-brand-dark group-hover:text-brand-cyan transition-colors">Trusted Laboratory Supplier</h3>
                     <p class="text-brand-gray text-xs leading-relaxed">Securing batch networks for healthcare clusters, research blocks, and industrial sectors flawlessly.</p>
                 </div>
-                <div class="p-8 bg-slate-50 border border-slate-100 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 group" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-12 h-12 bg-brand-cyan text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-md group-hover:scale-110 transition-transform duration-300"><i class="fa-solid fa-flask-vial"></i></div>
-                    <h3 class="text-lg font-bold mb-2 text-brand-dark">Premium Quality Products</h3>
+                <div class="p-8 bg-slate-50 border border-slate-100 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-12 h-12 bg-brand-cyan text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-md transition-transform duration-300 group-hover:scale-110"><i class="fa-solid fa-flask-vial"></i></div>
+                    <h3 class="text-lg font-bold mb-2 text-brand-dark group-hover:text-brand-cyan transition-colors">Premium Quality Products</h3>
                     <p class="text-brand-gray text-xs leading-relaxed">Procured only from highly regulated global manufacturers providing certified purity documentation channels.</p>
                 </div>
-                <div class="p-8 bg-slate-50 border border-slate-100 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 group" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-12 h-12 bg-brand-teal text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-md group-hover:scale-110 transition-transform duration-300"><i class="fa-solid fa-network-wired"></i></div>
-                    <h3 class="text-lg font-bold mb-2 text-brand-dark">Wide Product Range</h3>
+                <div class="p-8 bg-slate-50 border border-slate-100 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-12 h-12 bg-brand-teal text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-md transition-transform duration-300 group-hover:scale-110"><i class="fa-solid fa-network-wired"></i></div>
+                    <h3 class="text-lg font-bold mb-2 text-brand-dark group-hover:text-brand-cyan transition-colors">Wide Product Range</h3>
                     <p class="text-brand-gray text-xs leading-relaxed">A completely unified procurement line handling compound acids to fine borosilicate equipment.</p>
                 </div>
-                <div class="p-8 bg-slate-50 border border-slate-100 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 group" data-aos="fade-up" data-aos-delay="300">
-                    <div class="w-12 h-12 bg-emerald-600 text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-md group-hover:scale-110 transition-transform duration-300"><i class="fa-solid fa-truck-fast"></i></div>
-                    <h3 class="text-lg font-bold mb-2 text-brand-dark">Fast Delivery</h3>
+                <div class="p-8 bg-slate-50 border border-slate-100 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-12 h-12 bg-emerald-600 text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-md transition-transform duration-300 group-hover:scale-110"><i class="fa-solid fa-truck-fast"></i></div>
+                    <h3 class="text-lg font-bold mb-2 text-brand-dark group-hover:text-brand-cyan transition-colors">Fast Delivery</h3>
                     <p class="text-brand-gray text-xs leading-relaxed">Integrated cold chain logistics and shock proof material dispatch loops across regional operational fields.</p>
                 </div>
-                <div class="p-8 bg-slate-50 border border-slate-100 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 group" data-aos="fade-up" data-aos-delay="400">
-                    <div class="w-12 h-12 bg-indigo-600 text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-md group-hover:scale-110 transition-transform duration-300"><i class="fa-solid fa-headset"></i></div>
-                    <h3 class="text-lg font-bold mb-2 text-brand-dark">Best Customer Support</h3>
+                <div class="p-8 bg-slate-50 border border-slate-100 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 group" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-12 h-12 bg-indigo-600 text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-md transition-transform duration-300 group-hover:scale-110"><i class="fa-solid fa-headset"></i></div>
+                    <h3 class="text-lg font-bold mb-2 text-brand-dark group-hover:text-brand-cyan transition-colors">Best Customer Support</h3>
                     <p class="text-brand-gray text-xs leading-relaxed">Dedicated logistics desks verifying technical safety standards, dynamic certifications, and structural specifications.</p>
                 </div>
-                <div class="p-8 bg-slate-50 border border-slate-100 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 group" data-aos="fade-up" data-aos-delay="500">
-                    <div class="w-12 h-12 bg-purple-600 text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-md group-hover:scale-110 transition-transform duration-300"><i class="fa-solid fa-star"></i></div>
-                    <h3 class="text-lg font-bold mb-2 text-brand-dark">Trusted Brands</h3>
+                <div class="p-8 bg-slate-50 border border-slate-100 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 group" data-aos="fade-up" data-aos-delay="500">
+                    <div class="w-12 h-12 bg-purple-600 text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-md transition-transform duration-300 group-hover:scale-110"><i class="fa-solid fa-star"></i></div>
+                    <h3 class="text-lg font-bold mb-2 text-brand-dark group-hover:text-brand-cyan transition-colors">Trusted Brands</h3>
                     <p class="text-brand-gray text-xs leading-relaxed">Official regional clearing partner handling leading elite scientific development manufacturing frameworks globally.</p>
                 </div>
             </div>
         </div>
     </section>
-
- <!-- Add this style tag anywhere in your HTML (or move the animation to your global CSS file) -->
 <style>
-  @keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(calc(-50% - 1.5rem)); } /* Adjusts for gap-12 */
-  }
-  .animate-marquee {
-    display: flex;
-    width: max-content;
-    animation: marquee 35s linear infinite;
-  }
-  .animate-marquee:hover {
-    animation-play-state: paused;
-  }
+    @keyframes scroll-left {
+        from { transform: translateX(0); }
+        to { transform: translateX(-50%); }
+    }
+
+    /* Pause animation on hover */
+   .brand-track {
+        display: flex;
+        animation: scroll-left 40s linear infinite;
+    }
+    
+    .brand-card {
+        /* Clean white card with soft shadow */
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+    }
+
+    .brand-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        border-color: #cbd5e1;
+    }
 </style>
 
-<section class="py-16 bg-gradient-to-b from-slate-50 via-white to-slate-50 dark:from-[#0B1220] dark:via-[#0F172A] dark:to-[#0B1220] border-y border-slate-200/60 dark:border-white/5 overflow-hidden relative">
-    <!-- Subtle Golden Ambient Glow -->
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[250px] bg-amber-500/5 blur-[100px] pointer-events-none rounded-full"></div>
+<section class="py-16 bg-slate-950 border-y border-slate-900 overflow-hidden relative">
 
     <div class="max-w-7xl mx-auto px-4 mb-12 text-center relative z-10">
-        <span class="text-xs font-bold uppercase tracking-[0.25em] text-amber-700 block mb-2">
-            Trusted Partnership
+        <span class="text-xs font-bold uppercase tracking-[0.2em] bg-gradient-to-r from-slate-400 via-slate-200 to-slate-400 bg-clip-text text-transparent block">
+            Authorized Distribution Channels & Brands
         </span>
-        <h2 class="text-2xl font-semibold tracking-wide text-slate-800">Authorized Distribution Channels & Brands</h2>
     </div>
     
-    <!-- Smooth Edge Fading Masks (Fades into Light Background) -->
-    <div class="relative w-full overflow-hidden before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-24 before:bg-gradient-to-r before:from-slate-50 before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-24 after:bg-gradient-to-l after:from-slate-50 after:to-transparent">
-        
-        <!-- Continuous Rolling Track (Pauses on Hover) -->
-        <div class="animate-marquee gap-12 items-center py-4">
+    <div class="relative w-full">
+     <div class="brand-track gap-10 items-center text-slate-400 font-semibold tracking-wider text-sm uppercase py-6">
+
+            <!-- Logo Items -->
+            <!-- Using original images with a flexible container -->
+            <div class="brand-card flex-none w-56 h-24 rounded-2xl flex items-center justify-center p-6 cursor-pointer">
+                <img src="./images/Logos/merck_logo1.png" alt="Merck" class="max-h-12 w-auto object-contain">
+            </div>
+            <div class="brand-card flex-none w-56 h-24 rounded-2xl flex items-center justify-center p-6 cursor-pointer">
+                <img src="./images/Logos/Sigma-Aldrich_logo.png" alt="Sigma-Aldrich" class="max-h-12 w-auto object-contain">
+            </div>
+            <div class="brand-card flex-none w-56 h-24 rounded-2xl flex items-center justify-center p-6 cursor-pointer">
+                <img src="./images/Logos/loba_logo.png" alt="Loba Chemie" class="max-h-12 w-auto object-contain">
+            </div>
+            <div class="brand-card flex-none w-56 h-24 rounded-2xl flex items-center justify-center p-6 cursor-pointer">
+                    <img src="./images/Logos/abdos_logo.png" alt="Sigma-Aldrich" class="max-h-12 w-auto object-contain">
+            </div>
+            <div class="brand-card flex-none w-56 h-24 rounded-2xl flex items-center justify-center p-6 cursor-pointer">
+                <img src="./images/Logos/Eppendorf_logo.png" alt="Loba Chemie" class="max-h-12 w-auto object-contain">
+            </div>
+               <div class="brand-card flex-none w-56 h-24 rounded-2xl flex items-center justify-center p-6 cursor-pointer">
+                <img src="./images/Logos/axiva_logo.png" alt="Axiva" class="max-h-12 w-auto object-contain">
+            </div>
+           <div class="brand-card flex-none w-56 h-24 rounded-2xl flex items-center justify-center p-6 cursor-pointer">
+                <img src="./images/Logos/sdfcl_logo.png" alt="SDFCL" class="max-h-12 w-auto object-contain">
+            </div>
+              <div class="brand-card flex-none w-56 h-24 rounded-2xl flex items-center justify-center p-6 cursor-pointer">
+                <img src="./images/Logos/molychem_logo.png" alt="Molychem" class="max-h-12 w-auto object-contain">
+            </div>
+           <div class="brand-card flex-none w-56 h-24 rounded-2xl flex items-center justify-center p-6 cursor-pointer">
+                <img src="./images/Logos/SUN.png" alt="SUN" class="max-h-12 w-auto object-contain">
+            </div>
+            <!-- Add other logos following the same structure -->
+              <div class="brand-card flex-none w-56 h-24 rounded-2xl flex items-center justify-center p-6 cursor-pointer" aria-hidden="true">
+                <img src="./images/Logos/merck_logo1.png" alt="Merck" class="max-h-12 w-auto object-contain">
+            </div>
+            <div class="brand-card flex-none w-56 h-24 rounded-2xl flex items-center justify-center p-6 cursor-pointer" aria-hidden="true">
+                <img src="./images/Logos/Sigma-Aldrich_logo.png" alt="Sigma-Aldrich" class="max-h-12 w-auto object-contain">
+            </div>
+            <div class="brand-card flex-none w-56 h-24 rounded-2xl flex items-center justify-center p-6 cursor-pointer" aria-hidden="true">
+                <img src="./images/Logos/loba_logo.png" alt="Loba Chemie" class="max-h-12 w-auto object-contain">
+            </div>
+            <div class="brand-card flex-none w-56 h-24 rounded-2xl flex items-center justify-center p-6 cursor-pointer" aria-hidden="true">
+                    <img src="./images/Logos/abdos_logo.png" alt="Sigma-Aldrich" class="max-h-12 w-auto object-contain">
+            </div>
+            <div class="brand-card flex-none w-56 h-24 rounded-2xl flex items-center justify-center p-6 cursor-pointer" aria-hidden="true">
+                <img src="./images/Logos/Eppendorf_logo.png" alt="Loba Chemie" class="max-h-12 w-auto object-contain">
+            </div>
+               <div class="brand-card flex-none w-56 h-24 rounded-2xl flex items-center justify-center p-6 cursor-pointer" aria-hidden="true">
+                <img src="./images/Logos/axiva_logo.png" alt="Axiva" class="max-h-12 w-auto object-contain">
+            </div>
+           <div class="brand-card flex-none w-56 h-24 rounded-2xl flex items-center justify-center p-6 cursor-pointer" aria-hidden="true">
+                <img src="./images/Logos/sdfcl_logo.png" alt="SDFCL" class="max-h-12 w-auto object-contain">
+            </div>
+              <div class="brand-card flex-none w-56 h-24 rounded-2xl flex items-center justify-center p-6 cursor-pointer" aria-hidden="true"> 
+                <img src="./images/Logos/molychem_logo.png" alt="Molychem" class="max-h-12 w-auto object-contain">
+            </div>
+           <div class="brand-card flex-none w-56 h-24 rounded-2xl flex items-center justify-center p-6 cursor-pointer" aria-hidden="true">
+                <img src="./images/Logos/SUN.png" alt="SUN" class="max-h-12 w-auto object-contain">
+            </div>
+        </div>
+    </div>
+</section>
+ <section class="py-16 bg-slate-950 border-y border-slate-900 overflow-hidden relative">
+    <!-- Ambient background spotlight to make the entire section feel premium -->
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.06),transparent_70%)] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 mb-12 text-center relative z-10">
+        <span class="text-xs font-bold uppercase tracking-[0.2em] bg-gradient-to-r from-slate-400 via-slate-200 to-slate-400 bg-clip-text text-transparent block">
+            Authorized Distribution Channels & Brands
+        </span>
+    </div>
+    
+    <div class="relative w-full overflow-hidden z-10">
+        <div class="brand-track gap-10 items-center text-slate-400 font-semibold tracking-wider text-sm uppercase py-6">
             
-            <!-- --- ORIGINAL SET --- -->
-            <!-- Merck -->
-            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group">
-                <img src="./images/Logos/merck_logo.png" alt="Merck" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
-                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">Merck</span>
+            <!-- ====== SET 1 ====== -->
+            <div class="w-[210px] shrink-0 flex items-center justify-center px-1">
+                <!-- Advanced animated capsule with color-morphing gradients and interactive reflections -->
+                <div class="logo-img-wrapper group relative overflow-hidden w-full h-16 bg-gradient-to-br from-white via-slate-50 to-blue-50/40 rounded-2xl px-5 py-3 flex items-center justify-center border border-slate-200/80 shadow-[0_8px_20px_-6px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.9)] transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-[0_20px_35px_-8px_rgba(0,0,0,0.7)] hover:border-blue-400/40 hover:from-white hover:via-blue-50/30 hover:to-rose-50/40">
+                    
+                    <!-- Interactive laser-shimmer ray sweep -->
+                    <div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/90 to-transparent -skew-x-12 pointer-events-none z-10"></div>
+                    
+                    <img src="./images/Logos/merck_logo.png" alt="Merck" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden max-w-full max-h-full object-contain relative z-20 transition-transform duration-500 group-hover:scale-103">
+                </div>
+                <span class="logo-text hidden text-slate-300">Merck</span>
             </div>
 
-            <!-- Sigma-Aldrich -->
-            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group">
-                <img src="./images/Logos/Sigma-Aldrich_logo.png" alt="Sigma-Aldrich" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
-                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">Sigma-Aldrich</span>
+            <div class="w-[210px] shrink-0 flex items-center justify-center px-1">
+                <div class="logo-img-wrapper group relative overflow-hidden w-full h-16 bg-gradient-to-br from-white via-slate-50 to-blue-50/40 rounded-2xl px-5 py-3 flex items-center justify-center border border-slate-200/80 shadow-[0_8px_20px_-6px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.9)] transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-[0_20px_35px_-8px_rgba(0,0,0,0.7)] hover:border-blue-400/40 hover:from-white hover:via-blue-50/30 hover:to-rose-50/40">
+                    <div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/90 to-transparent -skew-x-12 pointer-events-none z-10"></div>
+                    <img src="./images/Logos/Sigma-Aldrich_logo.png" alt="Sigma-Aldrich" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden max-w-full max-h-full object-contain relative z-20 transition-transform duration-500 group-hover:scale-103">
+                </div>
+                <span class="logo-text hidden text-slate-300">Sigma-Aldrich</span>
             </div>
 
-            <!-- Loba Chemie -->
-            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group">
-                <img src="./images/Logos/loba_logo.png" alt="Loba Chemie" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
-                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">Loba Chemie</span>
+            <div class="w-[210px] shrink-0 flex items-center justify-center px-1">
+                <div class="logo-img-wrapper group relative overflow-hidden w-full h-16 bg-gradient-to-br from-white via-slate-50 to-blue-50/40 rounded-2xl px-5 py-3 flex items-center justify-center border border-slate-200/80 shadow-[0_8px_20px_-6px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.9)] transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-[0_20px_35px_-8px_rgba(0,0,0,0.7)] hover:border-blue-400/40 hover:from-white hover:via-blue-50/30 hover:to-rose-50/40">
+                    <div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/90 to-transparent -skew-x-12 pointer-events-none z-10"></div>
+                    <img src="./images/Logos/loba_logo.png" alt="Loba Chemie" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden max-w-full max-h-full object-contain relative z-20 transition-transform duration-500 group-hover:scale-103">
+                </div>
+                <span class="logo-text hidden text-slate-300">Loba Chemie</span>
             </div>
 
-            <!-- SDFCL -->
-            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group">
-                <img src="./images/Logos/sdfcl_logo.png" alt="SDFCL" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
-                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">SDFCL</span>
+            <div class="w-[210px] shrink-0 flex items-center justify-center px-1">
+                <div class="logo-img-wrapper group relative overflow-hidden w-full h-16 bg-gradient-to-br from-white via-slate-50 to-blue-50/40 rounded-2xl px-5 py-3 flex items-center justify-center border border-slate-200/80 shadow-[0_8px_20px_-6px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.9)] transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-[0_20px_35px_-8px_rgba(0,0,0,0.7)] hover:border-blue-400/40 hover:from-white hover:via-blue-50/30 hover:to-rose-50/40">
+                    <div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/90 to-transparent -skew-x-12 pointer-events-none z-10"></div>
+                    <img src="./images/Logos/sdfcl_logo.png" alt="SDFCL" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden max-w-full max-h-full object-contain relative z-20 transition-transform duration-500 group-hover:scale-103">
+                </div>
+                <span class="logo-text hidden text-slate-300">SDFCL</span>
             </div>
 
-            <!-- ABDOS -->
-            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group">
-                <img src="./images/Logos/abdos_logo.png" alt="ABDOS" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
-                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">ABDOS</span>
+            <div class="w-[210px] shrink-0 flex items-center justify-center px-1">
+                <div class="logo-img-wrapper group relative overflow-hidden w-full h-16 bg-gradient-to-br from-white via-slate-50 to-blue-50/40 rounded-2xl px-5 py-3 flex items-center justify-center border border-slate-200/80 shadow-[0_8px_20px_-6px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.9)] transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-[0_20px_35px_-8px_rgba(0,0,0,0.7)] hover:border-blue-400/40 hover:from-white hover:via-blue-50/30 hover:to-rose-50/40">
+                    <div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/90 to-transparent -skew-x-12 pointer-events-none z-10"></div>
+                    <img src="./images/Logos/abdos_logo.png" alt="ABDOS" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden max-w-full max-h-full object-contain relative z-20 transition-transform duration-500 group-hover:scale-103">
+                </div>
+                <span class="logo-text hidden text-slate-300">ABDOS</span>
             </div>
 
-            <!-- Sun -->
-            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group">
-                <img src="sun_logo.jpg" alt="Sun" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
-                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">Sun</span>
+            <div class="w-[210px] shrink-0 flex items-center justify-center px-1">
+                <div class="logo-img-wrapper group relative overflow-hidden w-full h-16 bg-gradient-to-br from-white via-slate-50 to-blue-50/40 rounded-2xl px-5 py-3 flex items-center justify-center border border-slate-200/80 shadow-[0_8px_20px_-6px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.9)] transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-[0_20px_35px_-8px_rgba(0,0,0,0.7)] hover:border-blue-400/40 hover:from-white hover:via-blue-50/30 hover:to-rose-50/40">
+                    <div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/90 to-transparent -skew-x-12 pointer-events-none z-10"></div>
+                    <img src="sun_logo.jpg" alt="Sun" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden max-w-full max-h-full object-contain relative z-20 transition-transform duration-500 group-hover:scale-103">
+                </div>
+                <span class="logo-text hidden text-slate-300">Sun</span>
             </div>
 
-            <!-- Eppendorf -->
-            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group">
-                <img src="./images/Logos/Eppendorf_logo.png" alt="Eppendorf" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
-                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">Eppendorf</span>
+            <div class="w-[210px] shrink-0 flex items-center justify-center px-1">
+                <div class="logo-img-wrapper group relative overflow-hidden w-full h-16 bg-gradient-to-br from-white via-slate-50 to-blue-50/40 rounded-2xl px-5 py-3 flex items-center justify-center border border-slate-200/80 shadow-[0_8px_20px_-6px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.9)] transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-[0_20px_35px_-8px_rgba(0,0,0,0.7)] hover:border-blue-400/40 hover:from-white hover:via-blue-50/30 hover:to-rose-50/40">
+                    <div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/90 to-transparent -skew-x-12 pointer-events-none z-10"></div>
+                    <img src="./images/Logos/Eppendorf_logo.png" alt="Eppendorf" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden max-w-full max-h-full object-contain relative z-20 transition-transform duration-500 group-hover:scale-103">
+                </div>
+                <span class="logo-text hidden text-slate-300">Eppendorf</span>
             </div>
 
-            <!-- Axiva -->
-            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group">
-                <img src="./images/Logos/axiva_logo.png" alt="Axiva" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
-                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">Axiva</span>
+            <div class="w-[210px] shrink-0 flex items-center justify-center px-1">
+                <div class="logo-img-wrapper group relative overflow-hidden w-full h-16 bg-gradient-to-br from-white via-slate-50 to-blue-50/40 rounded-2xl px-5 py-3 flex items-center justify-center border border-slate-200/80 shadow-[0_8px_20px_-6px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.9)] transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-[0_20px_35px_-8px_rgba(0,0,0,0.7)] hover:border-blue-400/40 hover:from-white hover:via-blue-50/30 hover:to-rose-50/40">
+                    <div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/90 to-transparent -skew-x-12 pointer-events-none z-10"></div>
+                    <img src="./images/Logos/axiva_logo.png" alt="Axiva" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden max-w-full max-h-full object-contain relative z-20 transition-transform duration-500 group-hover:scale-103">
+                </div>
+                <span class="logo-text hidden text-slate-300">Axiva</span>
             </div>
 
-            <!-- Molychem -->
-            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group">
-                <img src="./images/Logos/molychem_logo.png" alt="Molychem" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
-                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">Molychem</span>
+            <div class="w-[210px] shrink-0 flex items-center justify-center px-1">
+                <div class="logo-img-wrapper group relative overflow-hidden w-full h-16 bg-gradient-to-br from-white via-slate-50 to-blue-50/40 rounded-2xl px-5 py-3 flex items-center justify-center border border-slate-200/80 shadow-[0_8px_20px_-6px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.9)] transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-[0_20px_35px_-8px_rgba(0,0,0,0.7)] hover:border-blue-400/40 hover:from-white hover:via-blue-50/30 hover:to-rose-50/40">
+                    <div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/90 to-transparent -skew-x-12 pointer-events-none z-10"></div>
+                    <img src="./images/Logos/molychem_logo.png" alt="Molychem" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden max-w-full max-h-full object-contain relative z-20 transition-transform duration-500 group-hover:scale-103">
+                </div>
+                <span class="logo-text hidden text-slate-300">Molychem</span>
             </div>
 
-
-            <!-- --- CLONED SET FOR INFINITE LOOP --- -->
-            <!-- Merck -->
-            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group" aria-hidden="true">
-                <img src="./images/Logos/merck_logo.png" alt="Merck" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
-                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">Merck</span>
+            <!-- ====== SET 2 (Duplicate for Seamless Loop) ====== -->
+            <div class="w-[210px] shrink-0 flex items-center justify-center px-1" aria-hidden="true">
+                <div class="logo-img-wrapper group relative overflow-hidden w-full h-16 bg-gradient-to-br from-white via-slate-50 to-blue-50/40 rounded-2xl px-5 py-3 flex items-center justify-center border border-slate-200/80 shadow-[0_8px_20px_-6px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.9)] transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-[0_20px_35px_-8px_rgba(0,0,0,0.7)] hover:border-blue-400/40 hover:from-white hover:via-blue-50/30 hover:to-rose-50/40">
+                    <div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/90 to-transparent -skew-x-12 pointer-events-none z-10"></div>
+                    <img src="./images/Logos/merck_logo.png" alt="Merck" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden max-w-full max-h-full object-contain relative z-20 transition-transform duration-500 group-hover:scale-103">
+                </div>
+                <span class="logo-text hidden text-slate-300">Merck</span>
             </div>
 
-            <!-- Sigma-Aldrich -->
-            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group" aria-hidden="true">
-                <img src="./images/Logos/Sigma-Aldrich_logo.png" alt="Sigma-Aldrich" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
-                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">Sigma-Aldrich</span>
+            <div class="w-[210px] shrink-0 flex items-center justify-center px-1" aria-hidden="true">
+                <div class="logo-img-wrapper group relative overflow-hidden w-full h-16 bg-gradient-to-br from-white via-slate-50 to-blue-50/40 rounded-2xl px-5 py-3 flex items-center justify-center border border-slate-200/80 shadow-[0_8px_20px_-6px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.9)] transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-[0_20px_35px_-8px_rgba(0,0,0,0.7)] hover:border-blue-400/40 hover:from-white hover:via-blue-50/30 hover:to-rose-50/40">
+                    <div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/90 to-transparent -skew-x-12 pointer-events-none z-10"></div>
+                    <img src="./images/Logos/Sigma-Aldrich_logo.png" alt="Sigma-Aldrich" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden max-w-full max-h-full object-contain relative z-20 transition-transform duration-500 group-hover:scale-103">
+                </div>
+                <span class="logo-text hidden text-slate-300">Sigma-Aldrich</span>
             </div>
 
-            <!-- Loba Chemie -->
-            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group" aria-hidden="true">
-                <img src="./images/Logos/loba_logo.png" alt="Loba Chemie" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
-                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">Loba Chemie</span>
+            <div class="w-[210px] shrink-0 flex items-center justify-center px-1" aria-hidden="true">
+                <div class="logo-img-wrapper group relative overflow-hidden w-full h-16 bg-gradient-to-br from-white via-slate-50 to-blue-50/40 rounded-2xl px-5 py-3 flex items-center justify-center border border-slate-200/80 shadow-[0_8px_20px_-6px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.9)] transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-[0_20px_35px_-8px_rgba(0,0,0,0.7)] hover:border-blue-400/40 hover:from-white hover:via-blue-50/30 hover:to-rose-50/40">
+                    <div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/90 to-transparent -skew-x-12 pointer-events-none z-10"></div>
+                    <img src="./images/Logos/loba_logo.png" alt="Loba Chemie" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden max-w-full max-h-full object-contain relative z-20 transition-transform duration-500 group-hover:scale-103">
+                </div>
+                <span class="logo-text hidden text-slate-300">Loba Chemie</span>
             </div>
 
-            <!-- SDFCL -->
-            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group" aria-hidden="true">
-                <img src="./images/Logos/sdfcl_logo.png" alt="SDFCL" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
-                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">SDFCL</span>
+            <div class="w-[210px] shrink-0 flex items-center justify-center px-1" aria-hidden="true">
+                <div class="logo-img-wrapper group relative overflow-hidden w-full h-16 bg-gradient-to-br from-white via-slate-50 to-blue-50/40 rounded-2xl px-5 py-3 flex items-center justify-center border border-slate-200/80 shadow-[0_8px_20px_-6px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.9)] transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-[0_20px_35px_-8px_rgba(0,0,0,0.7)] hover:border-blue-400/40 hover:from-white hover:via-blue-50/30 hover:to-rose-50/40">
+                    <div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/90 to-transparent -skew-x-12 pointer-events-none z-10"></div>
+                    <img src="./images/Logos/sdfcl_logo.png" alt="SDFCL" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden max-w-full max-h-full object-contain relative z-20 transition-transform duration-500 group-hover:scale-103">
+                </div>
+                <span class="logo-text hidden text-slate-300">SDFCL</span>
             </div>
 
-            <!-- ABDOS -->
-            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group" aria-hidden="true">
-                <img src="./images/Logos/abdos_logo.png" alt="ABDOS" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
-                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">ABDOS</span>
+            <div class="w-[210px] shrink-0 flex items-center justify-center px-1" aria-hidden="true">
+                <div class="logo-img-wrapper group relative overflow-hidden w-full h-16 bg-gradient-to-br from-white via-slate-50 to-blue-50/40 rounded-2xl px-5 py-3 flex items-center justify-center border border-slate-200/80 shadow-[0_8px_20px_-6px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.9)] transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-[0_20px_35px_-8px_rgba(0,0,0,0.7)] hover:border-blue-400/40 hover:from-white hover:via-blue-50/30 hover:to-rose-50/40">
+                    <div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/90 to-transparent -skew-x-12 pointer-events-none z-10"></div>
+                    <img src="./images/Logos/abdos_logo.png" alt="ABDOS" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden max-w-full max-h-full object-contain relative z-20 transition-transform duration-500 group-hover:scale-103">
+                </div>
+                <span class="logo-text hidden text-slate-300">ABDOS</span>
             </div>
 
-            <!-- Sun -->
-            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group" aria-hidden="true">
-                <img src="sun_logo.jpg" alt="Sun" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
-                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">Sun</span>
+            <div class="w-[210px] shrink-0 flex items-center justify-center px-1" aria-hidden="true">
+                <div class="logo-img-wrapper group relative overflow-hidden w-full h-16 bg-gradient-to-br from-white via-slate-50 to-blue-50/40 rounded-2xl px-5 py-3 flex items-center justify-center border border-slate-200/80 shadow-[0_8px_20px_-6px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.9)] transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-[0_20px_35px_-8px_rgba(0,0,0,0.7)] hover:border-blue-400/40 hover:from-white hover:via-blue-50/30 hover:to-rose-50/40">
+                    <div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/90 to-transparent -skew-x-12 pointer-events-none z-10"></div>
+                    <img src="sun_logo.jpg" alt="Sun" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden max-w-full max-h-full object-contain relative z-20 transition-transform duration-500 group-hover:scale-103">
+                </div>
+                <span class="logo-text hidden text-slate-300">Sun</span>
             </div>
 
-            <!-- Eppendorf -->
-            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group" aria-hidden="true">
-                <img src="./images/Logos/Eppendorf_logo.png" alt="Eppendorf" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
-                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">Eppendorf</span>
+            <div class="w-[210px] shrink-0 flex items-center justify-center px-1" aria-hidden="true">
+                <div class="logo-img-wrapper group relative overflow-hidden w-full h-16 bg-gradient-to-br from-white via-slate-50 to-blue-50/40 rounded-2xl px-5 py-3 flex items-center justify-center border border-slate-200/80 shadow-[0_8px_20px_-6px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.9)] transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-[0_20px_35px_-8px_rgba(0,0,0,0.7)] hover:border-blue-400/40 hover:from-white hover:via-blue-50/30 hover:to-rose-50/40">
+                    <div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/90 to-transparent -skew-x-12 pointer-events-none z-10"></div>
+                    <img src="./images/Logos/Eppendorf_logo.png" alt="Eppendorf" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden max-w-full max-h-full object-contain relative z-20 transition-transform duration-500 group-hover:scale-103">
+                </div>
+                <span class="logo-text hidden text-slate-300">Eppendorf</span>
             </div>
 
-            <!-- Axiva -->
-            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group" aria-hidden="true">
-                <img src="./images/Logos/axiva_logo.png" alt="Axiva" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
-                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">Axiva</span>
+            <div class="w-[210px] shrink-0 flex items-center justify-center px-1" aria-hidden="true">
+                <div class="logo-img-wrapper group relative overflow-hidden w-full h-16 bg-gradient-to-br from-white via-slate-50 to-blue-50/40 rounded-2xl px-5 py-3 flex items-center justify-center border border-slate-200/80 shadow-[0_8px_20px_-6px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.9)] transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-[0_20px_35px_-8px_rgba(0,0,0,0.7)] hover:border-blue-400/40 hover:from-white hover:via-blue-50/30 hover:to-rose-50/40">
+                    <div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/90 to-transparent -skew-x-12 pointer-events-none z-10"></div>
+                    <img src="./images/Logos/axiva_logo.png" alt="Axiva" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden max-w-full max-h-full object-contain relative z-20 transition-transform duration-500 group-hover:scale-103">
+                </div>
+                <span class="logo-text hidden text-slate-300">Axiva</span>
             </div>
 
-            <!-- Molychem -->
-            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group" aria-hidden="true">
-                <img src="./images/Logos/molychem_logo.png" alt="Molychem" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
-                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">Molychem</span>
+            <div class="w-[210px] shrink-0 flex items-center justify-center px-1" aria-hidden="true">
+                <div class="logo-img-wrapper group relative overflow-hidden w-full h-16 bg-gradient-to-br from-white via-slate-50 to-blue-50/40 rounded-2xl px-5 py-3 flex items-center justify-center border border-slate-200/80 shadow-[0_8px_20px_-6px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.9)] transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-[0_20px_35px_-8px_rgba(0,0,0,0.7)] hover:border-blue-400/40 hover:from-white hover:via-blue-50/30 hover:to-rose-50/40">
+                    <div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/90 to-transparent -skew-x-12 pointer-events-none z-10"></div>
+                    <img src="./images/Logos/molychem_logo.png" alt="Molychem" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden max-w-full max-h-full object-contain relative z-20 transition-transform duration-500 group-hover:scale-103">
+                </div>
+                <span class="logo-text hidden text-slate-300">Molychem</span>
             </div>
 
         </div>
@@ -820,8 +778,8 @@
             </div>
 
             <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 border border-slate-200 dark:border-white/10 relative transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
-                    <i class="fa-solid fa-quote-left text-slate-200 dark:text-white/10 text-4xl absolute top-6 left-6"></i>
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 relative transition-all duration-300 hover:shadow-md" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fa-solid fa-quote-left text-slate-100 text-5xl absolute top-4 left-4 pointer-events-none"></i>
                     <div class="relative z-10">
                         <p class="text-brand-dark italic mb-6 text-xs leading-relaxed">"Dutt Enterprise has structuralized our reagent supply chain operations perfectly. The batch clarity documentation on analytics chemical metrics matches top industrial guidelines."</p>
                         <div class="flex items-center gap-3">
@@ -833,8 +791,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 border border-slate-200 dark:border-white/10 relative transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
-                    <i class="fa-solid fa-quote-left text-slate-200 dark:text-white/10 text-4xl absolute top-6 left-6"></i>
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 relative transition-all duration-300 hover:shadow-md" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fa-solid fa-quote-left text-slate-100 text-5xl absolute top-4 left-4 pointer-events-none"></i>
                     <div class="relative z-10">
                         <p class="text-brand-dark italic mb-6 text-xs leading-relaxed">"The customized tools designed within the Laboratory Nexus series match exact parameters required for our research setups. Prompt delivery routes are consistently accurate."</p>
                         <div class="flex items-center gap-3">
@@ -846,8 +804,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 border border-slate-200 dark:border-white/10 relative transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
-                    <i class="fa-solid fa-quote-left text-slate-200 dark:text-white/10 text-4xl absolute top-6 left-6"></i>
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 relative transition-all duration-300 hover:shadow-md" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fa-solid fa-quote-left text-slate-100 text-5xl absolute top-4 left-4 pointer-events-none"></i>
                     <div class="relative z-10">
                         <p class="text-brand-dark italic mb-6 text-xs leading-relaxed">"Procurement transitions have been effortless since deploying WhatsApp integration tracking with Dutt Enterprise. Highly resilient glassware structures reduce long term replacement costs."</p>
                         <div class="flex items-center gap-3">
@@ -862,148 +820,146 @@
             </div>
         </div>
     </section>
-<section id="contact" class="py-24 bg-slate-50" x-data="{ activeBranch: 'anand' }">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="mb-16" data-aos="fade-up">
-            <span class="text-xs font-bold text-brand-cyan tracking-widest uppercase block mb-2">Connect With Us</span>
-            <h2 class="text-3xl md:text-4xl font-black text-brand-dark tracking-tight">Get in Touch with Our Experts</h2>
-            <div class="w-16 h-1 bg-brand-cyan mt-4 rounded-full"></div>
-        </div>
 
-        <div class="grid lg:grid-cols-12 gap-12 items-start">
+    <section id="contact" class="py-24 bg-slate-50" x-data="{ activeBranch: 'anand' }">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
-            <div class="lg:col-span-5 space-y-8" data-aos="fade-right">
-                <div>
-                    <p class="text-brand-gray text-sm leading-relaxed max-w-sm">
-                        Whether you're looking for specialized laboratory glassware or bulk chemical supplies, our technical teams across our locations are ready to assist your procurement needs.
-                    </p>
-                </div>
-
-                <div class="flex bg-slate-200/60 p-1.5 rounded-xl gap-1 border border-slate-200">
-                    <button @click="activeBranch = 'anand'" 
-                            :class="activeBranch === 'anand' ? 'bg-white text-brand-dark shadow-xs font-bold' : 'text-slate-500 hover:text-brand-dark font-semibold'"
-                            class="flex-1 text-center py-2.5 text-xs rounded-lg transition-all">
-                        Anand (HO)
-                    </button>
-                    <button @click="activeBranch = 'branch2'" 
-                            :class="activeBranch === 'branch2' ? 'bg-white text-brand-dark shadow-xs font-bold' : 'text-slate-500 hover:text-brand-dark font-semibold'"
-                            class="flex-1 text-center py-2.5 text-xs rounded-lg transition-all">
-                        Branch Office
-                    </button>
-                </div>
-
-                <div class="space-y-6">
-                    <div x-show="activeBranch === 'anand'" x-transition:enter="transition ease-out duration-200" class="space-y-6">
-                        <div class="flex gap-5 p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
-                            <div class="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center text-brand-cyan shrink-0 border border-slate-100">
-                                <i class="fa-solid fa-location-dot text-lg"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Corporate Headquarters</h4>
-                                <p class="text-brand-dark text-sm font-semibold leading-snug">
-                                   A/5, Krishna Complex, Borsad Chokdi,<br> Anand-Sojitra Road, Anand - 388001
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="flex gap-5 p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
-                            <div class="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center text-emerald-600 shrink-0 border border-slate-100">
-                                <i class="fa-solid fa-headset text-lg"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Anand Desk Support</h4>
-                                <p class="text-brand-dark text-sm font-semibold mb-1">+91 99748 63555</p>
-                                <p class="text-brand-cyan text-sm font-medium">anand@duttenterprise.com</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div x-show="activeBranch === 'branch2'" x-transition:enter="transition ease-out duration-200" class="space-y-6" x-cloak>
-                        <div class="flex gap-5 p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
-                            <div class="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center text-brand-cyan shrink-0 border border-slate-100">
-                                <i class="fa-solid fa-building text-lg"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Regional Branch</h4>
-                                <p class="text-brand-dark text-sm font-semibold leading-snug">
-                                    Dutt Enterprise, 2nd Floor, Science Arcade,<br>Opp. GIDC, Gujarat
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="flex gap-5 p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
-                            <div class="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center text-emerald-600 shrink-0 border border-slate-100">
-                                <i class="fa-solid fa-phone-volume text-lg"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Branch Desk Support</h4>
-                                <p class="text-brand-dark text-sm font-semibold mb-1">+91 99748 63556</p>
-                                <p class="text-brand-cyan text-sm font-medium">branch@duttenterprise.com</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="p-6 bg-brand-dark rounded-2xl text-white shadow-xl shadow-brand-dark/10">
-                    <h4 class="text-[10px] font-bold opacity-60 uppercase tracking-widest mb-4">Laboratory Operational Windows</h4>
-                    <div class="space-y-3">
-                        <div class="flex justify-between text-xs border-b border-white/10 pb-2">
-                            <span class="opacity-80">Monday – Saturday</span>
-                            <span class="font-bold">09:00 AM – 07:00 PM</span>
-                        </div>
-                        <div class="flex justify-between text-xs pt-1">
-                            <span class="opacity-80">Sunday</span>
-                            <span class="text-rose-400 font-bold uppercase">Closed Across Branches</span>
-                        </div>
-                    </div>
-                </div>
+            <div class="mb-16" data-aos="fade-up">
+                <span class="text-xs font-bold text-brand-cyan tracking-widest uppercase block mb-2">Connect With Us</span>
+                <h2 class="text-3xl md:text-4xl font-black text-brand-dark tracking-tight">Get in Touch with Our Experts</h2>
+                <div class="w-16 h-1 bg-brand-cyan mt-4 rounded-full"></div>
             </div>
 
-            <div class="lg:col-span-7 bg-white dark:bg-slate-900 rounded-3xl p-8 md:p-10 shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-white/10" data-aos="fade-left">
-                <form action="#" class="space-y-6">
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="space-y-2">
-                            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide ml-1">Full Name</label>
-                            <input type="text" placeholder="e.g. John Doe" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all text-brand-dark">
-                        </div>
-                        <div class="space-y-2">
-                            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide ml-1">Email Address</label>
-                            <input type="email" placeholder="name@company.com" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all text-brand-dark">
-                        </div>
-                    </div>
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="space-y-2">
-                            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide ml-1">Route Inquiry To</label>
-                            <select class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all appearance-none cursor-pointer text-brand-dark">
-                                <option value="Anand">Anand Head Office</option>
-                                <option value="Branch 2">Branch Office Location</option>
-                            </select>
-                        </div>
-                        <div class="space-y-2">
-                            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide ml-1">Inquiry Type</label>
-                            <select class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all appearance-none cursor-pointer text-brand-dark">
-                                <option>Bulk Product Quotation</option>
-                                <option>Technical Specification Request</option>
-                                <option>Order Status Inquiry</option>
-                                <option>Other Support</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide ml-1">Your Message</label>
-                        <textarea rows="4" placeholder="How can our branch assist your laboratory today?" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all resize-none text-brand-dark"></textarea>
+            <div class="grid lg:grid-cols-12 gap-12 items-start">
+                
+                <div class="lg:col-span-5 space-y-8" data-aos="fade-right">
+                    <div>
+                        <p class="text-brand-gray text-sm leading-relaxed max-w-sm">
+                            Whether you're looking for specialized laboratory glassware or bulk chemical supplies, our technical teams across our locations are ready to assist your procurement needs.
+                        </p>
                     </div>
 
-                    <button type="submit" class="w-full bg-brand-dark hover:bg-brand-cyan text-white font-bold text-xs uppercase tracking-widest py-4 rounded-xl shadow-lg shadow-brand-dark/10 transition-all duration-300 transform active:scale-[0.98] hover:shadow-brand-cyan/30 flex items-center justify-center gap-2">
-                        Dispatch Inquiry <i class="fa-solid fa-paper-plane text-[10px]"></i>
-                    </button>
-                </form>
+                    <div class="flex bg-slate-200/60 p-1.5 rounded-xl gap-1 border border-slate-200 shadow-inner">
+                        <button @click="activeBranch = 'anand'" 
+                                :class="activeBranch === 'anand' ? 'bg-white text-brand-dark shadow-xs font-bold' : 'text-slate-500 hover:text-brand-dark font-semibold'"
+                                class="flex-1 text-center py-2.5 text-xs rounded-lg transition-all duration-200">
+                            Anand (HO)
+                        </button>
+                        <button @click="activeBranch = 'branch2'" 
+                                :class="activeBranch === 'branch2' ? 'bg-white text-brand-dark shadow-xs font-bold' : 'text-slate-500 hover:text-brand-dark font-semibold'"
+                                class="flex-1 text-center py-2.5 text-xs rounded-lg transition-all duration-200">
+                            Branch Office
+                        </button>
+                    </div>
+
+                    <div class="relative overflow-hidden min-h-[180px]">
+                        <!-- ANAND PANEL -->
+                        <div x-show="activeBranch === 'anand'" 
+                                x-transition:enter="transition cubic-bezier(0.34, 1.56, 0.64, 1) duration-400" 
+                                x-transition:enter-start="opacity-0 translate-x-4 scale-98"
+                                x-transition:enter-end="opacity-100 translate-x-0 scale-100"
+                                class="space-y-6">
+                            <div class="flex gap-5 p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                                <div class="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center text-brand-cyan shrink-0 border border-slate-100"><i class="fa-solid fa-location-dot text-lg"></i></div>
+                                <div>
+                                    <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Corporate Headquarters</h4>
+                                    <p class="text-brand-dark text-sm font-semibold leading-snug">A/5, Krishna Complex, Borsad Chokdi,<br> Anand-Sojitra Road, Anand - 388001</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-5 p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                                <div class="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center text-emerald-600 shrink-0 border border-slate-100"><i class="fa-solid fa-headset text-lg"></i></div>
+                                <div>
+                                    <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Anand Desk Support</h4>
+                                    <p class="text-brand-dark text-sm font-semibold mb-1">+91 99748 63555</p>
+                                    <p class="text-brand-cyan text-sm font-medium">anand@duttenterprise.com</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- BRANCH 2 PANEL -->
+                        <div x-show="activeBranch === 'branch2'" 
+                                x-transition:enter="transition cubic-bezier(0.34, 1.56, 0.64, 1) duration-400"
+                                x-transition:enter-start="opacity-0 translate-x-4 scale-98"
+                                x-transition:enter-end="opacity-100 translate-x-0 scale-100"
+                                class="space-y-6" x-cloak>
+                            <div class="flex gap-5 p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                                <div class="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center text-brand-cyan shrink-0 border border-slate-100"><i class="fa-solid fa-building text-lg"></i></div>
+                                <div>
+                                    <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Regional Branch</h4>
+                                    <p class="text-brand-dark text-sm font-semibold leading-snug">Dutt Enterprise, 2nd Floor, Science Arcade,<br>Opp. GIDC, Gujarat</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-5 p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                                <div class="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center text-emerald-600 shrink-0 border border-slate-100"><i class="fa-solid fa-phone-volume text-lg"></i></div>
+                                <div>
+                                    <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Branch Desk Support</h4>
+                                    <p class="text-brand-dark text-sm font-semibold mb-1">+91 99748 63556</p>
+                                    <p class="text-brand-cyan text-sm font-medium">branch@duttenterprise.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-6 bg-brand-dark rounded-2xl text-white shadow-xl shadow-brand-dark/10">
+                        <h4 class="text-[10px] font-bold opacity-60 uppercase tracking-widest mb-4">Laboratory Operational Windows</h4>
+                        <div class="space-y-3">
+                            <div class="flex justify-between text-xs border-b border-white/10 pb-2">
+                                <span class="opacity-80">Monday – Saturday</span>
+                                <span class="font-bold">09:00 AM – 07:00 PM</span>
+                            </div>
+                            <div class="flex justify-between text-xs pt-1">
+                                <span class="opacity-80">Sunday</span>
+                                <span class="text-rose-400 font-bold uppercase">Closed Across Branches</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 bg-white rounded-3xl p-8 md:p-10 shadow-xl border border-slate-100" data-aos="fade-left">
+                    <form action="#" class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide ml-1">Full Name</label>
+                                <input type="text" placeholder="e.g. John Doe" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all text-brand-dark">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide ml-1">Email Address</label>
+                                <input type="email" placeholder="name@company.com" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all text-brand-dark">
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide ml-1">Route Inquiry To</label>
+                                <select class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all appearance-none cursor-pointer text-brand-dark">
+                                    <option value="Anand">Anand Head Office</option>
+                                    <option value="Branch 2">Branch Office Location</option>
+                                </select>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide ml-1">Inquiry Type</label>
+                                <select class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all appearance-none cursor-pointer text-brand-dark">
+                                    <option>Bulk Product Quotation</option>
+                                    <option>Technical Specification Request</option>
+                                    <option>Order Status Inquiry</option>
+                                    <option>Other Support</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide ml-1">Your Message</label>
+                            <textarea rows="4" placeholder="How can our branch assist your laboratory today?" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all resize-none text-brand-dark"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-brand-dark hover:bg-brand-cyan text-white font-bold text-xs uppercase tracking-widest py-4 rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 duration-300">
+                            Dispatch Inquiry <i class="fa-solid fa-paper-plane text-[10px]"></i>
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-</section>
-   <footer class="bg-brand-dark text-slate-400 pt-12 pb-8 border-t border-slate-900">
+    </section>
+
+    <footer class="bg-brand-dark text-slate-400 pt-12 pb-8 border-t border-slate-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid sm:grid-cols-2 lg:grid-cols-12 gap-10 border-b border-white/5 pb-16 mb-8">
             
             <div class="lg:col-span-4 space-y-5">
@@ -1015,8 +971,8 @@
                     Dealers in verified Laboratory Chemicals, Glassware, Instruments, Pathology Products, Plasticware, Filter Papers and custom Laboratory Nexus Brand Miscellaneous Products. Sourcing structural science since deployment inception.
                 </p>
                 <div class="pt-2 flex items-center gap-3">
-                    <a href="https://wa.me/919974863555" target="_blank" rel="noopener" class="w-9 h-9 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center hover:bg-emerald-600 hover:text-white hover:-translate-y-1 transition-all duration-300"><i class="fa-brands fa-whatsapp text-sm"></i></a>
-                    <a href="mailto:duttenterpriseanand@gmail.com" class="w-9 h-9 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center hover:bg-brand-cyan hover:text-white hover:-translate-y-1 transition-all duration-300"><i class="fa-solid fa-envelope text-xs"></i></a>
+                    <a href="https://wa.me/919974863555" target="_blank" rel="noopener" class="w-9 h-9 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center hover:bg-emerald-600 hover:text-white transition-all duration-200"><i class="fa-brands fa-whatsapp text-sm"></i></a>
+                    <a href="mailto:duttenterpriseanand@gmail.com" class="w-9 h-9 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center hover:bg-brand-cyan hover:text-white transition-all duration-200"><i class="fa-solid fa-envelope text-xs"></i></a>
                 </div>
             </div>
 
@@ -1070,23 +1026,18 @@
         </div>
     </footer>
 
-    <a href="https://wa.me/919974863555?text=Hello%20Dutt%20Enterprise,%20I%20have%20an%20urgent%20laboratory%20product%20inquiry." target="_blank" class="fixed bottom-6 right-6 z-50 bg-emerald-600 hover:bg-emerald-500 text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-2xl transition-all transform hover:scale-110 active:scale-95">
-        <span class="absolute inset-0 rounded-full bg-emerald-500 opacity-60 animate-ping"></span>
-        <i class="fa-brands fa-whatsapp relative z-10"></i>
+    <a href="https://wa.me/919974863555?text=Hello%20Dutt%20Enterprise,%20I%20have%20an%20urgent%20laboratory%20product%20inquiry." target="_blank" class="fixed bottom-6 right-6 z-50 bg-emerald-600 hover:bg-emerald-500 text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-2xl transition-all transform hover:scale-110 active:scale-95 animate-bounce" style="animation-duration: 4s;">
+        <i class="fa-brands fa-whatsapp"></i>
     </a>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         window.addEventListener('DOMContentLoaded', () => {
-            // Wake Up Animate On Scroll (AOS) Engine
             AOS.init({
                 once: true,
-                duration: 800,
-                easing: 'ease-out-cubic',
-                offset: 60
+                duration: 750
             });
             
-            // Cleanly dissolve preloader screen
             const preloader = document.getElementById('preloader');
             setTimeout(() => {
                 preloader.classList.add('opacity-0', 'pointer-events-none');
