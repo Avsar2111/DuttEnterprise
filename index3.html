@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-[var(--bg-color)] text-[var(--text-color)] transition-colors duration-500 overflow-x-hidden" x-data="{ mobileMenu: false, searchKey: '', selectedCat: 'All' }">
+
+<div id="preloader" class="fixed inset-0 z-50 flex items-center justify-center bg-[var(--bg-color)] transition-opacity duration-500">
+    <div class="text-center">
+        <div class="relative w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+            <i class="fa-solid fa-microscope text-[var(--brand-teal)] text-5xl animate-pulse"></i>
+            <div class="spinner-ring absolute inset-0 rounded-full"></div>
+        </div>
+        
+        <h2 class="text-white text-2xl font-bold tracking-widest uppercase">Dutt Enterprise</h2>
+        <p class="text-[var(--brand-teal)] text-xs tracking-wider uppercase mt-1">
+            Scientific Equipment & Laboratory Solutions
+        </p>
+    </div>
+</div>
+<script>
+    window.addEventListener('load', () => {
+        const preloader = document.getElementById('preloader');
+        preloader.classList.add('hidden');
+    });
+</script>
+<script>
+    function toggleTheme() {
+        const html = document.documentElement;
+        const currentTheme = html.getAttribute('data-theme');
+        
+        if (currentTheme === 'light') {
+            html.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            html.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light');
+        }
+    }
+
+    // Initialize theme on load
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+</script>
+<nav x-data="{ mobileMenu: false }" class="glass-nav fixed top-0 left-0 right-0 z-40 text-[var(--text-color)] shadow-xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-22 py-3">
+            <!-- Logo & Title -->
+            <div class="flex items-center gap-3">
+                <div class="bg-gradient-to-br from-[var(--brand-cyan)] to-[var(--brand-teal)] p-3 rounded-xl shadow-lg w-14 h-14 flex items-center justify-center overflow-hidden shrink-0 transition-transform duration-300 hover:rotate-6">
+                    <img src="images/Dutt_Enterprise_Logo_PNG.png" alt="Dutt Enterprise Logo" class="w-full h-full object-contain">
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold tracking-tight block">DUTT ENTERPRISE</span>
+                    <span class="text-[10px] tracking-wider text-[var(--brand-gray)] block uppercase font-medium max-w-[280px] truncate">Lab Chemicals • Glassware • Instruments</span>
+                </div>
+            </div>
+            
+            <!-- Desktop Links -->
+            <div class="hidden lg:flex space-x-7 font-semibold text-sm tracking-wide">
+                <a href="#home" class="nav-link-underline hover:text-[var(--brand-teal)]">Home</a>
+                <a href="#about" class="nav-link-underline hover:text-[var(--brand-teal)]">About Us</a>
+                <a href="#categories" class="nav-link-underline hover:text-[var(--brand-teal)]">Categories</a>
+                <a href="#products" class="nav-link-underline hover:text-[var(--brand-teal)]">Products</a>
+                <a href="#contact" class="nav-link-underline hover:text-[var(--brand-teal)]">Branches</a>
+            </div>
+            
+            <!-- CTA -->
+            <div class="hidden sm:flex items-center gap-3">
+                <a href="https://wa.me/919974863555" target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-4 py-3 rounded-xl font-bold flex items-center gap-2 shadow-lg transition-all transform hover:-translate-y-0.5">
+                    <i class="fa-brands fa-whatsapp text-sm"></i> Direct Chat
+                </a>
+                <!-- Theme Toggle -->
+                <button onclick="toggleTheme()" class="p-2 rounded-lg bg-[var(--glass-bg)] border border-[var(--glass-border)]">
+                    <i class="fa-solid fa-circle-half-stroke"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <div class="lg:hidden">
+                <button @click="mobileMenu = !mobileMenu" class="p-2 rounded-lg bg-[var(--glass-bg)]">
+                    <i class="fa-solid text-xl" :class="mobileMenu ? 'fa-xmark' : 'fa-bars'"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<header id="home" class="relative min-h-[90vh] pt-32 flex items-center bg-[var(--bg-color)] overflow-hidden transition-colors duration-500">
+    <!-- Sophisticated Background -->
+    <div class="absolute inset-0 z-0">
+        <!-- The background gradient now adapts to the theme via variables -->
+        <div class="absolute inset-0 bg-gradient-to-br from-[var(--brand-blue)]/20 to-transparent"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-10 w-full grid lg:grid-cols-2 gap-16 items-center">
+        
+        <!-- Left: Text Content -->
+        <!-- Added !opacity-100 to override AOS hidden state -->
+        <div class="space-y-6 !opacity-100" data-aos="fade-right">
+            <div class="inline-flex items-center gap-2 bg-[var(--brand-teal)]/10 text-[var(--brand-teal)] px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest border border-[var(--brand-teal)]/20">
+                <i class="fa-solid fa-circle-check"></i> Authorized Supply Partner
+            </div>
+            
+            <h1 class="text-5xl lg:text-7xl font-black text-[var(--text-color)] tracking-tight leading-[1.1]">
+                Welcome to <br>
+                <span class="text-[var(--brand-cyan)]">Dutt Enterprise</span>
+            </h1>
+            
+            <p class="text-[var(--brand-gray)] text-lg leading-relaxed max-w-lg">
+                Dealers in high-compliance Lab Chemicals, Glassware, and High-Precision Instruments. Trusted industrial manufacturers of the specialized 
+                <span class="text-[var(--brand-teal)] font-semibold">Laboratory Nexus Brand</span> miscellaneous apparatus utilities.
+            </p>
+
+            <div class="flex flex-wrap gap-4 pt-4">
+                <a href="#products" class="bg-[var(--brand-cyan)] hover:bg-[var(--brand-teal)] text-white px-8 py-4 rounded-xl font-bold transition-all shadow-lg hover:shadow-cyan-500/20">
+                    Explore Products <i class="fa-solid fa-arrow-right ml-2"></i>
+                </a>
+                <a href="https://wa.me/919974863555" class="bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-color)] px-8 py-4 rounded-xl font-bold hover:bg-[var(--glass-bg)]/80 transition-all">
+                    <i class="fa-brands fa-whatsapp text-emerald-500 mr-2"></i> WhatsApp Inquiry
+                </a>
+            </div>
+        </div>
+
+        <!-- Right: Image Frame -->
+        <div class="relative group !opacity-100" data-aos="fade-left">
+            <div class="hero-image-frame p-4 rounded-[2rem] bg-[var(--glass-bg)] border border-[var(--glass-border)]">
+                <img src="https://images.unsplash.com/photo-1581093588401-fbb62a02f120?auto=format&fit=crop&q=80&w=800" 
+                     alt="Lab Infrastructure" 
+                     class="w-full h-[450px] object-cover rounded-[1.5rem] shadow-2xl">
+            </div>
+            
+            <!-- Floating ISO Badge -->
+            <div class="absolute -bottom-8 -left-8 bg-[var(--bg-color)] border border-[var(--glass-border)] p-6 rounded-2xl shadow-2xl flex items-center gap-4">
+                <div class="bg-[var(--brand-teal)]/20 p-3 rounded-xl text-[var(--brand-teal)] text-2xl">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <div>
+                    <span class="text-[var(--text-color)] font-bold block text-lg">ISO Standard</span>
+                    <span class="text-[var(--brand-gray)] text-sm">Certified Grade Stock Only</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section id="about" class="py-24 bg-[var(--bg-color)] transition-colors duration-500 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-12 gap-12 items-center">
+            <!-- Text Content -->
+            <div class="lg:col-span-6 !opacity-100" data-aos="fade-right">
+                <span class="text-[var(--brand-cyan)] font-bold uppercase tracking-widest text-xs block mb-2">Corporate Framework</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-[var(--text-color)] tracking-tight">Your Trusted Technical Sourcing Backbone</h2>
+                <div class="w-20 h-1.5 bg-[var(--brand-cyan)] my-5 rounded-full"></div>
+                <p class="text-[var(--brand-gray)] text-base leading-relaxed mb-6">
+                    Dutt Enterprise is a trusted supplier and manufacturer of laboratory chemicals, glassware, scientific instruments, pathology products, and miscellaneous laboratory essentials. With strategic branches established in both Anand and Nadiad, we efficiently route high-quality laboratory workflows to educational institutes, hospitals, commercial testing facilities, complex industries, and high-tier research centers across Gujarat.
+                </p>
+                <div class="bg-[var(--glass-bg)] border-l-4 border-[var(--brand-teal)] p-5 rounded-r-xl mb-6">
+                    <p class="text-sm font-medium text-[var(--text-color)] italic">
+                        "In addition to handling operations for top-tier universal pharmaceutical entities, we anchor production infrastructure for our in-house premium line: <strong class="text-[var(--brand-teal)]">Laboratory Nexus Brand Miscellaneous Products</strong>."
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Grid Items -->
+            <div class="lg:col-span-6 grid sm:grid-cols-2 gap-6 !opacity-100" data-aos="fade-left">
+                <!-- Helper class 'feature-box' applied -->
+                <div class="feature-box p-6 rounded-2xl">
+                    <div class="w-10 h-10 bg-[var(--brand-blue)] text-white rounded-xl flex items-center justify-center text-lg mb-4"><i class="fa-solid fa-school"></i></div>
+                    <h4 class="font-bold text-[var(--text-color)] text-base mb-1">Educational Distribution</h4>
+                    <p class="text-[var(--brand-gray)] text-xs">Custom safe configurations optimized for school and university chemistry/biology modules.</p>
+                </div>
+                
+                <div class="feature-box p-6 rounded-2xl">
+                    <div class="w-10 h-10 bg-[var(--brand-cyan)] text-white rounded-xl flex items-center justify-center text-lg mb-4"><i class="fa-solid fa-hospital-user"></i></div>
+                    <h4 class="font-bold text-[var(--text-color)] text-base mb-1">Clinical Diagnostics</h4>
+                    <p class="text-[var(--brand-gray)] text-xs">High throughput components configured specifically for multi-branch hospital diagnostics.</p>
+                </div>
+                
+                <div class="feature-box p-6 rounded-2xl">
+                    <div class="w-10 h-10 bg-emerald-600 text-white rounded-xl flex items-center justify-center text-lg mb-4"><i class="fa-solid fa-industry"></i></div>
+                    <h4 class="font-bold text-[var(--text-color)] text-base mb-1">Industrial Processing</h4>
+                    <p class="text-[var(--brand-gray)] text-xs">Batch verification acids, analytical reagents, and high precision chemical indicators.</p>
+                </div>
+                
+                <div class="feature-box p-6 rounded-2xl">
+                    <div class="w-10 h-10 bg-[var(--brand-teal)] text-white rounded-xl flex items-center justify-center text-lg mb-4"><i class="fa-solid fa-microscope"></i></div>
+                    <h4 class="font-bold text-[var(--text-color)] text-base mb-1">Research Facilities</h4>
+                    <p class="text-[var(--brand-gray)] text-xs">Ultra pure standard compositions supporting specific research execution metrics.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="categories" class="py-24 bg-[var(--bg-color)] transition-colors duration-500 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16 !opacity-100" data-aos="fade-up">
+            <h2 class="text-3xl font-extrabold text-[var(--text-color)] tracking-tight">Product Categories</h2>
+            <div class="w-16 h-1 bg-[var(--brand-cyan)] mx-auto mt-3 mb-4 rounded-full"></div>
+            <p class="text-[var(--brand-gray)] text-sm">Select a division below to instantly filter active dynamic product lines.</p>
+        </div>
+
+        <!-- Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 !opacity-100" data-aos="fade-up" data-aos-delay="200">
+            
+            <!-- Chemicals -->
+            <div @click="selectedCat = 'Chemicals'; document.getElementById('products').scrollIntoView({behavior: 'smooth'});" 
+                 class="glass-card rounded-2xl p-6 text-center cursor-pointer group border border-[var(--glass-border)] transition-all hover:border-[var(--brand-teal)]">
+                <div class="w-14 h-14 mx-auto bg-[var(--brand-teal)]/10 text-[var(--brand-teal)] rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-[var(--brand-teal)] group-hover:text-white transition-all duration-300">
+                    <i class="fa-solid fa-vial"></i>
+                </div>
+                <h3 class="font-bold text-sm text-[var(--text-color)] group-hover:text-[var(--brand-teal)]">Chemicals</h3>
+            </div>
+
+            <!-- Glassware -->
+            <div @click="selectedCat = 'Glassware'; document.getElementById('products').scrollIntoView({behavior: 'smooth'});" 
+                 class="glass-card rounded-2xl p-6 text-center cursor-pointer group border border-[var(--glass-border)] transition-all hover:border-[var(--brand-cyan)]">
+                <div class="w-14 h-14 mx-auto bg-[var(--brand-cyan)]/10 text-[var(--brand-cyan)] rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-[var(--brand-cyan)] group-hover:text-white transition-all duration-300">
+                    <i class="fa-solid fa-flask"></i>
+                </div>
+                <h3 class="font-bold text-sm text-[var(--text-color)] group-hover:text-[var(--brand-cyan)]">Glassware</h3>
+            </div>
+
+            <!-- Plasticware -->
+            <div @click="selectedCat = 'Plasticware'; document.getElementById('products').scrollIntoView({behavior: 'smooth'});" 
+                 class="glass-card rounded-2xl p-6 text-center cursor-pointer group border border-[var(--glass-border)] transition-all hover:border-[var(--brand-teal)]">
+                <div class="w-14 h-14 mx-auto bg-[var(--brand-teal)]/10 text-[var(--brand-teal)] rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-[var(--brand-teal)] group-hover:text-white transition-all duration-300">
+                    <i class="fa-solid fa-prescription-bottle"></i>
+                </div>
+                <h3 class="font-bold text-sm text-[var(--text-color)] group-hover:text-[var(--brand-teal)]">Plasticware</h3>
+            </div>
+
+            <!-- Filter Papers -->
+            <div @click="selectedCat = 'Filter Papers'; document.getElementById('products').scrollIntoView({behavior: 'smooth'});" 
+                 class="glass-card rounded-2xl p-6 text-center cursor-pointer group border border-[var(--glass-border)] transition-all hover:border-[var(--brand-blue)]">
+                <div class="w-14 h-14 mx-auto bg-[var(--brand-blue)]/10 text-[var(--brand-blue)] rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-[var(--brand-blue)] group-hover:text-white transition-all duration-300">
+                    <i class="fa-solid fa-copy"></i>
+                </div>
+                <h3 class="font-bold text-sm text-[var(--text-color)] group-hover:text-[var(--brand-blue)]">Filter Papers</h3>
+            </div>
+
+            <!-- Instruments -->
+            <div @click="selectedCat = 'Instruments'; document.getElementById('products').scrollIntoView({behavior: 'smooth'});" 
+                 class="glass-card rounded-2xl p-6 text-center cursor-pointer group border border-[var(--glass-border)] transition-all hover:border-[var(--brand-cyan)]">
+                <div class="w-14 h-14 mx-auto bg-[var(--brand-cyan)]/10 text-[var(--brand-cyan)] rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-[var(--brand-cyan)] group-hover:text-white transition-all duration-300">
+                    <i class="fa-solid fa-gauge-high"></i>
+                </div>
+                <h3 class="font-bold text-sm text-[var(--text-color)] group-hover:text-[var(--brand-cyan)]">Instruments</h3>
+            </div>
+
+            <!-- Pathology -->
+            <div @click="selectedCat = 'Pathology Products'; document.getElementById('products').scrollIntoView({behavior: 'smooth'});" 
+                 class="glass-card rounded-2xl p-6 text-center cursor-pointer group border border-[var(--glass-border)] transition-all hover:border-red-500">
+                <div class="w-14 h-14 mx-auto bg-red-500/10 text-red-500 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-red-500 group-hover:text-white transition-all duration-300">
+                    <i class="fa-solid fa-droplet"></i>
+                </div>
+                <h3 class="font-bold text-sm text-[var(--text-color)] group-hover:text-red-500">Pathology</h3>
+            </div>
+
+            <!-- Nexus Line -->
+            <div @click="selectedCat = 'Miscellaneous Products'; document.getElementById('products').scrollIntoView({behavior: 'smooth'});" 
+                 class="glass-card rounded-2xl p-6 text-center cursor-pointer group border border-[var(--glass-border)] transition-all hover:border-[var(--brand-teal)]">
+                <div class="w-14 h-14 mx-auto bg-[var(--brand-teal)]/10 text-[var(--brand-teal)] rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-[var(--brand-teal)] group-hover:text-white transition-all duration-300">
+                    <i class="fa-solid fa-boxes-packing"></i>
+                </div>
+                <h3 class="font-bold text-sm text-[var(--text-color)] group-hover:text-[var(--brand-teal)]">Nexus Brand</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
