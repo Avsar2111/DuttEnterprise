@@ -4,26 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dutt Enterprise | Laboratory Chemicals, Glassware & Instruments Supplier</title>
-        
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            blue: '#0A4D68',
-                            cyan: '#088395',
-                            teal: '#05BFDB',
-                            lightBg: '#EBF4F6',
-                            dark: '#001C30',
-                            gray: '#64748B'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+        <link rel="stylesheet" href="./dist/output.css">
+    <!-- <script src="https://cdn.tailwindcss.com"></script>-->
+    
 
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -32,6 +15,51 @@
     
     
     <style>
+        /* Define Global Root Variables for Your Brand */
+        :root {
+            --brand-blue: #0A4D68;
+            --brand-cyan: #088395;
+            --brand-teal: #05BFDB;
+            --brand-lightBg: #EBF4F6;
+            --brand-dark: #001C30;
+            --brand-gray: #64748B;
+        }
+
+        /* 1. Core Background & Text Utilites */
+        .bg-brand-dark { background-color: var(--brand-dark) !important; }
+        .text-brand-dark { color: var(--brand-dark) !important; }
+        
+        .bg-brand-blue { background-color: var(--brand-blue) !important; }
+        .text-brand-blue { color: var(--brand-blue) !important; }
+        
+        .bg-brand-cyan { background-color: var(--brand-cyan) !important; }
+        .text-brand-cyan { color: var(--brand-cyan) !important; }
+        
+        .bg-brand-teal { background-color: var(--brand-teal) !important; }
+        .text-brand-teal { color: var(--brand-teal) !important; }
+        
+        .bg-brand-lightBg { background-color: var(--brand-lightBg) !important; }
+        .text-brand-gray { color: var(--brand-gray) !important; }
+
+        /* 2. Interactive States (Hover effects used in your Nav links) */
+        .hover\:text-brand-teal:hover { color: var(--brand-teal) !important; }
+
+        /* 3. Special Text and Border Accents */
+        .animate-pulse.text-brand-teal { color: var(--brand-teal) !important; }
+        .border-t-brand-teal { border-top-color: var(--brand-teal) !important; }
+
+        /* 4. Opacity Fractions (e.g., bg-brand-cyan/10 and border-brand-cyan/30) */
+        .bg-brand-cyan\/10 { background-color: rgba(8, 131, 149, 0.1) !important; }
+        .border-brand-cyan\/30 { border-color: rgba(8, 131, 149, 0.3) !important; }
+
+        /* 5. Gradient System Fallbacks (Header Backgrounds & Text clipping) */
+        .from-brand-dark { --tw-gradient-from: var(--brand-dark) !important; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(0, 28, 48, 0)) !important; }
+        .to-brand-blue { --tw-gradient-to: var(--brand-blue) !important; }
+        
+        .from-brand-cyan { --tw-gradient-from: var(--brand-cyan) !important; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(8, 131, 149, 0)) !important; }
+        .via-brand-teal { --tw-gradient-stops: var(--tw-gradient-from), var(--brand-teal), var(--tw-gradient-to, rgba(5, 191, 219, 0)) !important; }
+
+        /* Layout components (Glassmorphism, animations, scrollbars) */
         .glass-card {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(16px);
@@ -58,13 +86,13 @@
         html {
             scroll-behavior: smooth;
         }
-         .hide-scrollbar::-webkit-scrollbar {
-        display: none;
-    }
-    .hide-scrollbar {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-brand-dark overflow-x-hidden" x-data="{ mobileMenu: false, searchKey: '', selectedCat: 'All' }">
@@ -802,219 +830,7 @@
         </div>
     </div>
 </section>
-<!-- ================= Awards Section ================= -->
-<section
-id="awards"
-x-data="{ certModal:false, certImg:'' }"
-class="relative py-24 bg-[#071827] overflow-hidden">
 
-    <!-- Background -->
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(34,211,238,.08),transparent_65%)]"></div>
-
-    <div class="relative max-w-7xl mx-auto px-6">
-
-        <!-- Heading -->
-        <div class="text-center mb-16" data-aos="fade-up">
-
-            <span
-                class="inline-flex items-center px-5 py-2 rounded-full border border-cyan-400/20 bg-cyan-500/10 text-cyan-400 uppercase tracking-[4px] text-xs font-semibold">
-
-                Awards & Certifications
-
-            </span>
-
-            <h2 class="mt-6 text-5xl font-black text-white">
-
-                Excellence & Compliance
-
-            </h2>
-
-            <p class="mt-6 text-slate-400 max-w-3xl mx-auto leading-8">
-
-                We are committed to supplying genuine laboratory chemicals,
-                scientific instruments and certified products backed by
-                internationally recognized quality standards.
-
-            </p>
-
-        </div>
-
-        <!-- Cards -->
-        <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
-
-            <!-- ISO -->
-            <div
-                @click="certImg='images/certificates/iso9001.jpg'; certModal=true"
-                class="group cursor-pointer rounded-2xl bg-white/5 border border-white/10 p-6 hover:border-cyan-400 hover:-translate-y-2 transition-all duration-500">
-
-                <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center shadow-lg shadow-yellow-500/20">
-
-                    <i class="fa-solid fa-award text-3xl text-white"></i>
-
-                </div>
-
-                <h3 class="text-2xl font-bold text-white mt-5">
-
-                    ISO 9001 : 2015
-
-                </h3>
-
-                <p class="text-slate-400 text-sm leading-7 mt-3">
-
-                    Certified quality management system ensuring reliable
-                    sourcing, distribution and laboratory operations.
-
-                </p>
-
-                <div class="mt-6 flex items-center justify-between">
-
-                    <span class="text-cyan-400 font-semibold">
-
-                        View Certificate
-
-                    </span>
-
-                    <i class="fa-solid fa-arrow-right text-cyan-400 group-hover:translate-x-2 transition"></i>
-
-                </div>
-
-            </div>
-
-            <!-- GMP -->
-            <div
-                @click="certImg='images/certificates/gmp.jpg'; certModal=true"
-                class="group cursor-pointer rounded-2xl bg-white/5 border border-white/10 p-6 hover:border-cyan-400 hover:-translate-y-2 transition-all duration-500">
-
-                <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center shadow-lg shadow-cyan-500/20">
-
-                    <i class="fa-solid fa-shield-halved text-3xl text-white"></i>
-
-                </div>
-
-                <h3 class="text-2xl font-bold text-white mt-5">
-
-                    GMP Compliance
-
-                </h3>
-
-                <p class="text-slate-400 text-sm leading-7 mt-3">
-
-                    Good Manufacturing Practice certification ensuring
-                    premium quality laboratory products.
-
-                </p>
-
-                <div class="mt-6 flex items-center justify-between">
-
-                    <span class="text-cyan-400 font-semibold">
-
-                        View Certificate
-
-                    </span>
-
-                    <i class="fa-solid fa-arrow-right text-cyan-400 group-hover:translate-x-2 transition"></i>
-
-                </div>
-
-            </div>
-
-            <!-- Award -->
-            <div
-                @click="certImg='images/certificates/excellence.jpg'; certModal=true"
-                class="group cursor-pointer rounded-2xl bg-white/5 border border-white/10 p-6 hover:border-cyan-400 hover:-translate-y-2 transition-all duration-500">
-
-                <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-purple-500/20">
-
-                    <i class="fa-solid fa-medal text-3xl text-white"></i>
-
-                </div>
-
-                <h3 class="text-2xl font-bold text-white mt-5">
-
-                    Excellence Award
-
-                </h3>
-
-                <p class="text-slate-400 text-sm leading-7 mt-3">
-
-                    Awarded for excellence in supplying laboratory
-                    chemicals, scientific instruments and research equipment.
-
-                </p>
-
-                <div class="mt-6 flex items-center justify-between">
-
-                    <span class="text-cyan-400 font-semibold">
-
-                        View Certificate
-
-                    </span>
-
-                    <i class="fa-solid fa-arrow-right text-cyan-400 group-hover:translate-x-2 transition"></i>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- ================= Modal ================= -->
-
-    <div
-        x-show="certModal"
-        x-transition.opacity
-        class="fixed inset-0 z-[9999] bg-black/80 backdrop-blur-md flex items-center justify-center p-6"
-        x-cloak>
-
-        <!-- Close Background -->
-        <div
-            class="absolute inset-0"
-            @click="certModal=false">
-        </div>
-
-        <!-- Modal -->
-        <div
-            @click.stop
-            x-transition.scale
-            class="relative bg-[#0d2235] rounded-3xl border border-cyan-500/20 shadow-2xl max-w-5xl w-full overflow-hidden">
-
-            <!-- Header -->
-
-            <div class="flex items-center justify-between px-6 py-4 border-b border-white/10">
-
-                <h3 class="text-white text-xl font-bold">
-
-                    Certificate Preview
-
-                </h3>
-
-                <button
-                    @click="certModal=false"
-                    class="w-10 h-10 rounded-full bg-white/10 hover:bg-red-500 transition text-white">
-
-                    <i class="fa-solid fa-xmark text-xl"></i>
-
-                </button>
-
-            </div>
-
-            <!-- Image -->
-
-            <div class="p-6 flex justify-center bg-slate-900">
-
-                <img
-                    :src="certImg"
-                    class="max-h-[75vh] rounded-xl object-contain shadow-2xl">
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
     <section id="why-choose" class="py-24 bg-white border-t border-slate-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
@@ -1057,251 +873,148 @@ class="relative py-24 bg-[#071827] overflow-hidden">
             </div>
         </div>
     </section>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-<style>
-.brandSwiper{
-    width:100%;
-    max-width:1500px;
-    margin:auto;
-    padding:10px 0;
-    overflow:visible;
-}
-.swiper {
-    overflow: hidden;
-}
-/* Slide */
-.brandSwiper .swiper-slide{
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    transition:.45s;
-
-    opacity:.35;
-
-    transform:scale(.82);
-
-}
-
-/* Previous & Next */
-
-.brandSwiper .swiper-slide-prev,
-.brandSwiper .swiper-slide-next{
-
-    opacity:.75;
-
-    transform:scale(.92);
-
-}
-
-/* Active */
-
-.brandSwiper .swiper-slide-active{
-
-    opacity:1;
-
-    transform:scale(1);
-
-    z-index:20;
-
-}
-
-/* Card */
-
-.brand-card{
-
-    width: 220px;;
-    height: 120px;;
-
-    border-radius:12px;
-
-    background:#fff;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    transition:.45s;
-
-    border:1px solid #e5e7eb;
-
-    box-shadow:
-    0 12px 35px rgba(0,0,0,.18);
-
-}
-
-/* Logo */
-
-.brand-card img{
-
-    width:160px;
-    max-height:70px;
-
-    object-fit:contain;
-
-    transition:.4s;
-
-    filter:grayscale(100%);
-}
-
-/* Active Card */
-
-.swiper-slide-active .brand-card{
-
-    transform:scale(1.08);
-
-
-    box-shadow:
-        0 0 25px rgba(6,182,212,.35),
-        0 25px 50px rgba(0,0,0,.28);
-
-}
-
-.swiper-slide-active img{
-
-    filter:none;
-
-}
-
-/* Reflection */
-
-.brand-card img{
-
-    -webkit-box-reflect:
-        below 6px linear-gradient(transparent,rgba(255,255,255,.08));
-
-}
-
-/* Hover */
-
-.brand-card:hover{
-
-    transform:translateY(-8px);
-
-}
-</style>
-
- <!-- ================= BRANDS SECTION ================= -->
-<section class="relative py-12 bg-slate-950 overflow-hidden">
-
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,#06b6d420,transparent_70%)]"></div>
-
-    <div class="relative max-w-7xl mx-auto px-4">
-
-        <div class="text-center mb-14">
-            <span class="uppercase tracking-[0.3em] text-cyan-400 text-sm font-semibold">
-                Trusted Brands
-            </span>
-
-            <h2 class="mt-4 text-4xl font-bold text-white">
-                Our Distribution Partners
-            </h2>
-
-            <p class="mt-3 text-slate-400">
-                We proudly distribute products from globally trusted laboratory brands.
-            </p>
-        </div>
-
-       <div class="swiper brandSwiper">
-
-    <div class="swiper-wrapper">
-
-        <div class="swiper-slide">
-            <div class="brand-card">
-                <img src="./images/Logos/merck_logo.png">
-            </div>
-        </div>
-
-        <div class="swiper-slide">
-            <div class="brand-card">
-                <img src="./images/Logos/Sigma-Aldrich_logo.png">
-            </div>
-        </div>
-
-        <div class="swiper-slide">
-            <div class="brand-card">
-                <img src="./images/Logos/loba_logo.png">
-            </div>
-        </div>
-
-        <div class="swiper-slide">
-            <div class="brand-card">
-                <img src="./images/Logos/sdfcl_logo.png">
-            </div>
-        </div>
-
-        <div class="swiper-slide">
-            <div class="brand-card">
-                <img src="./images/Logos/abdos_logo.png">
-            </div>
-        </div>
-
-        <div class="swiper-slide">
-            <div class="brand-card">
-                <img src="./images/Logos/Eppendorf_logo.png">
-            </div>
-        </div>
-
-        <div class="swiper-slide">
-            <div class="brand-card">
-                <img src="./images/Logos/axiva_logo.png">
-            </div>
-        </div>
-
-        <div class="swiper-slide">
-            <div class="brand-card">
-                <img src="./images/Logos/molychem_logo.png">
-            </div>
-        </div>
-
+ <section class="py-12 bg-slate-950 border-y border-slate-900 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 mb-10 text-center">
+        <span class="text-xs font-bold uppercase tracking-[0.2em] text-slate-400 block">Authorized Distribution Channels & Brands</span>
     </div>
+    
+    <div class="relative w-full overflow-hidden mask-gradient-edges">
+        <!-- Brand Track Wrapper for Infinite CSS Scroller -->
+        <div class="brand-track gap-12 items-center text-slate-400 font-semibold tracking-wider text-sm uppercase">
+            
+            <!-- ====== SET 1 ====== -->
+            <div class="w-[200px] shrink-0 flex items-center justify-center">
+                <div class="logo-img-wrapper w-full h-14 flex items-center justify-center">
+                    <img src="./images/Logos/merck_logo.png" alt="Merck" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden w-full h-full object-contain">
+                </div>
+                <span class="logo-text hidden text-slate-300">Merck</span>
+            </div>
 
-</div>
+            <div class="w-[200px] shrink-0 flex items-center justify-center">
+                <div class="logo-img-wrapper w-full h-14 flex items-center justify-center">
+                    <img src="./images/Logos/Sigma-Aldrich_logo.png" alt="Sigma-Aldrich" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden w-full h-full object-contain">
+                </div>
+                <span class="logo-text hidden text-slate-300">Sigma-Aldrich</span>
+            </div>
 
+            <div class="w-[200px] shrink-0 flex items-center justify-center">
+                <div class="logo-img-wrapper w-full h-14 flex items-center justify-center">
+                    <img src="./images/Logos/loba_logo.png" alt="Loba Chemie" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden w-full h-full object-contain">
+                </div>
+                <span class="logo-text hidden text-slate-300">Loba Chemie</span>
+            </div>
+
+            <div class="w-[200px] shrink-0 flex items-center justify-center">
+                <div class="logo-img-wrapper w-full h-14 flex items-center justify-center">
+                    <img src="./images/Logos/sdfcl_logo.png" alt="SDFCL" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden w-full h-full object-contain">
+                </div>
+                <span class="logo-text hidden text-slate-300">SDFCL</span>
+            </div>
+
+            <div class="w-[200px] shrink-0 flex items-center justify-center">
+                <div class="logo-img-wrapper w-full h-14 flex items-center justify-center">
+                    <img src="./images/Logos/abdos_logo.png" alt="ABDOS" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden w-full h-full object-contain">
+                </div>
+                <span class="logo-text hidden text-slate-300">ABDOS</span>
+            </div>
+
+            <div class="w-[200px] shrink-0 flex items-center justify-center">
+                <div class="logo-img-wrapper w-full h-14 flex items-center justify-center">
+                    <img src="sun_logo.jpg" alt="Sun" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden w-full h-full object-contain">
+                </div>
+                <span class="logo-text hidden text-slate-300">Sun</span>
+            </div>
+
+            <div class="w-[200px] shrink-0 flex items-center justify-center">
+                <div class="logo-img-wrapper w-full h-14 flex items-center justify-center">
+                    <img src="./images/Logos/Eppendorf_logo.png" alt="Eppendorf" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden w-full h-full object-contain">
+                </div>
+                <span class="logo-text hidden text-slate-300">Eppendorf</span>
+            </div>
+
+            <div class="w-[200px] shrink-0 flex items-center justify-center">
+                <div class="logo-img-wrapper w-full h-14 flex items-center justify-center">
+                    <img src="./images/Logos/axiva_logo.png" alt="Axiva" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden w-full h-full object-contain">
+                </div>
+                <span class="logo-text hidden text-slate-300">Axiva</span>
+            </div>
+
+            <div class="w-[200px] shrink-0 flex items-center justify-center">
+                <div class="logo-img-wrapper w-full h-14 flex items-center justify-center">
+                    <img src="./images/Logos/molychem_logo.png" alt="Molychem" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden w-full h-full object-contain">
+                </div>
+                <span class="logo-text hidden text-slate-300">Molychem</span>
+            </div>
+
+            <!-- ====== SET 2 (DUPLICATE FOR SEAMLESS TICKER LOOP) ====== -->
+            <div class="w-[200px] shrink-0 flex items-center justify-center" aria-hidden="true">
+                <div class="logo-img-wrapper w-full h-14 flex items-center justify-center">
+                    <img src="./images/Logos/merck_logo.png" alt="Merck" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden w-full h-full object-contain">
+                </div>
+                <span class="logo-text hidden text-slate-300">Merck</span>
+            </div>
+
+            <div class="w-[200px] shrink-0 flex items-center justify-center" aria-hidden="true">
+                <div class="logo-img-wrapper w-full h-14 flex items-center justify-center">
+                    <img src="./images/Logos/Sigma-Aldrich_logo.png" alt="Sigma-Aldrich" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden w-full h-full object-contain">
+                </div>
+                <span class="logo-text hidden text-slate-300">Sigma-Aldrich</span>
+            </div>
+
+            <div class="w-[200px] shrink-0 flex items-center justify-center" aria-hidden="true">
+                <div class="logo-img-wrapper w-full h-14 flex items-center justify-center">
+                    <img src="./images/Logos/loba_logo.png" alt="Loba Chemie" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden w-full h-full object-contain">
+                </div>
+                <span class="logo-text hidden text-slate-300">Loba Chemie</span>
+            </div>
+
+            <div class="w-[200px] shrink-0 flex items-center justify-center" aria-hidden="true">
+                <div class="logo-img-wrapper w-full h-14 flex items-center justify-center">
+                    <img src="./images/Logos/sdfcl_logo.png" alt="SDFCL" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden w-full h-full object-contain">
+                </div>
+                <span class="logo-text hidden text-slate-300">SDFCL</span>
+            </div>
+
+            <div class="w-[200px] shrink-0 flex items-center justify-center" aria-hidden="true">
+                <div class="logo-img-wrapper w-full h-14 flex items-center justify-center">
+                    <img src="./images/Logos/abdos_logo.png" alt="ABDOS" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden w-full h-full object-contain">
+                </div>
+                <span class="logo-text hidden text-slate-300">ABDOS</span>
+            </div>
+
+            <div class="w-[200px] shrink-0 flex items-center justify-center" aria-hidden="true">
+                <div class="logo-img-wrapper w-full h-14 flex items-center justify-center">
+                    <img src="sun_logo.jpg" alt="Sun" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden w-full h-full object-contain">
+                </div>
+                <span class="logo-text hidden text-slate-300">Sun</span>
+            </div>
+
+            <div class="w-[200px] shrink-0 flex items-center justify-center" aria-hidden="true">
+                <div class="logo-img-wrapper w-full h-14 flex items-center justify-center">
+                    <img src="./images/Logos/Eppendorf_logo.png" alt="Eppendorf" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden w-full h-full object-contain">
+                </div>
+                <span class="logo-text hidden text-slate-300">Eppendorf</span>
+            </div>
+
+            <div class="w-[200px] shrink-0 flex items-center justify-center" aria-hidden="true">
+                <div class="logo-img-wrapper w-full h-14 flex items-center justify-center">
+                    <img src="./images/Logos/axiva_logo.png" alt="Axiva" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden w-full h-full object-contain">
+                </div>
+                <span class="logo-text hidden text-slate-300">Axiva</span>
+            </div>
+
+            <div class="w-[200px] shrink-0 flex items-center justify-center" aria-hidden="true">
+                <div class="logo-img-wrapper w-full h-14 flex items-center justify-center">
+                    <img src="./images/Logos/molychem_logo.png" alt="Molychem" onload="this.style.display='block'" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.classList.remove('hidden')" class="hidden w-full h-full object-contain">
+                </div>
+                <span class="logo-text hidden text-slate-300">Molychem</span>
+            </div>
+
+        </div>
     </div>
-
 </section>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-<script>
-const swiper = new Swiper(".brandSwiper", {
-
-    loop: true,
-
-    centeredSlides: true,
-
-    slidesPerView: 5,
-
-    spaceBetween: 30,
-
-    speed: 700,
-
-    effect: "slide",
-
-    autoplay: {
-        delay: 2500,
-        disableOnInteraction: false,
-    },
-
-    breakpoints: {
-        0: {
-            slidesPerView: 1,
-            spaceBetween: 15
-        },
-        640: {
-            slidesPerView: 3,
-            spaceBetween: 20
-        },
-        992: {
-            slidesPerView: 5,
-            spaceBetween: 30
-        }
-    }
-
-});
-
-</script>
     <section class="py-24 bg-slate-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
@@ -1508,660 +1221,7 @@ const swiper = new Swiper(".brandSwiper", {
         </div>
     </div>
 </section>
-<footer class="relative bg-[#071827] border-t border-cyan-500/20 overflow-hidden">
-
-    <!-- Background Glow -->
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(6,182,212,.12),transparent_60%)]"></div>
-
-    <div class="relative max-w-full mx-auto px-8 py-8">
-
-        <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-12 ">
-
-            <!-- ================= COMPANY ================= -->
-
-            <div>
-
-                <div class="flex items-center gap-4 mb-6">
-
-                    <div class="w-10 h-10 rounded-2xl bg-white flex items-center justify-center shadow-lg">
-
-                        <img src="images/Dutt_Enterprise_Logo_PNG.png"
-                             class="w-10 h-10 object-contain">
-
-                    </div>
-
-                    <div>
-
-                        <h3 class="text-white text-2xl font-black">
-                            DUTT ENTERPRISE
-                        </h3>
-
-                        <p class="text-cyan-400 text-sm">
-                            Laboratory Solutions
-                        </p>
-
-                    </div>
-
-                </div>
-
-              <p class="text-slate-300 leading-8 max-w-sm">
-Leading supplier of Laboratory Chemicals,
-Glassware, Instruments, Plasticware,
-Pathology Products & Scientific Equipment.
-</p>
-               <div class="flex gap-3 mt-6">
-
-    <div class="flex-1 rounded-xl bg-white/5 p-4 text-center">
-        <h3 class="text-cyan-400 text-3xl font-bold">1000+</h3>
-        <p class="text-slate-400 text-sm">Products</p>
-    </div>
-
-    <div class="flex-1 rounded-xl bg-white/5 p-4 text-center">
-        <h3 class="text-cyan-400 text-3xl font-bold">20+</h3>
-        <p class="text-slate-400 text-sm">Brands</p>
-    </div>
-
-</div>
-
-                <!-- Social -->
-
-                <!-- <div class="flex gap-4 mt-8">
-
-                    <a href="https://wa.me/919974863555"
-                       class="w-12 h-12 rounded-full bg-green-600 flex items-center justify-center hover:scale-110 duration-300">
-
-<i class="fa-brands fa-whatsapp"></i>
-
-                    </a>
-
-                    <a href="mailto:duttenterpriseanand@gmail.com"
-                       class="w-12 h-12 rounded-full bg-cyan-600 flex items-center justify-center hover:scale-110 duration-300">
-
-<i class="fa-solid fa-envelope"></i>
-
-                    </a>
-
-                </div> -->
-
-            </div>
-
-            <!-- ================= PRODUCTS ================= -->
-
-            <div>
-
-                <h3 class="text-white font-bold text-xl mb-6">
-
-                    Product Categories
-
-                </h3>
-
-              <ul class="space-y-4 text-slate-300">
-
-    <li>
-        <a href="#" class="flex items-center gap-3 hover:text-cyan-400 transition">
-            <i class="fa-solid fa-flask text-cyan-400 w-5"></i>
-            Laboratory Chemicals
-        </a>
-    </li>
-
-    <li>
-        <a href="#" class="flex items-center gap-3 hover:text-cyan-400 transition">
-            <i class="fa-solid fa-wine-glass text-cyan-400 w-5"></i>
-            Glassware
-        </a>
-    </li>
-
-    <li>
-        <a href="#" class="flex items-center gap-3 hover:text-cyan-400 transition">
-            <i class="fa-solid fa-microscope text-cyan-400 w-5"></i>
-            Laboratory Instruments
-        </a>
-    </li>
-
-    <li>
-        <a href="#" class="flex items-center gap-3 hover:text-cyan-400 transition">
-            <i class="fa-solid fa-vials text-cyan-400 w-5"></i>
-            Pathology Products
-        </a>
-    </li>
-
-    <li>
-        <a href="#" class="flex items-center gap-3 hover:text-cyan-400 transition">
-            <i class="fa-solid fa-prescription-bottle text-cyan-400 w-5"></i>
-            Plasticware
-        </a>
-    </li>
-
-    <li>
-        <a href="#" class="flex items-center gap-3 hover:text-cyan-400 transition">
-            <i class="fa-solid fa-file-lines text-cyan-400 w-5"></i>
-            Filter Papers
-        </a>
-    </li>
-
-</ul>
-
-            </div>
-
-            <!-- ================= BRANDS ================= -->
-
-            <div>
-
-                <h3 class="text-white font-bold text-xl mb-6">
-
-                    Authorized Brands
-
-                </h3>
-
-                <div class="grid grid-cols-2 gap-3">
-
-<div class="bg-white/5 rounded-xl p-3 text-center text-slate-200 hover:text-white hover:bg-cyan-500/20 transition-all duration-300">
-                        Merck
-                    </div>
-
-<div class="bg-white/5 rounded-xl p-3 text-center text-slate-200 hover:text-white hover:bg-cyan-500/20 transition-all duration-300">
-                        Sigma
-                    </div>
-
-<div class="bg-white/5 rounded-xl p-3 text-center text-slate-200 hover:text-white hover:bg-cyan-500/20 transition-all duration-300">
-                        Loba
-                    </div>
-
-<div class="bg-white/5 rounded-xl p-3 text-center text-slate-200 hover:text-white hover:bg-cyan-500/20 transition-all duration-300">
-                        ABDOS
-                    </div>
-
-<div class="bg-white/5 rounded-xl p-3 text-center text-slate-200 hover:text-white hover:bg-cyan-500/20 transition-all duration-300">
-                        Eppendorf
-                    </div>
-
-<div class="bg-white/5 rounded-xl p-3 text-center text-slate-200 hover:text-white hover:bg-cyan-500/20 transition-all duration-300">
-                        Axiva
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- ================= CONTACT ================= -->
-
-            <div>
-
-             
-
-<div class="space-y-6">
-    <h3 class="text-2xl font-bold text-white flex items-center gap-3">
-        <i class="fa-solid fa-address-book text-cyan-400"></i>
-        Contact Us
-    </h3>
-
-    <!-- Anand Office -->
-    <div class="flex items-start gap-4">
-        <div class="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center flex-shrink-0">
-            <i class="fa-solid fa-building text-cyan-400"></i>
-        </div>
-
-        <div>
-            <h4 class="text-white font-semibold">
-                Anand Head Office
-            </h4>
-
-            <p class="text-slate-400 text-sm leading-6 mt-1">
-                A/5 Krishna Complex,<br>
-                Borsad Chokdi,<br>
-                Anand - 388001
-            </p>
-        </div>
-    </div>
-
-    <!-- Nadiad Office -->
-    <div class="flex items-start gap-4">
-        <div class="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center flex-shrink-0">
-            <i class="fa-solid fa-building text-cyan-400"></i>
-        </div>
-
-        <div>
-            <h4 class="text-white font-semibold">
-                Nadiad Branch Office
-            </h4>
-
-            <p class="text-slate-400 text-sm leading-6 mt-1">
-                F-137/138 First Floor,<br>
-                Ghantakarna Complex,<br>
-                Ganj Bazar, Nadiad - 387001
-            </p>
-        </div>
-    </div>
-
-</div>
-
-            </div>
-
-        </div>
-
-        <!-- ================= FEATURES ================= -->
-
-       <div class="grid md:grid-cols-4 gap-4 mt-10">
-
-<div class="rounded-xl bg-white/5 border border-white/10 p-5 text-center text-slate-200 font-medium hover:bg-cyan-500/10 transition">
-<i class="fa-solid fa-circle-check text-green-400"></i>
-<span>Genuine Products</span>
-</div>
-
-<div class="rounded-xl bg-white/5 border border-white/10 p-5 text-center text-slate-200 font-medium hover:bg-cyan-500/10 transition">
-<i class="fa-solid fa-truck-fast text-cyan-400"></i>
-<span>PAN India Delivery</span>
-</div>
-
-<div class="rounded-xl bg-white/5 border border-white/10 p-5 text-center text-slate-200 font-medium hover:bg-cyan-500/10 transition">
-<i class="fa-solid fa-award text-yellow-400"></i>
-<span class="">Premium Brands</span>
-</div>
-
-<div class="rounded-xl bg-white/5 border border-white/10 p-5 text-center text-slate-200 font-medium hover:bg-cyan-500/10 transition">
-<i class="fa-solid fa-headset text-orange-400"></i>
-<span>24×7 Support</span>
-</div>
-
-</div>
-
-        <!-- ================= COPYRIGHT ================= -->
-
-       <div class="border-t border-white/10 mt-12 pt-6">
-
-    <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-5">
-
-        <!-- Copyright -->
-        <p class="text-slate-500 text-sm text-center lg:text-left">
-            © 2026 <span class="text-white font-semibold">Dutt Enterprise</span>. All Rights Reserved.
-        </p>
-
-        <!-- Contact Info -->
-        <div class="flex flex-wrap justify-center gap-6 text-slate-300 text-sm">
-
-            <div class="flex items-center gap-2">
-                <i class="fa-solid fa-phone text-cyan-400"></i>
-                <span>+91 99748 63555</span>
-            </div>
-
-            <div class="flex items-center gap-2">
-                <i class="fa-solid fa-envelope text-cyan-400"></i>
-                <span>duttenterpriseanand@gmail.com</span>
-            </div>
-
-            <div class="flex items-center gap-2">
-                <i class="fa-solid fa-clock text-cyan-400"></i>
-                <span>Mon – Sat | 9:00 AM – 7:00 PM</span>
-            </div>
-
-        </div>
-
-        <!-- Links -->
-        <div class="flex items-center gap-6 text-sm">
-
-            <a href="#" class="text-slate-500 hover:text-cyan-400 transition">
-                Privacy Policy
-            </a>
-
-            <a href="#" class="text-slate-500 hover:text-cyan-400 transition">
-                Terms
-            </a>
-
-            <a href="#" class="text-slate-500 hover:text-cyan-400 transition">
-                Sitemap
-            </a>
-
-        </div>
-
-    </div>
-
-</div>
-
-    </div>
-
-</footer>
-<!-- <footer class="relative bg-[#071827] border-t border-cyan-500/20 overflow-hidden">
-
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(6,182,212,.10),transparent_70%)]"></div>
-
-<div class="max-w-7xl mx-auto px-6 lg:px-10 py-14">
-<div class="grid lg:grid-cols-4 md:grid-cols-2 gap-12">
-<div>
-
-    <div class="flex items-center gap-4 mb-6">
-
-        <div class="w-14 h-14 rounded-xl bg-white flex items-center justify-center shadow-lg">
-            <img src="images/Dutt_Enterprise_Logo_PNG.png"
-                 class="w-11 h-11 object-contain">
-        </div>
-
-        <div>
-            <h3 class="text-white text-3xl font-black">
-                DUTT ENTERPRISE
-            </h3>
-
-            <p class="text-cyan-400">
-                Laboratory Solutions
-            </p>
-        </div>
-
-    </div>
-
-    <p class="text-slate-300 leading-9">
-        Leading supplier of Laboratory Chemicals,
-        Glassware, Instruments, Plasticware,
-        Pathology Products and Scientific Equipment.
-    </p>
-
-    <div class="grid grid-cols-2 gap-4 mt-8">
-
-        <div class="rounded-xl bg-white/5 border border-white/10 p-5 text-center">
-
-            <h3 class="text-cyan-400 text-4xl font-bold">
-                1000+
-            </h3>
-
-            <p class="text-slate-400 mt-1">
-                Products
-            </p>
-
-        </div>
-
-        <div class="rounded-xl bg-white/5 border border-white/10 p-5 text-center">
-
-            <h3 class="text-cyan-400 text-4xl font-bold">
-                20+
-            </h3>
-
-            <p class="text-slate-400 mt-1">
-                Brands
-            </p>
-
-        </div>
-
-    </div>
-
-</div>
-<div>
-<h3 class="text-white text-2xl font-bold mb-8">
-Product Categories
-</h3>
-
-<ul class="space-y-5">
-
-<li>
-<a href="#" class="flex items-center gap-3 text-slate-300 hover:text-cyan-400">
-<i class="fa-solid fa-flask text-cyan-400"></i>
-Laboratory Chemicals
-</a>
-</li>
-
-<li>
-<a href="#" class="flex items-center gap-3 text-slate-300 hover:text-cyan-400">
-<i class="fa-solid fa-wine-glass text-cyan-400"></i>
-Glassware
-</a>
-</li>
-
-<li>
-<a href="#" class="flex items-center gap-3 text-slate-300 hover:text-cyan-400">
-<i class="fa-solid fa-microscope text-cyan-400"></i>
-Laboratory Instruments
-</a>
-</li>
-
-<li>
-<a href="#" class="flex items-center gap-3 text-slate-300 hover:text-cyan-400">
-<i class="fa-solid fa-vials text-cyan-400"></i>
-Pathology Products
-</a>
-</li>
-
-<li>
-<a href="#" class="flex items-center gap-3 text-slate-300 hover:text-cyan-400">
-<i class="fa-solid fa-prescription-bottle text-cyan-400"></i>
-Plasticware
-</a>
-</li>
-
-<li>
-<a href="#" class="flex items-center gap-3 text-slate-300 hover:text-cyan-400">
-<i class="fa-solid fa-file-lines text-cyan-400"></i>
-Filter Papers
-</a>
-</li>
-
-</ul>
-
-</div>
-
-<div>
-
-<h3 class="text-white text-2xl font-bold mb-8">
-Authorized Brands
-</h3>
-
-<div class="grid grid-cols-2 gap-4">
-
-<div class="bg-white/5 border border-white/10 rounded-xl py-4 text-center text-white hover:bg-cyan-500/20 transition">
-Merck
-</div>
-
-<div class="bg-white/5 border border-white/10 rounded-xl py-4 text-center text-white hover:bg-cyan-500/20 transition">
-Sigma
-</div>
-
-<div class="bg-white/5 border border-white/10 rounded-xl py-4 text-center text-white hover:bg-cyan-500/20 transition">
-Loba
-</div>
-
-<div class="bg-white/5 border border-white/10 rounded-xl py-4 text-center text-white hover:bg-cyan-500/20 transition">
-ABDOS
-</div>
-
-<div class="bg-white/5 border border-white/10 rounded-xl py-4 text-center text-white hover:bg-cyan-500/20 transition">
-Eppendorf
-</div>
-
-<div class="bg-white/5 border border-white/10 rounded-xl py-4 text-center text-white hover:bg-cyan-500/20 transition">
-Axiva
-</div>
-
-</div>
-
-</div>
-        <div>
-
-<h3 class="text-white text-2xl font-bold mb-8">
-Contact Us
-</h3>
-
-<div class="space-y-5">
-
-<div class="flex gap-4">
-
-<div class="w-11 h-11 rounded-xl bg-cyan-500/10 flex items-center justify-center">
-
-<i class="fa-solid fa-building text-cyan-400"></i>
-
-</div>
-
-<div>
-
-<h4 class="text-white font-semibold">
-Anand Head Office
-</h4>
-
-<p class="text-slate-300 text-sm">
-A/5 Krishna Complex,<br>
-Borsad Chokdi,<br>
-Anand - 388001
-</p>
-
-</div>
-
-</div>
-
-<div class="flex gap-4">
-
-<div class="w-11 h-11 rounded-xl bg-cyan-500/10 flex items-center justify-center">
-
-<i class="fa-solid fa-building text-cyan-400"></i>
-
-</div>
-
-<div>
-
-<h4 class="text-white font-semibold">
-Nadiad Branch
-</h4>
-
-<p class="text-slate-300 text-sm">
-F-137/138 First Floor,<br>
-Ghantakarna Complex,<br>
-Nadiad - 387001
-</p>
-
-</div>
-
-</div>
-
-<div class="flex items-center gap-4">
-
-<div class="w-11 h-11 rounded-xl bg-cyan-500/10 flex items-center justify-center">
-
-<i class="fa-solid fa-phone text-cyan-400"></i>
-
-</div>
-
-<span class="text-white">
-+91 99748 63555
-</span>
-
-</div>
-
-<div class="flex items-center gap-4">
-
-<div class="w-11 h-11 rounded-xl bg-cyan-500/10 flex items-center justify-center">
-
-<i class="fa-solid fa-envelope text-cyan-400"></i>
-
-</div>
-
-<span class="text-white break-all">
-duttenterpriseanand@gmail.com
-</span>
-
-</div>
-
-<div class="flex items-center gap-4">
-
-<div class="w-11 h-11 rounded-xl bg-cyan-500/10 flex items-center justify-center">
-
-<i class="fa-solid fa-clock text-cyan-400"></i>
-
-</div>
-
-<span class="text-white">
-Mon - Sat | 9 AM - 7 PM
-</span>
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="mt-14">
-
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
-
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-6
-                    flex items-center justify-center gap-3
-                    hover:bg-cyan-500/10 transition">
-
-            <i class="fa-solid fa-circle-check text-green-400 text-xl"></i>
-
-            <span class="text-white font-medium whitespace-nowrap">
-                Genuine Products
-            </span>
-
-        </div>
-
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-6
-                    flex items-center justify-center gap-3
-                    hover:bg-cyan-500/10 transition">
-
-            <i class="fa-solid fa-truck-fast text-cyan-400 text-xl"></i>
-
-            <span class="text-white font-medium whitespace-nowrap">
-                PAN India Delivery
-            </span>
-
-        </div>
-
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-6
-                    flex items-center justify-center gap-3
-                    hover:bg-cyan-500/10 transition">
-
-            <i class="fa-solid fa-award text-yellow-400 text-xl"></i>
-
-            <span class="text-white font-medium whitespace-nowrap">
-                Premium Brands
-            </span>
-
-        </div>
-
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-6
-                    flex items-center justify-center gap-3
-                    hover:bg-cyan-500/10 transition">
-
-            <i class="fa-solid fa-headset text-orange-400 text-xl"></i>
-
-            <span class="text-white font-medium whitespace-nowrap">
-                Customer Support
-            </span>
-
-        </div>
-
-    </div>
-
-</div>
-
-<div class="border-t border-white/10 mt-12 pt-8">
-
-    <div class="flex flex-col lg:flex-row justify-between items-center gap-6">
-
-        <p class="text-slate-400 text-sm text-center lg:text-left">
-            © 2026
-            <span class="text-white font-semibold">
-                Dutt Enterprise
-            </span>.
-            All Rights Reserved.
-        </p>
-
-        <div class="flex gap-8 text-sm">
-
-            <a href="#" class="text-slate-400 hover:text-cyan-400 transition">
-                Privacy Policy
-            </a>
-
-            <a href="#" class="text-slate-400 hover:text-cyan-400 transition">
-                Terms
-            </a>
-
-            <a href="#" class="text-slate-400 hover:text-cyan-400 transition">
-                Sitemap
-            </a>
-
-        </div>
-
-    </div>
-
-</div>
-</footer> -->
-   <!-- <footer class="bg-brand-dark text-slate-400 pt-12 pb-8 border-t border-slate-900">
+   <footer class="bg-brand-dark text-slate-400 pt-12 pb-8 border-t border-slate-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid sm:grid-cols-2 lg:grid-cols-12 gap-10 border-b border-white/5 pb-16 mb-8">
             
             <div class="lg:col-span-4 space-y-5">
@@ -2226,7 +1286,7 @@ Mon - Sat | 9 AM - 7 PM
                 <span>ISO Analytics Grading Standard</span>
             </div>
         </div>
-    </footer> -->
+    </footer>
 
     <a href="https://wa.me/919974863555?text=Hello%20Dutt%20Enterprise,%20I%20have%20an%20urgent%20laboratory%20product%20inquiry." target="_blank" class="fixed bottom-6 right-6 z-50 bg-emerald-600 hover:bg-emerald-500 text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-2xl transition-all transform hover:scale-110 active:scale-95 animate-bounce" style="animation-duration: 4s;">
         <i class="fa-brands fa-whatsapp"></i>

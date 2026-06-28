@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dutt Enterprise | Laboratory Chemicals, Glassware & Instruments Supplier</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Apply saved theme before paint to avoid flash-of-wrong-theme
+        (function () {
+            const saved = localStorage.getItem('dutt-theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const useDark = saved ? saved === 'dark' : prefersDark;
+            if (useDark) document.documentElement.classList.add('dark');
+        })();
+
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            blue: '#0A4D68',
+                            cyan: '#088395',
+                            teal: '#05BFDB',
+                            lightBg: '#EBF4F6',
+                            dark: '#001C30',
+                            gray: '#64748B'
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s ease-out both',
+                        'float-slow': 'floatSlow 6s ease-in-out infinite',
+                        'shimmer': 'shimmer 2.5s linear infinite',
+                    },
+                    keyframes: {
+                        fadeIn: { '0%': { opacity: 0, transform: 'translateY(8px)' }, '100%': { opacity: 1, transform: 'translateY(0)' } },
+                        floatSlow: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
+                        shimmer: { '0%': { backgroundPosition: '-200% 0' }, '100%': { backgroundPosition: '200% 0' } },
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: background-color 0.4s ease, border-color 0.4s ease;
+        }
+        .dark .glass-card {
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-nav {
+            background: rgba(0, 28, 48, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .dark .glass-nav {
+            background: rgba(0, 10, 18, 0.92);
+        }
+        @keyframes infiniteScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-220px * 9)); }
+        }
+        .brand-track {
+            display: flex;
+            width: calc(220px * 18);
+            animation: infiniteScroll 25s linear infinite;
+        }
+        .brand-track:hover {
+            animation-play-state: paused;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Smooth theme transition across all elements */
+        html.theme-transition,
+        html.theme-transition *,
+        html.theme-transition *::before,
+        html.theme-transition *::after {
+            transition: background-color 0.45s ease, border-color 0.45s ease, color 0.45s ease, box-shadow 0.45s ease !important;
+        }
+         .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    /* ---------- Dark mode surface remaps ---------- */
+    .dark body { background-color: #0B1220; }
+    .dark .bg-white { background-color: #0F172A !important; }
+    .dark .bg-slate-50 { background-color: #0B1220 !important; }
+    .dark .bg-slate-100 { background-color: #111A2E !important; }
+    .dark .bg-slate-200\/60,
+    .dark .bg-slate-200\/40 { background-color: rgba(30, 41, 59, 0.6) !important; }
+    .dark .text-brand-dark { color: #E2E8F0 !important; }
+    .dark .text-brand-gray { color: #94A3B8 !important; }
+    .dark .text-slate-500,
+    .dark .text-slate-400 { color: #94A3B8 !important; }
+    .dark .border-slate-200,
+    .dark .border-slate-100,
+    .dark .border-slate-200\/70,
+    .dark .border-slate-200\/60 { border-color: rgba(148, 163, 184, 0.15) !important; }
+    .dark .bg-gradient-to-b.from-slate-50.to-white,
+    .dark .bg-gradient-to-b.from-slate-50.via-white.to-slate-50 { background-image: linear-gradient(to bottom, #0B1220, #0F172A) !important; }
+    .dark .bg-brand-lightBg\/50 { background-color: rgba(8, 131, 149, 0.06) !important; }
+    .dark input, .dark select, .dark textarea { background-color: #0B1220 !important; color: #E2E8F0 !important; }
+    .dark input::placeholder, .dark textarea::placeholder { color: #64748B !important; }
+
+    /* Theme toggle switch */
+    .theme-toggle {
+        position: relative;
+        width: 52px;
+        height: 28px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #088395, #05BFDB);
+        display: inline-flex;
+        align-items: center;
+        padding: 3px;
+        cursor: pointer;
+        transition: background 0.4s ease;
+        flex-shrink: 0;
+    }
+    .dark .theme-toggle {
+        background: linear-gradient(135deg, #1E293B, #334155);
+    }
+    .theme-toggle .knob {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        color: #088395;
+        transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1), color 0.3s ease;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+    }
+    .dark .theme-toggle .knob {
+        transform: translateX(24px);
+        color: #05BFDB;
+    }
+    </style>
+</head>
+<body class="bg-slate-50 text-brand-dark overflow-x-hidden transition-colors duration-500" x-data="{ mobileMenu: false, searchKey: '', selectedCat: 'All', certModal: false, certImg: '', darkMode: document.documentElement.classList.contains('dark'),
+    toggleTheme() {
+        document.documentElement.classList.add('theme-transition');
+        this.darkMode = !this.darkMode;
+        document.documentElement.classList.toggle('dark', this.darkMode);
+        localStorage.setItem('dutt-theme', this.darkMode ? 'dark' : 'light');
+        setTimeout(() => document.documentElement.classList.remove('theme-transition'), 500);
+    }
+}">
+
+    <div id="preloader" class="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-brand-dark to-brand-blue transition-opacity duration-500">
+        <div class="text-center">
+            <div class="relative w-20 h-20 mx-auto mb-4">
+                <i class="fa-solid fa-microscope text-brand-teal text-5xl animate-pulse"></i>
+                <div class="absolute inset-0 border-4 border-t-brand-teal border-r-transparent border-b-transparent border-l-transparent rounded-full animate-spin"></div>
+            </div>
+            <h2 class="text-white text-2xl font-bold tracking-widest">DUTT ENTERPRISE</h2>
+            <p class="text-brand-teal text-xs tracking-wider uppercase mt-1">Scientific Equipment & Laboratory Solutions</p>
+        </div>
+    </div>
+
+    <nav class="glass-nav fixed top-0 left-0 right-0 z-40 text-white shadow-xl border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-22 py-3">
+                <div class="flex items-center gap-3">
+                    <div class=" from-brand-cyan to-brand-teal p-3 rounded-xl shadow-lg w-14 h-14 flex items-center justify-center overflow-hidden shrink-0">
+    <img src="images/Dutt_Enterprise_Logo_PNG.png" alt="Dutt Enterprise Logo" class="w-full h-full object-contain">
+</div>
+                    <div>
+                        <span class="text-xl font-extrabold tracking-tight block">DUTT ENTERPRISE</span>
+                        <span class="text-[10px] tracking-wider text-slate-300 block uppercase font-medium max-w-[280px] truncate">Lab Chemicals • Glassware • Instruments</span>
+                    </div>
+                </div>
+                
+                <div class="hidden lg:flex space-x-7 font-semibold text-sm tracking-wide">
+                    <a href="#home" class="relative hover:text-brand-teal transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-brand-teal after:transition-all after:duration-300 hover:after:w-full">Home</a>
+                    <a href="#about" class="relative hover:text-brand-teal transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-brand-teal after:transition-all after:duration-300 hover:after:w-full">About Us</a>
+                    <a href="#categories" class="relative hover:text-brand-teal transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-brand-teal after:transition-all after:duration-300 hover:after:w-full">Categories</a>
+                    <a href="#products" class="relative hover:text-brand-teal transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-brand-teal after:transition-all after:duration-300 hover:after:w-full">Products</a>
+                    <a href="#awards" class="relative hover:text-brand-teal transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-brand-teal after:transition-all after:duration-300 hover:after:w-full">Awards</a>
+                    <a href="#why-choose" class="relative hover:text-brand-teal transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-brand-teal after:transition-all after:duration-300 hover:after:w-full">Why Choose Us</a>
+                    <a href="#contact" class="relative hover:text-brand-teal transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-brand-teal after:transition-all after:duration-300 hover:after:w-full">Branches</a>
+                </div>
+                
+                <div class="hidden sm:flex items-center gap-4">
+                    <button @click="toggleTheme()" class="theme-toggle" :aria-pressed="darkMode" aria-label="Toggle dark mode" title="Toggle dark / light theme">
+                        <span class="knob">
+                            <i class="fa-solid" :class="darkMode ? 'fa-moon' : 'fa-sun'"></i>
+                        </span>
+                    </button>
+                    <a href="https://wa.me/919974863555?text=Hello%20Dutt%20Enterprise,%20I'm%20visiting%20your%20website%20and%20want%20to%20connect." target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-4 py-2.5 rounded-xl font-bold flex items-center gap-2 shadow-lg shadow-emerald-900/20 transition-all transform hover:-translate-y-0.5 hover:shadow-emerald-500/30">
+                        <i class="fa-brands fa-whatsapp text-sm"></i> Direct Chat
+                    </a>
+                </div>
+                
+                <div class="lg:hidden flex items-center gap-2">
+                    <button @click="toggleTheme()" class="theme-toggle" :aria-pressed="darkMode" aria-label="Toggle dark mode">
+                        <span class="knob">
+                            <i class="fa-solid" :class="darkMode ? 'fa-moon' : 'fa-sun'"></i>
+                        </span>
+                    </button>
+                    <button @click="mobileMenu = !mobileMenu" class="text-white focus:outline-none p-2 rounded-lg bg-white/5 transition-transform active:scale-90">
+                        <i class="fa-solid" :class="mobileMenu ? 'fa-xmark text-xl' : 'fa-bars text-xl'"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div x-show="mobileMenu" x-transition class="lg:hidden bg-brand-dark/95 border-t border-slate-800 px-4 pt-2 pb-6 space-y-2">
+            <a href="#home" @click="mobileMenu = false" class="block py-2.5 px-3 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white">Home</a>
+            <a href="#about" @click="mobileMenu = false" class="block py-2.5 px-3 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white">About Us</a>
+            <a href="#categories" @click="mobileMenu = false" class="block py-2.5 px-3 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white">Product Categories</a>
+            <a href="#products" @click="mobileMenu = false" class="block py-2.5 px-3 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white">Products Catalog</a>
+            <a href="#awards" @click="mobileMenu = false" class="block py-2.5 px-3 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white">Awards & Compliance</a>
+            <a href="#contact" @click="mobileMenu = false" class="block py-2.5 px-3 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white">Branch Locations</a>
+            <div class="pt-4 border-t border-slate-800 flex flex-col gap-2">
+                <a href="https://wa.me/919974863555" target="_blank" class="w-full text-center bg-emerald-600 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> Inquiry Desk
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <header id="home" class="relative min-h-screen pt-24 flex items-center bg-brand-dark dark:bg-[#060B14] overflow-hidden">
+        <div class="absolute inset-0 z-0 opacity-25">
+            <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&q=80&w=1920" alt="Laboratory Facility" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/80 to-transparent dark:from-[#060B14] dark:via-[#060B14]/85"></div>
+        </div>
+        
+        <div class="absolute inset-0 pointer-events-none z-10 hidden xl:block">
+            <i class="fa-solid fa-atom text-brand-teal/20 text-6xl absolute top-1/4 right-1/4 animate-spin animate-float-slow" style="animation-duration: 20s, 6s;"></i>
+            <i class="fa-solid fa-dna text-brand-cyan/20 text-5xl absolute bottom-1/4 right-1/3 animate-pulse" style="animation-duration: 6s;"></i>
+            <i class="fa-solid fa-vial-circle-check text-white/10 text-4xl absolute top-1/3 left-12 animate-bounce" style="animation-duration: 5s;"></i>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full py-16">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7" data-aos="fade-right" data-aos-duration="1000">
+                    <div class="inline-flex items-center gap-2 bg-brand-cyan/10 border border-brand-cyan/30 text-brand-teal px-4 py-2 rounded-full text-xs font-bold tracking-wider uppercase mb-5">
+                        <i class="fa-solid fa-circle-check text-[10px]"></i> Authorized Supply Partner
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-none">
+                        Welcome to <br><span class="bg-gradient-to-r from-brand-cyan via-brand-teal to-white bg-clip-text text-transparent">Dutt Enterprise</span>
+                    </h1>
+                    <p class="mt-4 text-slate-300 text-base sm:text-lg max-w-2xl font-light leading-relaxed">
+                        Dealers in high-compliance Lab Chemicals, Glassware, and High-Precision Instruments. Trusted industrial manufacturers of the specialized <strong class="text-brand-teal font-semibold">Laboratory Nexus Brand</strong> miscellaneous apparatus utilities.
+                    </p>
+                    <div class="mt-8 flex flex-col sm:flex-row gap-4">
+                        <a href="#products" class="bg-gradient-to-r from-brand-cyan to-brand-teal hover:from-brand-teal hover:to-brand-cyan text-white font-bold px-8 py-4 rounded-xl shadow-lg shadow-brand-cyan/20 text-center transition-all duration-300 flex items-center justify-center gap-2 group hover:shadow-brand-teal/40 hover:-translate-y-0.5 active:scale-95">
+                            Explore Products <i class="fa-solid fa-circle-chevron-right group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                        <a href="https://wa.me/919974863555?text=Hello%20Dutt%20Enterprise,%20I%20want%20to%20inquire%20about%20laboratory%20supplies." target="_blank" class="bg-slate-800/90 dark:bg-white/5 border border-slate-700 dark:border-white/10 text-white font-bold px-8 py-4 rounded-xl hover:bg-slate-700 dark:hover:bg-white/10 text-center transition-all duration-300 flex items-center justify-center gap-2 hover:-translate-y-0.5 active:scale-95">
+                            <i class="fa-brands fa-whatsapp text-emerald-400 text-xl"></i> WhatsApp Inquiry
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-5 hidden lg:block" data-aos="fade-left" data-aos-duration="1000">
+                    <div class="glass-card p-5 rounded-3xl border border-white/10 shadow-2xl relative animate-float-slow">
+                        <div class="overflow-hidden rounded-2xl h-[380px] bg-slate-900">
+                            <img src="https://images.unsplash.com/photo-1581093588401-fbb62a02f120?auto=format&fit=crop&q=80&w=600" alt="Lab Infrastructure" class="w-full h-full object-cover opacity-90 hover:scale-105 transition-transform duration-700">
+                        </div>
+                        <div class="absolute -bottom-6 -left-6 bg-brand-cyan text-white p-5 rounded-2xl shadow-xl flex items-center gap-4 border border-brand-teal/30 hover:shadow-brand-teal/30 transition-shadow duration-500">
+                            <i class="fa-solid fa-shield-halved text-3xl text-white"></i>
+                            <div>
+                                <span class="font-extrabold text-lg block">ISO Standard</span>
+                                <span class="text-xs text-slate-100 block opacity-80">Certified Grade Stock Only</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="about" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-6" data-aos="fade-right">
+                    <span class="text-brand-cyan font-bold uppercase tracking-widest text-xs block mb-2">Corporate Framework</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight">Your Trusted Technical Sourcing Backbone</h2>
+                    <div class="w-20 h-1.5 bg-brand-cyan my-5 rounded-full"></div>
+                    <p class="text-brand-gray text-base leading-relaxed mb-6">
+                        Dutt Enterprise is a trusted supplier and manufacturer of laboratory chemicals, glassware, scientific instruments, pathology products, and miscellaneous laboratory essentials. With strategic branches established in both Anand and Nadiad, we efficiently route high-quality laboratory workflows to educational institutes, hospitals, commercial testing facilities, complex industries, and high-tier research centers across Gujarat.
+                    </p>
+                    <div class="bg-slate-50 border-l-4 border-brand-teal p-5 rounded-r-xl mb-6">
+                        <p class="text-sm font-medium text-brand-dark italic">
+                            "In addition to handling operations for top-tier universal pharmaceutical entities, we anchor production infrastructure for our in-house premium line: <strong>Laboratory Nexus Brand Miscellaneous Products</strong>."
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-6 grid sm:grid-cols-2 gap-6" data-aos="fade-left">
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                        <div class="w-10 h-10 bg-brand-blue text-white rounded-xl flex items-center justify-center text-lg mb-4"><i class="fa-solid fa-school"></i></div>
+                        <h4 class="font-bold text-brand-dark text-base mb-1">Educational Distribution</h4>
+                        <p class="text-brand-gray text-xs">Custom safe configurations optimized for school and university chemistry/biology modules.</p>
+                    </div>
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                        <div class="w-10 h-10 bg-brand-cyan text-white rounded-xl flex items-center justify-center text-lg mb-4"><i class="fa-solid fa-hospital-user"></i></div>
+                        <h4 class="font-bold text-brand-dark text-base mb-1">Clinical Diagnostics</h4>
+                        <p class="text-brand-gray text-xs">High throughput components configured specifically for multi-branch hospital diagnostics.</p>
+                    </div>
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                        <div class="w-10 h-10 bg-emerald-600 text-white rounded-xl flex items-center justify-center text-lg mb-4"><i class="fa-solid fa-industry"></i></div>
+                        <h4 class="font-bold text-brand-dark text-base mb-1">Industrial Processing</h4>
+                        <p class="text-brand-gray text-xs">Batch verification acids, analytical reagents, and high precision chemical indicators.</p>
+                    </div>
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                        <div class="w-10 h-10 bg-brand-teal text-white rounded-xl flex items-center justify-center text-lg mb-4"><i class="fa-solid fa-microscope"></i></div>
+                        <h4 class="font-bold text-brand-dark text-base mb-1">Research Facilities</h4>
+                        <p class="text-brand-gray text-xs">Ultra pure standard compositions supporting specific research execution metrics.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="categories" class="py-24 bg-brand-lightBg/50 border-y border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+                <h2 class="text-3xl font-extrabold text-brand-dark tracking-tight">Product Categories</h2>
+                <div class="w-16 h-1 bg-brand-cyan mx-auto mt-3 mb-4 rounded-full"></div>
+                <p class="text-brand-gray text-sm">Select a division below to instantly filter active dynamic product lines inside the digital showroom.</p>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div @click="selectedCat = 'Chemicals'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="50">
+                    <div class="w-14 h-14 mx-auto bg-blue-100 text-blue-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-brand-blue group-hover:text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-300"><i class="fa-solid fa-vial"></i></div>
+                    <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Chemicals</h3>
+                </div>
+
+                <div @click="selectedCat = 'Glassware'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="w-14 h-14 mx-auto bg-cyan-100 text-cyan-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-brand-cyan group-hover:text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-300"><i class="fa-solid fa-flask"></i></div>
+                    <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Glassware</h3>
+                </div>
+
+                <div @click="selectedCat = 'Plasticware'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="150">
+                    <div class="w-14 h-14 mx-auto bg-teal-100 text-teal-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-brand-teal group-hover:text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-300"><i class="fa-solid fa-prescription-bottle"></i></div>
+                    <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Plasticware</h3>
+                </div>
+
+                <div @click="selectedCat = 'Filter Papers'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="w-14 h-14 mx-auto bg-indigo-100 text-indigo-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-indigo-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-300"><i class="fa-solid fa-copy"></i></div>
+                    <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Filter Papers</h3>
+                </div>
+
+                <div @click="selectedCat = 'Instruments'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="250">
+                    <div class="w-14 h-14 mx-auto bg-emerald-100 text-emerald-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-emerald-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-300"><i class="fa-solid fa-gauge-high"></i></div>
+                    <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Instruments</h3>
+                </div>
+
+                <div @click="selectedCat = 'Pathology Products'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="w-14 h-14 mx-auto bg-red-100 text-red-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-red-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-300"><i class="fa-solid fa-droplet"></i></div>
+                    <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Pathology Products</h3>
+                </div>
+
+                <div @click="selectedCat = 'Miscellaneous Products'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="350">
+                    <div class="w-14 h-14 mx-auto bg-amber-100 text-amber-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-amber-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-300"><i class="fa-solid fa-boxes-packing"></i></div>
+                    <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Laboratory Nexus Line</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="products" class="py-24" x-data="{
+        allProducts: [
+            { id: 1, cat: 'Chemicals', name: 'Hydrochloric Acid', desc: 'Premium grade diagnostic HCl optimized for complex multi-tier laboratory titration.', img: 'https://images.unsplash.com/photo-1617155093730-a8bf47be792d?auto=format&fit=crop&q=80&w=500' },
+            { id: 2, cat: 'Chemicals', name: 'Sodium Chloride', desc: 'High analytical standard pure composition grading for crystal testing baseline vectors.', img: 'https://images.unsplash.com/photo-1518156677180-95a2893f3e9f?auto=format&fit=crop&q=80&w=500' },
+            { id: 3, cat: 'Chemicals', name: 'Sulfuric Acid', desc: 'Concentrated industrial reagent compound engineered for extreme environmental processing stability.', img: 'https://images.unsplash.com/photo-1603126857599-f6e157fa2fe6?auto=format&fit=crop&q=80&w=500' },
+            
+            /* Glassware Category Mapping to Provided Assets */
+            { id: 4, cat: 'Glassware', name: 'Borosil Round Bottom Flask (250 ml)', desc: 'Premium Borosil clear round flask with heavy duty standard neck joints for industrial distilling setups.', img: 'images/3.png' },
+            { id: 5, cat: 'Glassware', name: 'JSGW Boro 3.3 Grade-1 Beaker (30 ml)', desc: 'High thermal stability JSGW compact laboratory cylinder beaker built from premium Boro 3.3 raw stock materials.', img: 'images/4.png' },
+            { id: 6, cat: 'Glassware', name: 'Borosil Straight Gas Washing Bottle (250 ml)', desc: 'Precision industrial straight cylinder washing bottle line optimized safely for chemical separation gas pathways.', img: 'images/5.png' },
+            
+            { id: 7, cat: 'Plasticware', name: 'Plastic Measuring Cylinder', desc: 'Polypropylene non-drip spout design providing clean liquid isolation tracking.', img: 'https://images.unsplash.com/photo-1582719471384-894fbb16e074?auto=format&fit=crop&q=80&w=500' },
+            { id: 8, cat: 'Plasticware', name: 'Sample Containers', desc: 'Leak-proof complete secure snap containment structures for clinical specimen storage safety.', img: 'https://images.unsplash.com/photo-1530026405186-ed1ea0ac7a63?auto=format&fit=crop&q=80&w=500' },
+            { id: 9, cat: 'Plasticware', name: 'Plastic Funnels', desc: 'Corrosion resistant industrial density heavy structural plastic liquid transport path guides.', img: 'https://images.unsplash.com/photo-1576086476234-1103be98f096?auto=format&fit=crop&q=80&w=500' },
+            { id: 10, cat: 'Filter Papers', name: 'Whatman Filter Paper', desc: 'Grade 1 standard high resolution parsing paper for routine laboratory evaluation routines.', img: 'https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?auto=format&fit=crop&q=80&w=500' },
+            { id: 11, cat: 'Filter Papers', name: 'Qualitative Filter Paper', desc: 'Precision standard timing ashless filter lines ensuring separation tracking benchmarks.', img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=500' },
+            { id: 12, cat: 'Filter Papers', name: 'Quantitative Filter Paper', desc: 'Acid hardened low ash residue filtration membranes optimized for analytical gravimetric solutions.', img: 'https://images.unsplash.com/photo-1581093588401-fbb62a02f120?auto=format&fit=crop&q=80&w=500' },
+            
+            /* Instruments Mapping to Provided Assets */
+            { id: 13, cat: 'Instruments', name: 'Erma Stage Micrometer (SM-001)', desc: 'Genuine Erma Tokyo certified micrometer. Size: 1x3 in, Scale: 1 mm, Division: 0.01 mm parameters for premium lens calibrations.', img: 'images/1.jpeg' },
+            { id: 14, cat: 'Instruments', name: 'Precision Vernier Caliper (0-150mm)', desc: 'High-accuracy dual structural calibration slide metrics tool protected cleanly within a heavy impact-resistant transport case.', img: 'images/6.png' },
+            { id: 15, cat: 'Instruments', name: 'Laboratory Microscope', desc: 'Advanced multi focal focal compound resolution lens assemblies tracking structural configurations.', img: 'https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&q=80&w=500' },
+            
+            { id: 16, cat: 'Miscellaneous Products', name: 'Safety Gloves (Nexus Line)', desc: 'Nitrile chemical splash defensive barriers built inside the custom Laboratory Nexus series.', img: 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&q=80&w=500' },
+            { id: 17, cat: 'Miscellaneous Products', name: 'Laboratory Apron (Nexus Line)', desc: 'Ergonomic corrosion resistant workplace cover layers from Laboratory Nexus processing pipelines.', img: 'images/1624344965199-ed40391d20f2?auto=format&fit=crop&q=80&w=500' },
+            { id: 18, cat: 'Miscellaneous Products', name: 'Face Shield (Nexus Line)', desc: 'Polycarbonate anti fog fluid perimeter protection layers built by Laboratory Nexus apparatus.', img: 'https://images.unsplash.com/photo-1618961734760-466979cb35b0?auto=format&fit=crop&q=80&w=500' },
+            
+            /* Pathology Products Mapping to Provided Assets */
+            { id: 19, cat: 'Pathology Products', name: 'Rohem Silverlite Counting Chamber', desc: 'Premium dynamic Rohem India BS 748 / IS 10269 certified Improved Neubauer grid chamber slide system. Depth: 0.1mm, 1/400 mm2 accuracy layout.', img: 'images/2.webp' },
+            { id: 20, cat: 'Pathology Products', name: 'Blood Collection Tubes', desc: 'Evacuated clinical standard separation vacuum tubes loaded with custom process stabilization additives.', img: 'https://images.unsplash.com/photo-1614859324967-bdf461fcf769?auto=format&fit=crop&q=80&w=500' },
+            { id: 21, cat: 'Pathology Products', name: 'Microscope Slides', desc: 'Pre cleaned optoelectronic ground glass presentation panels protecting delicate specimens.', img: 'https://images.unsplash.com/photo-1631557685999-52e85a6a2a5a?auto=format&fit=crop&q=80&w=500' }
+        ],
+        get filteredProducts() {
+            return this.allProducts.filter(p => {
+                const matchCat = (selectedCat === 'All') || (p.cat === selectedCat);
+                const matchSearch = p.name.toLowerCase().includes(searchKey.toLowerCase()) || p.desc.toLowerCase().includes(searchKey.toLowerCase());
+                return matchCat && matchSearch;
+            });
+        }
+    }">
+ <div class="w-full max-w-none px-4 sm:px-6 lg:px-32" x-data="{ 
+    currentPage: 1, 
+    itemsPerPage: 6,
+    get totalPages() { 
+        return Math.ceil(this.filteredProducts.length / this.itemsPerPage) || 1; 
+    },
+    get paginatedProducts() {
+        const start = (this.currentPage - 1) * this.itemsPerPage;
+        return this.filteredProducts.slice(start, start + this.itemsPerPage);
+    }
+}" x-init="$watch('selectedCat', () => currentPage = 1); $watch('searchKey', () => currentPage = 1);">
+
+    <div class="border-b border-slate-200 pb-8 mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6" data-aos="fade-up">
+        <div>
+            <div class="flex items-center gap-2 text-brand-cyan font-semibold text-xs tracking-widest uppercase mb-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-cyan animate-pulse"></span>
+                Live Inventory Exhibition
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-black text-brand-dark tracking-tight">
+                Our Premium Portfolio
+            </h2>
+        </div>
+        
+        <div class="relative w-full md:w-80">
+            <input type="text" x-model="searchKey" placeholder="Search product registry..." class="w-full bg-slate-50 border border-slate-200 focus:bg-white rounded-xl px-4 py-3.5 pl-11 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/30 focus:border-brand-cyan transition-all text-brand-dark placeholder-slate-400">
+            <i class="fa-solid fa-magnifying-glass absolute left-4 top-4.5 text-slate-400 text-xs"></i>
+            <button x-show="searchKey" @click="searchKey = ''" class="absolute right-4 top-4 text-slate-400 hover:text-brand-dark transition-colors text-xs">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="grid lg:grid-cols-12 gap-10 items-start">
+        
+        <div class="lg:col-span-3 lg:sticky lg:top-28 z-20 overflow-x-auto lg:overflow-x-visible hide-scrollbar flex lg:flex-col gap-2 pb-4 lg:pb-0 border-b border-slate-100 lg:border-none">
+            <template x-for="catItem in ['All', 'Chemicals', 'Glassware', 'Plasticware', 'Filter Papers', 'Instruments', 'Miscellaneous Products', 'Pathology Products']">
+                <button @click="selectedCat = catItem" 
+                        :class="selectedCat === catItem ? 'bg-brand-dark text-white shadow-lg shadow-brand-dark/10 border-brand-dark' : 'bg-white dark:bg-slate-900 text-brand-gray hover:text-brand-dark dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 border-slate-200 dark:border-white/10'"
+                        class="whitespace-nowrap lg:whitespace-normal text-left px-4 py-3 rounded-xl border text-xs font-bold tracking-wide transition-all duration-300 flex items-center justify-between gap-3 min-w-[140px] lg:w-full group hover:-translate-y-0.5">
+                    <span x-text="catItem === 'Miscellaneous Products' ? 'Laboratory Nexus Line' : catItem"></span>
+                    <i class="fa-solid fa-chevron-right text-[10px] opacity-0 group-hover:opacity-100 transform translate-x-[-4px] group-hover:translate-x-0 transition-all hidden lg:block" :class="selectedCat === catItem ? 'text-brand-teal opacity-100' : ''"></i>
+                </button>
+            </template>
+        </div>
+
+        <div class="lg:col-span-9">
+            <div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                <template x-for="product in paginatedProducts" :key="product.id">
+                    <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/70 dark:border-white/10 hover:border-brand-cyan/40 overflow-hidden flex flex-col h-full shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group" data-aos="fade-up">
+                        
+                        <div class="relative bg-gradient-to-b from-slate-50 to-white dark:from-slate-800 dark:to-slate-900 h-60 flex items-center justify-center p-6 border-b border-slate-100 dark:border-white/5 overflow-hidden">
+                            <img :src="product.img" :alt="product.name" class="max-w-full max-h-full object-contain transform group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1530026405186-ed1ea0ac7a63?auto=format&fit=crop&q=80&w=500';">
+                            
+                            <div class="absolute top-4 left-4 right-4 flex items-center justify-between gap-2 pointer-events-none">
+                                <span x-text="product.cat === 'Miscellaneous Products' ? 'Nexus Line' : product.cat" class="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200/60 dark:border-white/10 text-brand-dark dark:text-slate-200 text-[9px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md shadow-xs select-none"></span>
+                                
+                                <a :href="'https://wa.me/919974863555?text=Hello%20Dutt%20Enterprise,%20I%20want%20to%20request%20a%20commercial%20quote%20for%20' + encodeURIComponent(product.name) + '.'" 
+                                   target="_blank" 
+                                   title="Request Quote"
+                                   class="pointer-events-auto inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[10px] uppercase rounded-md tracking-wide shadow-md transition-all duration-300 transform active:scale-95 hover:scale-105">
+                                    <i class="fa-brands fa-whatsapp text-xs"></i> Quote
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-base font-bold text-brand-dark tracking-tight leading-snug mb-2 group-hover:text-brand-cyan transition-colors" x-text="product.name"></h3>
+                            <p class="text-slate-500 text-xs font-light leading-relaxed mb-6 flex-grow" x-text="product.desc"></p>
+                            
+                           
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <div x-show="filteredProducts.length > itemsPerPage" class="mt-12 pt-6 border-t border-slate-200 flex items-center justify-between" x-transition>
+                <div class="text-xs text-brand-gray font-medium">
+                    Showing page <span class="text-brand-dark font-bold" x-text="currentPage"></span> of <span class="text-brand-dark font-bold" x-text="totalPages"></span>
+                </div>
+                
+                <div class="flex items-center gap-2">
+                    <button @click="currentPage--; document.getElementById('products').scrollIntoView();" 
+                            :disabled="currentPage === 1"
+                            :class="currentPage === 1 ? 'opacity-40 cursor-not-allowed bg-slate-100 text-slate-400 border-slate-200' : 'bg-white text-brand-dark hover:bg-slate-50 border-slate-300'"
+                            class="px-3.5 py-2 rounded-xl border text-xs font-bold transition-all flex items-center gap-1">
+                        <i class="fa-solid fa-chevron-left text-[10px]"></i> Prev
+                    </button>
+                    
+                    <button @click="currentPage++; document.getElementById('products').scrollIntoView();" 
+                            :disabled="currentPage === totalPages"
+                            :class="currentPage === totalPages ? 'opacity-40 cursor-not-allowed bg-slate-100 text-slate-400 border-slate-200' : 'bg-white text-brand-dark hover:bg-slate-50 border-slate-300'"
+                            class="px-3.5 py-2 rounded-xl border text-xs font-bold transition-all flex items-center gap-1">
+                        Next <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div x-show="filteredProducts.length === 0" class="text-center py-24 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 max-w-xl mx-auto" x-transition>
+                <div class="w-14 h-14 bg-slate-100 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-slate-200 text-slate-400">
+                    <i class="fa-solid fa-box-open text-xl"></i>
+                </div>
+                <h3 class="text-base font-bold text-brand-dark">No Lab Supplies Match Selection</h3>
+                <p class="text-slate-400 text-xs mt-1 max-w-xs mx-auto">We couldn't locate matching items. Refine your query spelling or select a different category option.</p>
+                <button @click="searchKey = ''; selectedCat = 'All'" class="mt-5 px-5 py-2.5 bg-white border border-slate-200 hover:bg-brand-dark hover:text-white rounded-xl font-bold text-xs shadow-xs transition-all">
+                    Reset Showroom Filters
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+    </section>
+
+    <section id="awards" class="py-24 bg-gradient-to-b from-slate-50 to-white border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
+                <span class="text-brand-cyan font-bold uppercase tracking-widest text-xs block mb-2">Recognitions & Compliance</span>
+                <h2 class="text-3xl font-extrabold text-brand-dark tracking-tight">Awards & Certifications</h2>
+                <div class="w-12 h-1 bg-brand-cyan mx-auto mt-3 mb-4 rounded-full"></div>
+                <p class="text-brand-gray text-sm">Our operational practices and product portfolios remain verified under global regulatory standards.</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div @click="certImg = 'images/certificates/iso_9001.jpg'; certModal = true" 
+                     class="glass-card bg-white rounded-2xl p-8 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 border border-slate-200/70 transition-all duration-300 cursor-pointer group"
+                     data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 mx-auto bg-slate-50 text-brand-gray border border-slate-100 rounded-full flex items-center justify-center text-2xl mb-6 shadow-xs group-hover:bg-brand-cyan/10 group-hover:text-brand-cyan group-hover:rotate-12 transition-all duration-300">
+                        <i class="fa-solid fa-award"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-brand-dark group-hover:text-brand-cyan transition-colors mb-2">ISO 9001:2015 Certification</h3>
+                    <p class="text-brand-gray text-xs leading-relaxed mb-5">Quality management standard certification reflecting compliance across supply workflows.</p>
+                    <span class="text-xs text-brand-teal font-bold tracking-wide inline-flex items-center gap-1 opacity-80 group-hover:opacity-100 transition-opacity">
+                        View Certificate <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    </span>
+                </div>
+
+                <div @click="certImg = 'images/certificates/gmp_compliance.jpg'; certModal = true" 
+                     class="glass-card bg-white rounded-2xl p-8 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 border border-slate-200/70 transition-all duration-300 cursor-pointer group"
+                     data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 mx-auto bg-slate-50 text-brand-gray border border-slate-100 rounded-full flex items-center justify-center text-2xl mb-6 shadow-xs group-hover:bg-brand-cyan/10 group-hover:text-brand-cyan group-hover:rotate-12 transition-all duration-300">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-brand-dark group-hover:text-brand-cyan transition-colors mb-2">GMP Compliance Mark</h3>
+                    <p class="text-brand-gray text-xs leading-relaxed mb-5">Verified Good Manufacturing Practices ensuring top production quality for laboratory assets.</p>
+                    <span class="text-xs text-brand-teal font-bold tracking-wide inline-flex items-center gap-1 opacity-80 group-hover:opacity-100 transition-opacity">
+                        View Certificate <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    </span>
+                </div>
+
+                <div @click="certImg = 'images/certificates/excellence_award.jpg'; certModal = true" 
+                     class="glass-card bg-white rounded-2xl p-8 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 border border-slate-200/70 transition-all duration-300 cursor-pointer group"
+                     data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 mx-auto bg-slate-50 text-brand-gray border border-slate-100 rounded-full flex items-center justify-center text-2xl mb-6 shadow-xs group-hover:bg-brand-cyan/10 group-hover:text-brand-cyan group-hover:rotate-12 transition-all duration-300">
+                        <i class="fa-solid fa-medal"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-brand-dark group-hover:text-brand-cyan transition-colors mb-2">Regional Sourcing Excellence</h3>
+                    <p class="text-brand-gray text-xs leading-relaxed mb-5">Honored recognition for uninterrupted logistics supporting scientific research clusters.</p>
+                    <span class="text-xs text-brand-teal font-bold tracking-wide inline-flex items-center gap-1 opacity-80 group-hover:opacity-100 transition-opacity">
+                        View Certificate <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div x-show="certModal" 
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0"
+             x-transition:enter-end="opacity-100"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100"
+             x-transition:leave-end="opacity-0"
+             @keydown.escape.window="certModal = false"
+             class="fixed inset-0 z-50 overflow-hidden flex items-center justify-center bg-black/80 backdrop-blur-xs p-4 sm:p-6"
+             x-cloak>
+            
+            <div class="absolute inset-0 cursor-zoom-out" @click="certModal = false"></div>
+
+            <div x-show="certModal"
+                 x-transition:enter="transition ease-out duration-300 transform"
+                 x-transition:enter-start="scale-95 opacity-0"
+                 x-transition:enter-end="scale-100 opacity-100"
+                 x-transition:leave="transition ease-in duration-200 transform"
+                 x-transition:leave-start="scale-100 opacity-100"
+                 x-transition:leave-end="scale-95 opacity-0"
+                 class="bg-white rounded-2xl overflow-hidden shadow-2xl max-w-4xl w-full max-h-[85vh] relative z-10 flex flex-col border border-white/10"
+                 @click.stop>
+                
+                <div class="bg-slate-900 px-6 py-4 flex items-center justify-between border-b border-slate-800 shrink-0">
+                    <h4 class="text-sm font-bold text-white tracking-wide uppercase">Original Certificate Registry Document</h4>
+                    <button @click="certModal = false" class="text-slate-400 hover:text-white transition-colors p-1.5 rounded-lg bg-white/5 focus:outline-none">
+                        <i class="fa-solid fa-xmark text-lg leading-none block"></i>
+                    </button>
+                </div>
+
+                <div class="p-6 bg-slate-100 overflow-y-auto flex items-center justify-center flex-grow">
+                    <img :src="certImg" alt="Dutt Enterprise Certification Original File View" class="max-w-full max-h-[65vh] object-contain rounded-lg shadow-md border border-slate-200" onerror="this.onerror=null; this.src='https://via.placeholder.com/800x1100?text=Certificate+Image+File+Not+Found';">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="why-choose" class="py-24 bg-white border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
+                <h2 class="text-3xl font-extrabold text-brand-dark tracking-tight">Why Choose Dutt Enterprise?</h2>
+                <div class="w-12 h-1 bg-brand-cyan mx-auto mt-3 mb-4 rounded-full"></div>
+                <p class="text-brand-gray text-sm">Engineered logistics ensuring precision stock operations across regional sectors.</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="p-8 bg-slate-50 border border-slate-100 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 group" data-aos="fade-up">
+                    <div class="w-12 h-12 bg-brand-blue text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-md group-hover:scale-110 transition-transform duration-300"><i class="fa-solid fa-building-shield"></i></div>
+                    <h3 class="text-lg font-bold mb-2 text-brand-dark">Trusted Laboratory Supplier</h3>
+                    <p class="text-brand-gray text-xs leading-relaxed">Securing batch networks for healthcare clusters, research blocks, and industrial sectors flawlessly.</p>
+                </div>
+                <div class="p-8 bg-slate-50 border border-slate-100 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-12 h-12 bg-brand-cyan text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-md group-hover:scale-110 transition-transform duration-300"><i class="fa-solid fa-flask-vial"></i></div>
+                    <h3 class="text-lg font-bold mb-2 text-brand-dark">Premium Quality Products</h3>
+                    <p class="text-brand-gray text-xs leading-relaxed">Procured only from highly regulated global manufacturers providing certified purity documentation channels.</p>
+                </div>
+                <div class="p-8 bg-slate-50 border border-slate-100 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-12 h-12 bg-brand-teal text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-md group-hover:scale-110 transition-transform duration-300"><i class="fa-solid fa-network-wired"></i></div>
+                    <h3 class="text-lg font-bold mb-2 text-brand-dark">Wide Product Range</h3>
+                    <p class="text-brand-gray text-xs leading-relaxed">A completely unified procurement line handling compound acids to fine borosilicate equipment.</p>
+                </div>
+                <div class="p-8 bg-slate-50 border border-slate-100 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-12 h-12 bg-emerald-600 text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-md group-hover:scale-110 transition-transform duration-300"><i class="fa-solid fa-truck-fast"></i></div>
+                    <h3 class="text-lg font-bold mb-2 text-brand-dark">Fast Delivery</h3>
+                    <p class="text-brand-gray text-xs leading-relaxed">Integrated cold chain logistics and shock proof material dispatch loops across regional operational fields.</p>
+                </div>
+                <div class="p-8 bg-slate-50 border border-slate-100 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 group" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-12 h-12 bg-indigo-600 text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-md group-hover:scale-110 transition-transform duration-300"><i class="fa-solid fa-headset"></i></div>
+                    <h3 class="text-lg font-bold mb-2 text-brand-dark">Best Customer Support</h3>
+                    <p class="text-brand-gray text-xs leading-relaxed">Dedicated logistics desks verifying technical safety standards, dynamic certifications, and structural specifications.</p>
+                </div>
+                <div class="p-8 bg-slate-50 border border-slate-100 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 group" data-aos="fade-up" data-aos-delay="500">
+                    <div class="w-12 h-12 bg-purple-600 text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-md group-hover:scale-110 transition-transform duration-300"><i class="fa-solid fa-star"></i></div>
+                    <h3 class="text-lg font-bold mb-2 text-brand-dark">Trusted Brands</h3>
+                    <p class="text-brand-gray text-xs leading-relaxed">Official regional clearing partner handling leading elite scientific development manufacturing frameworks globally.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+ <!-- Add this style tag anywhere in your HTML (or move the animation to your global CSS file) -->
+<style>
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-50% - 1.5rem)); } /* Adjusts for gap-12 */
+  }
+  .animate-marquee {
+    display: flex;
+    width: max-content;
+    animation: marquee 35s linear infinite;
+  }
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+</style>
+
+<section class="py-16 bg-gradient-to-b from-slate-50 via-white to-slate-50 dark:from-[#0B1220] dark:via-[#0F172A] dark:to-[#0B1220] border-y border-slate-200/60 dark:border-white/5 overflow-hidden relative">
+    <!-- Subtle Golden Ambient Glow -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[250px] bg-amber-500/5 blur-[100px] pointer-events-none rounded-full"></div>
+
+    <div class="max-w-7xl mx-auto px-4 mb-12 text-center relative z-10">
+        <span class="text-xs font-bold uppercase tracking-[0.25em] text-amber-700 block mb-2">
+            Trusted Partnership
+        </span>
+        <h2 class="text-2xl font-semibold tracking-wide text-slate-800">Authorized Distribution Channels & Brands</h2>
+    </div>
+    
+    <!-- Smooth Edge Fading Masks (Fades into Light Background) -->
+    <div class="relative w-full overflow-hidden before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-24 before:bg-gradient-to-r before:from-slate-50 before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-24 after:bg-gradient-to-l after:from-slate-50 after:to-transparent">
+        
+        <!-- Continuous Rolling Track (Pauses on Hover) -->
+        <div class="animate-marquee gap-12 items-center py-4">
+            
+            <!-- --- ORIGINAL SET --- -->
+            <!-- Merck -->
+            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group">
+                <img src="./images/Logos/merck_logo.png" alt="Merck" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
+                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">Merck</span>
+            </div>
+
+            <!-- Sigma-Aldrich -->
+            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group">
+                <img src="./images/Logos/Sigma-Aldrich_logo.png" alt="Sigma-Aldrich" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
+                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">Sigma-Aldrich</span>
+            </div>
+
+            <!-- Loba Chemie -->
+            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group">
+                <img src="./images/Logos/loba_logo.png" alt="Loba Chemie" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
+                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">Loba Chemie</span>
+            </div>
+
+            <!-- SDFCL -->
+            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group">
+                <img src="./images/Logos/sdfcl_logo.png" alt="SDFCL" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
+                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">SDFCL</span>
+            </div>
+
+            <!-- ABDOS -->
+            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group">
+                <img src="./images/Logos/abdos_logo.png" alt="ABDOS" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
+                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">ABDOS</span>
+            </div>
+
+            <!-- Sun -->
+            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group">
+                <img src="sun_logo.jpg" alt="Sun" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
+                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">Sun</span>
+            </div>
+
+            <!-- Eppendorf -->
+            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group">
+                <img src="./images/Logos/Eppendorf_logo.png" alt="Eppendorf" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
+                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">Eppendorf</span>
+            </div>
+
+            <!-- Axiva -->
+            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group">
+                <img src="./images/Logos/axiva_logo.png" alt="Axiva" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
+                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">Axiva</span>
+            </div>
+
+            <!-- Molychem -->
+            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group">
+                <img src="./images/Logos/molychem_logo.png" alt="Molychem" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
+                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">Molychem</span>
+            </div>
+
+
+            <!-- --- CLONED SET FOR INFINITE LOOP --- -->
+            <!-- Merck -->
+            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group" aria-hidden="true">
+                <img src="./images/Logos/merck_logo.png" alt="Merck" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
+                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">Merck</span>
+            </div>
+
+            <!-- Sigma-Aldrich -->
+            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group" aria-hidden="true">
+                <img src="./images/Logos/Sigma-Aldrich_logo.png" alt="Sigma-Aldrich" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
+                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">Sigma-Aldrich</span>
+            </div>
+
+            <!-- Loba Chemie -->
+            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group" aria-hidden="true">
+                <img src="./images/Logos/loba_logo.png" alt="Loba Chemie" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
+                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">Loba Chemie</span>
+            </div>
+
+            <!-- SDFCL -->
+            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group" aria-hidden="true">
+                <img src="./images/Logos/sdfcl_logo.png" alt="SDFCL" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
+                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">SDFCL</span>
+            </div>
+
+            <!-- ABDOS -->
+            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group" aria-hidden="true">
+                <img src="./images/Logos/abdos_logo.png" alt="ABDOS" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
+                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">ABDOS</span>
+            </div>
+
+            <!-- Sun -->
+            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group" aria-hidden="true">
+                <img src="sun_logo.jpg" alt="Sun" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
+                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">Sun</span>
+            </div>
+
+            <!-- Eppendorf -->
+            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group" aria-hidden="true">
+                <img src="./images/Logos/Eppendorf_logo.png" alt="Eppendorf" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
+                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">Eppendorf</span>
+            </div>
+
+            <!-- Axiva -->
+            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group" aria-hidden="true">
+                <img src="./images/Logos/axiva_logo.png" alt="Axiva" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
+                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">Axiva</span>
+            </div>
+
+            <!-- Molychem -->
+            <div class="w-[220px] h-24 shrink-0 flex items-center justify-center px-6 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/80 transition-all duration-300 group" aria-hidden="true">
+                <img src="./images/Logos/molychem_logo.png" alt="Molychem" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')" class="max-w-full max-h-12 object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300">
+                <span class="hidden text-slate-700 font-semibold tracking-wider text-sm uppercase group-hover:text-amber-800 transition-colors">Molychem</span>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+    <section class="py-24 bg-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
+                <h2 class="text-3xl font-extrabold text-brand-dark tracking-tight">Institutional Testimonials</h2>
+                <div class="w-12 h-1 bg-brand-cyan mx-auto mt-3 mb-4 rounded-full"></div>
+                <p class="text-brand-gray text-sm">What medical facilities and industrial procurement leads say about our services.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 border border-slate-200 dark:border-white/10 relative transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fa-solid fa-quote-left text-slate-200 dark:text-white/10 text-4xl absolute top-6 left-6"></i>
+                    <div class="relative z-10">
+                        <p class="text-brand-dark italic mb-6 text-xs leading-relaxed">"Dutt Enterprise has structuralized our reagent supply chain operations perfectly. The batch clarity documentation on analytics chemical metrics matches top industrial guidelines."</p>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-brand-blue rounded-full flex items-center justify-center text-white font-bold text-sm">PM</div>
+                            <div>
+                                <h4 class="font-bold text-xs text-brand-dark">Dr. P. Mishra</h4>
+                                <span class="text-[10px] text-slate-400 block">Pathology Laboratory Director</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 border border-slate-200 dark:border-white/10 relative transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fa-solid fa-quote-left text-slate-200 dark:text-white/10 text-4xl absolute top-6 left-6"></i>
+                    <div class="relative z-10">
+                        <p class="text-brand-dark italic mb-6 text-xs leading-relaxed">"The customized tools designed within the Laboratory Nexus series match exact parameters required for our research setups. Prompt delivery routes are consistently accurate."</p>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-brand-cyan rounded-full flex items-center justify-center text-white font-bold text-sm">KP</div>
+                            <div>
+                                <h4 class="font-bold text-xs text-brand-dark">Prof. K. Patel</h4>
+                                <span class="text-[10px] text-slate-400 block">Head of University Lab Sourcing</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 border border-slate-200 dark:border-white/10 relative transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fa-solid fa-quote-left text-slate-200 dark:text-white/10 text-4xl absolute top-6 left-6"></i>
+                    <div class="relative z-10">
+                        <p class="text-brand-dark italic mb-6 text-xs leading-relaxed">"Procurement transitions have been effortless since deploying WhatsApp integration tracking with Dutt Enterprise. Highly resilient glassware structures reduce long term replacement costs."</p>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-brand-teal rounded-full flex items-center justify-center text-white font-bold text-sm">SB</div>
+                            <div>
+                                <h4 class="font-bold text-xs text-brand-dark">S. Bhardwaj</h4>
+                                <span class="text-[10px] text-slate-400 block">Industrial Quality Controller</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<section id="contact" class="py-24 bg-slate-50" x-data="{ activeBranch: 'anand' }">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="mb-16" data-aos="fade-up">
+            <span class="text-xs font-bold text-brand-cyan tracking-widest uppercase block mb-2">Connect With Us</span>
+            <h2 class="text-3xl md:text-4xl font-black text-brand-dark tracking-tight">Get in Touch with Our Experts</h2>
+            <div class="w-16 h-1 bg-brand-cyan mt-4 rounded-full"></div>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-12 items-start">
+            
+            <div class="lg:col-span-5 space-y-8" data-aos="fade-right">
+                <div>
+                    <p class="text-brand-gray text-sm leading-relaxed max-w-sm">
+                        Whether you're looking for specialized laboratory glassware or bulk chemical supplies, our technical teams across our locations are ready to assist your procurement needs.
+                    </p>
+                </div>
+
+                <div class="flex bg-slate-200/60 p-1.5 rounded-xl gap-1 border border-slate-200">
+                    <button @click="activeBranch = 'anand'" 
+                            :class="activeBranch === 'anand' ? 'bg-white text-brand-dark shadow-xs font-bold' : 'text-slate-500 hover:text-brand-dark font-semibold'"
+                            class="flex-1 text-center py-2.5 text-xs rounded-lg transition-all">
+                        Anand (HO)
+                    </button>
+                    <button @click="activeBranch = 'branch2'" 
+                            :class="activeBranch === 'branch2' ? 'bg-white text-brand-dark shadow-xs font-bold' : 'text-slate-500 hover:text-brand-dark font-semibold'"
+                            class="flex-1 text-center py-2.5 text-xs rounded-lg transition-all">
+                        Branch Office
+                    </button>
+                </div>
+
+                <div class="space-y-6">
+                    <div x-show="activeBranch === 'anand'" x-transition:enter="transition ease-out duration-200" class="space-y-6">
+                        <div class="flex gap-5 p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center text-brand-cyan shrink-0 border border-slate-100">
+                                <i class="fa-solid fa-location-dot text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Corporate Headquarters</h4>
+                                <p class="text-brand-dark text-sm font-semibold leading-snug">
+                                   A/5, Krishna Complex, Borsad Chokdi,<br> Anand-Sojitra Road, Anand - 388001
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-5 p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center text-emerald-600 shrink-0 border border-slate-100">
+                                <i class="fa-solid fa-headset text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Anand Desk Support</h4>
+                                <p class="text-brand-dark text-sm font-semibold mb-1">+91 99748 63555</p>
+                                <p class="text-brand-cyan text-sm font-medium">anand@duttenterprise.com</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div x-show="activeBranch === 'branch2'" x-transition:enter="transition ease-out duration-200" class="space-y-6" x-cloak>
+                        <div class="flex gap-5 p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center text-brand-cyan shrink-0 border border-slate-100">
+                                <i class="fa-solid fa-building text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Regional Branch</h4>
+                                <p class="text-brand-dark text-sm font-semibold leading-snug">
+                                    Dutt Enterprise, 2nd Floor, Science Arcade,<br>Opp. GIDC, Gujarat
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-5 p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center text-emerald-600 shrink-0 border border-slate-100">
+                                <i class="fa-solid fa-phone-volume text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Branch Desk Support</h4>
+                                <p class="text-brand-dark text-sm font-semibold mb-1">+91 99748 63556</p>
+                                <p class="text-brand-cyan text-sm font-medium">branch@duttenterprise.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 bg-brand-dark rounded-2xl text-white shadow-xl shadow-brand-dark/10">
+                    <h4 class="text-[10px] font-bold opacity-60 uppercase tracking-widest mb-4">Laboratory Operational Windows</h4>
+                    <div class="space-y-3">
+                        <div class="flex justify-between text-xs border-b border-white/10 pb-2">
+                            <span class="opacity-80">Monday – Saturday</span>
+                            <span class="font-bold">09:00 AM – 07:00 PM</span>
+                        </div>
+                        <div class="flex justify-between text-xs pt-1">
+                            <span class="opacity-80">Sunday</span>
+                            <span class="text-rose-400 font-bold uppercase">Closed Across Branches</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 bg-white dark:bg-slate-900 rounded-3xl p-8 md:p-10 shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-white/10" data-aos="fade-left">
+                <form action="#" class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide ml-1">Full Name</label>
+                            <input type="text" placeholder="e.g. John Doe" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all text-brand-dark">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide ml-1">Email Address</label>
+                            <input type="email" placeholder="name@company.com" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all text-brand-dark">
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide ml-1">Route Inquiry To</label>
+                            <select class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all appearance-none cursor-pointer text-brand-dark">
+                                <option value="Anand">Anand Head Office</option>
+                                <option value="Branch 2">Branch Office Location</option>
+                            </select>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide ml-1">Inquiry Type</label>
+                            <select class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all appearance-none cursor-pointer text-brand-dark">
+                                <option>Bulk Product Quotation</option>
+                                <option>Technical Specification Request</option>
+                                <option>Order Status Inquiry</option>
+                                <option>Other Support</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide ml-1">Your Message</label>
+                        <textarea rows="4" placeholder="How can our branch assist your laboratory today?" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all resize-none text-brand-dark"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-brand-dark hover:bg-brand-cyan text-white font-bold text-xs uppercase tracking-widest py-4 rounded-xl shadow-lg shadow-brand-dark/10 transition-all duration-300 transform active:scale-[0.98] hover:shadow-brand-cyan/30 flex items-center justify-center gap-2">
+                        Dispatch Inquiry <i class="fa-solid fa-paper-plane text-[10px]"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+   <footer class="bg-brand-dark text-slate-400 pt-12 pb-8 border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid sm:grid-cols-2 lg:grid-cols-12 gap-10 border-b border-white/5 pb-16 mb-8">
+            
+            <div class="lg:col-span-4 space-y-5">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center p-2 border border-white/5"><img src="images/Dutt_Enterprise_Logo_PNG.png" alt="Dutt Enterprise Footer Mark" class="w-full h-full object-contain"></div>
+                    <span class="text-white font-black text-lg tracking-tight">DUTT ENTERPRISE</span>
+                </div>
+                <p class="text-slate-400 font-light leading-relaxed">
+                    Dealers in verified Laboratory Chemicals, Glassware, Instruments, Pathology Products, Plasticware, Filter Papers and custom Laboratory Nexus Brand Miscellaneous Products. Sourcing structural science since deployment inception.
+                </p>
+                <div class="pt-2 flex items-center gap-3">
+                    <a href="https://wa.me/919974863555" target="_blank" rel="noopener" class="w-9 h-9 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center hover:bg-emerald-600 hover:text-white hover:-translate-y-1 transition-all duration-300"><i class="fa-brands fa-whatsapp text-sm"></i></a>
+                    <a href="mailto:duttenterpriseanand@gmail.com" class="w-9 h-9 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center hover:bg-brand-cyan hover:text-white hover:-translate-y-1 transition-all duration-300"><i class="fa-solid fa-envelope text-xs"></i></a>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2 space-y-4">
+                <h4 class="text-white font-bold uppercase tracking-wider text-xs">Categories</h4>
+                <div class="flex flex-col gap-2.5 font-light">
+                    <a href="#categories" @click="selectedCat = 'Chemicals'" class="hover:text-brand-teal transition-colors">Chemicals Portfolio</a>
+                    <a href="#categories" @click="selectedCat = 'Glassware'" class="hover:text-brand-teal transition-colors">Glassware Registry</a>
+                    <a href="#categories" @click="selectedCat = 'Plasticware'" class="hover:text-brand-teal transition-colors">Plasticware Media</a>
+                    <a href="#categories" @click="selectedCat = 'Filter Papers'" class="hover:text-brand-teal transition-colors">Filter Papers</a>
+                    <a href="#categories" @click="selectedCat = 'Instruments'" class="hover:text-brand-teal transition-colors">Instruments</a>
+                    <a href="#categories" @click="selectedCat = 'Pathology Products'" class="hover:text-brand-teal transition-colors">Pathology Lines</a>
+                    <a href="#categories" @click="selectedCat = 'Miscellaneous Products'" class="hover:text-brand-teal transition-colors">Laboratory Nexus Line</a>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2 space-y-4">
+                <h4 class="text-white font-bold uppercase tracking-wider text-xs">Logistics Brands</h4>
+                <div class="flex flex-col gap-2.5 font-light">
+                    <span class="hover:text-white transition-colors">Merck Grade</span>
+                    <span class="hover:text-white transition-colors">Sigma Aldrich</span>
+                    <span class="hover:text-white transition-colors">Loba Chemie</span>
+                    <span class="hover:text-white transition-colors">SDFCL Supply</span>
+                    <span class="hover:text-white transition-colors">ABDOS Assets</span>
+                    <span class="hover:text-white transition-colors">Eppendorf</span>
+                    <span class="hover:text-white transition-colors">Molychem Lines</span>
+                </div>
+            </div>
+
+            <div class="lg:col-span-4 space-y-4">
+                <h4 class="text-white font-bold uppercase tracking-wider text-xs">Branch Networks</h4>
+                <div class="space-y-4 font-light">
+                    <div>
+                        <span class="text-white font-bold block text-xs">Anand Head Office</span>
+                        <p class="text-slate-400 mt-1 leading-relaxed text-[11px]">A/5 Krishna Complex, Borsad Chokdi, Anand-Sojitra Road, Anand - 388001</p>
+                    </div>
+                    <div class="pt-2 border-t border-white/5">
+                        <span class="text-white font-bold block text-xs">Nadiad Branch Office</span>
+                        <p class="text-slate-400 mt-1 leading-relaxed text-[11px]">F-137/138 First Floor, Ghantakarna Complex, Ganj Bazar, Nadiad - 387001</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500 text-[11px]">
+            <span>&copy; 2026 Dutt Enterprise. All Rights Reserved Validation Channels.</span>
+            <div class="flex gap-6 font-light">
+                <span>Compliance Verification Sourcing</span>
+                <span>ISO Analytics Grading Standard</span>
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/919974863555?text=Hello%20Dutt%20Enterprise,%20I%20have%20an%20urgent%20laboratory%20product%20inquiry." target="_blank" class="fixed bottom-6 right-6 z-50 bg-emerald-600 hover:bg-emerald-500 text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-2xl transition-all transform hover:scale-110 active:scale-95">
+        <span class="absolute inset-0 rounded-full bg-emerald-500 opacity-60 animate-ping"></span>
+        <i class="fa-brands fa-whatsapp relative z-10"></i>
+    </a>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            // Wake Up Animate On Scroll (AOS) Engine
+            AOS.init({
+                once: true,
+                duration: 800,
+                easing: 'ease-out-cubic',
+                offset: 60
+            });
+            
+            // Cleanly dissolve preloader screen
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.classList.add('opacity-0', 'pointer-events-none');
+            }, 500);
+        });
+    </script>
+</body>
+</html>
