@@ -47,7 +47,14 @@ body {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
 }
-
+.border-orange-400{
+    --tw-border-opacity: 1;
+    border-color: rgb(249 197 21 / var(--tw-border-opacity, 1));
+}
+.text-orange-400{
+    --tw-text-opacity: 1;
+    color: rgb(249 197 21 / var(--tw-text-opacity, 1));
+}
 /* 4. Utilities */
 .nav-link-underline::after {
     content: '';
