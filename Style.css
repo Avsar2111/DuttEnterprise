@@ -8,14 +8,14 @@
     --brand-light: #EBF4F6;
     
     /* Default Dark Mode Variables */
-    --bg-color: #001C30;
+    /* --bg-color: #001C30;
     --text-color: #F8FAFC;
     --brand-gray: #94a3b8;
     --glass-bg: rgba(255, 255, 255, 0.05);
     --glass-border: rgba(255, 255, 255, 0.1);
     
     --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-    --ease-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+    --ease-smooth: cubic-bezier(0.25, 1, 0.5, 1); */
 }
 
 /* Base Styles */
