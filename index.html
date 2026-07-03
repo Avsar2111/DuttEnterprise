@@ -6,8 +6,8 @@
     <title>Dutt Enterprise | Laboratory Chemicals, Glassware & Instruments Supplier</title>
         <link rel="icon" type="image/png" href="images/Dutt_Enterprise_Logo_PNG.png">
 <link rel="apple-touch-icon" href="images/Dutt_Enterprise_Logo_PNG1.png">
-<link rel="stylesheet" href="css/style.css"></link>
-    <!-- <script src="https://cdn.tailwindcss.com"></script>
+<!-- <link rel="stylesheet" href="css/style.css"></link> -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -25,7 +25,7 @@
                 }
             }
         }
-    </script> -->
+    </script>
 
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -33,42 +33,6 @@
        <link rel="stylesheet" href="Style.css">
 
     
-    
-    <style>
-        .glass-card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-        }
-        .glass-nav {
-            background: rgba(0, 28, 48, 0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
-        @keyframes infiniteScroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(calc(-220px * 9)); }
-        }
-        .brand-track {
-            display: flex;
-            width: calc(220px * 18);
-            animation: infiniteScroll 25s linear infinite;
-        }
-        .brand-track:hover {
-            animation-play-state: paused;
-        }
-        html {
-            scroll-behavior: smooth;
-        }
-         .hide-scrollbar::-webkit-scrollbar {
-        display: none;
-    }
-    .hide-scrollbar {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
-    </style>
 </head>
 <body class="bg-slate-50 text-brand-dark overflow-x-hidden" x-data="{ mobileMenu: false, searchKey: '', selectedCat: 'All' }">
 
@@ -600,7 +564,53 @@
         </div>
     </section>
 
- <section id="categories" class="py-24 bg-brand-lightBg/50 border-y border-slate-200">
+<section id="categories" class="py-24 bg-brand-lightBg/50 border-y border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+            <h2 class="text-3xl font-extrabold text-brand-dark tracking-tight">Product Categories</h2>
+            <div class="w-16 h-1 bg-brand-cyan mx-auto mt-3 mb-4 rounded-full"></div>
+            <p class="text-brand-gray text-sm">Select a division below to instantly filter active dynamic product lines inside the digital showroom.</p>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div @click="selectedCat = 'Chemicals'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 duration-300 transition-all cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="50">
+                <div class="w-14 h-14 mx-auto bg-blue-100 text-blue-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-brand-bblue group-hover:text-white transition-all"><i class="fa-solid fa-vial"></i></div>
+                <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Chemicals</h3>
+            </div>
+
+            <div @click="selectedCat = 'Glassware'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 duration-300 transition-all cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="100">
+                <div class="w-14 h-14 mx-auto bg-cyan-100 text-cyan-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-brand-cyan group-hover:text-white transition-all"><i class="fa-solid fa-flask"></i></div>
+                <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Glassware</h3>
+            </div>
+
+            <div @click="selectedCat = 'Plasticware'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 duration-300 transition-all cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="150">
+                <div class="w-14 h-14 mx-auto bg-teal-100 text-teal-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-brand-ggreen group-hover:text-white transition-all"><i class="fa-solid fa-prescription-bottle"></i></div>
+                <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Plasticware</h3>
+            </div>
+
+            <div @click="selectedCat = 'Filter Papers'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 duration-300 transition-all cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="200">
+                <div class="w-14 h-14 mx-auto bg-indigo-100 text-indigo-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-all"><i class="fa-solid fa-copy"></i></div>
+                <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Filter Papers</h3>
+            </div>
+
+            <div @click="selectedCat = 'Instruments'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 duration-300 transition-all cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="250">
+                <div class="w-14 h-14 mx-auto bg-emerald-100 text-emerald-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-emerald-600 group-hover:text-white transition-all"><i class="fa-solid fa-gauge-high"></i></div>
+                <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Instruments</h3>
+            </div>
+
+            <div @click="selectedCat = 'Pathology Products'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 duration-300 transition-all cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="300">
+                <div class="w-14 h-14 mx-auto bg-red-100 text-red-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-red-600 group-hover:text-white transition-all"><i class="fa-solid fa-droplet"></i></div>
+                <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Pathology Products</h3>
+            </div>
+
+            <div @click="selectedCat = 'Miscellaneous Products'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 duration-300 transition-all cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="350">
+                <div class="w-14 h-14 mx-auto bg-amber-100 text-amber-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-amber-600 group-hover:text-white transition-all"><i class="fa-solid fa-boxes-packing"></i></div>
+                <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Laboratory Nexus Line</h3>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- <section id="categories" class="py-24 bg-brand-lightBg/50 border-y border-slate-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
             <h2 class="text-3xl font-extrabold text-brand-dark tracking-tight">Product Categories</h2>
@@ -645,8 +655,7 @@
             </div>
         </div>
     </div>
-</section>
-
+</section> -->
 <section id="products" class="py-24" x-data="{
     allProducts: [
         { id: 1, cat: 'Chemicals', name: 'Hydrochloric Acid', desc: 'Premium grade diagnostic HCl optimized for complex multi-tier laboratory titration.', img: 'https://images.unsplash.com/photo-1617155093730-a8bf47be792d?auto=format&fit=crop&q=80&w=500' },
@@ -856,7 +865,7 @@
             Certificate of Registration
         </h3>
 
-        <p class="text-orange-400 text-sm font-semibold mt-1">
+        <p class="text-yellow-400 text-sm font-semibold mt-1">
             Quality Management System
         </p>
 
@@ -865,7 +874,7 @@
         </p>
 
         <div class="mt-6 flex items-center justify-between">
-            <span class="text-orange-400 font-semibold">
+            <span class="text-yellow-400 font-semibold">
                 View Certificate
             </span>
 

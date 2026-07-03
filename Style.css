@@ -6,7 +6,14 @@
     --brand-teal: #05BFDB;
     --brand-dark: #001C30;
     --brand-light: #EBF4F6;
-    
+    --color-brand-blue: #0A4D68;
+    --color-brand-cyan: #088395;
+    --color-brand-teal: #05BFDB;
+    --color-brand-lightBg: #EBF4F6;
+    --color-brand-dark: #001C30;
+    --color-brand-gray: #64748B;
+    --color-brand-bblue:#1d4ed8;
+    --color-brand-ggreen:#0f766e;
     /* Default Dark Mode Variables */
     /* --bg-color: #001C30;
     --text-color: #F8FAFC;
@@ -24,19 +31,71 @@ body {
     color: var(--text-color);
     transition: background-color 0.4s ease, color 0.4s ease;
 }
-
+   .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+        .glass-nav {
+            background: rgba(0, 28, 48, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        @keyframes infiniteScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-220px * 9)); }
+        }
+        .brand-track {
+            display: flex;
+            width: calc(220px * 18);
+            animation: infiniteScroll 25s linear infinite;
+        }
+        .brand-track:hover {
+            animation-play-state: paused;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+         .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
 /* Reusable Components */
 .glass-nav {
-    background: rgba(0, 28, 48, 0.8);
+    background: rgba(0, 28, 48, 0.95);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--glass-border);
 }
-
+ .bg-brand-bblue {
+    background-color: var(--color-brand-bblue) !important;
+  }
+   .bg-brand-ggreen {
+    background-color: var(--color-brand-ggreen) !important;
+  }
+    .group-hover\:bg-brand-bblue {
+    &:is(:where(.group):hover *) {
+      @media (hover: hover) {
+        background-color: var(--color-brand-bblue);
+      }
+    }
+  }
+    .group-hover\:bg-brand-ggreen {
+    &:is(:where(.group):hover *) {
+      @media (hover: hover) {
+        background-color: var(--color-brand-ggreen);
+      }
+    }
+  }
+/* 
 .glass-card {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     backdrop-filter: blur(16px);
-}
+} */
 .feature-box {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
@@ -47,11 +106,11 @@ body {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
 }
-.border-orange-400{
+.border-yellow-400{
     --tw-border-opacity: 1;
     border-color: rgb(249 197 21 / var(--tw-border-opacity, 1));
 }
-.text-orange-400{
+.text-yellow-400{
     --tw-text-opacity: 1;
     color: rgb(249 197 21 / var(--tw-text-opacity, 1));
 }
