@@ -717,9 +717,9 @@
                 <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Chemicals</h3>
             </div>
 
-            <div @click="selectedCat = 'Glassware'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 duration-300 transition-all cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="100">
+            <div @click="selectedCat = 'Laboratory Glassware'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 duration-300 transition-all cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="100">
                 <div class="w-14 h-14 mx-auto bg-cyan-100 text-cyan-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-brand-cyan group-hover:text-white transition-all"><i class="fa-solid fa-flask"></i></div>
-                <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Glassware</h3>
+                <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Laboratory Glassware</h3>
             </div>
 
             <div @click="selectedCat = 'Plasticware'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 duration-300 transition-all cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="150">
@@ -744,7 +744,7 @@
 
             <div @click="selectedCat = 'Miscellaneous Products'; document.getElementById('products').scrollIntoView();" class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 duration-300 transition-all cursor-pointer group border border-slate-200/60" data-aos="zoom-in" data-aos-delay="350">
                 <div class="w-14 h-14 mx-auto bg-amber-100 text-amber-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-amber-600 group-hover:text-white transition-all"><i class="fa-solid fa-boxes-packing"></i></div>
-                <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Laboratory Nexus Line</h3>
+                <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-brand-cyan transition-colors">Nexus Metalware</h3>
             </div>
         </div>
     </div>
@@ -799,18 +799,31 @@
 <section id="products" class="py-24" x-data="{
     allProducts: [
        
-        { id: 4, cat: 'Glassware', name: 'Borosil Round Bottom Flask (250 ml)', desc: 'Premium Borosil clear round flask with heavy duty standard neck joints for industrial distilling setups.', img: 'images/3.png' },
-        { id: 5, cat: 'Glassware', name: 'JSGW Boro 3.3 Grade-1 Beaker (30 ml)', desc: 'High thermal stability JSGW compact laboratory cylinder beaker built from premium Boro 3.3 raw stock materials.', img: 'images/4.png' },
-        { id: 6, cat: 'Glassware', name: 'Borosil Straight Gas Washing Bottle (250 ml)', desc: 'Precision industrial straight cylinder washing bottle line optimized safely for chemical separation gas pathways.', img: 'images/5.png' },
+        { id: 1000, cat: 'Laboratory Glassware', name: 'Borosilicate Glass Semi Micro Beakers', desc: 'Beakers, Semi Micro, Without Graduation, Made from Heat Resistant “SUN Brand” Borosilicate Glass Capacity (1,2,5,10,25) ml', img: 'images/1000.jpg' },
+        { id: 1001, cat: 'Laboratory Glassware', name: 'Borosilicate Glass Tube made Beakers', desc: 'Beakers, Tube made, Low Form, Graduated, Made from Heat Resistant “SUN Brand” Borosilicate Glass Capacity (50,100,150,250,400,500,1000 to 10000) ml', img: 'images/1001.jpg' },
+        { id: 1007, cat: 'Laboratory Glassware', name: 'Borosilicate Glass Bottles', desc: 'Bottles, BOD , Made from Heavy Glass with Stopper Determination of BOD in Industrial Waste “SUN Brand” Borosilicate Glass Capacity (125,300) ml', img: 'images/1007.jpg' },  
+        { id: 1008, cat: 'Laboratory Glassware', name: 'Borosilicate Glass Bottles Narrow Mouth', desc: 'Bottles, Reagent, with I/C Stopper, Narrow Mouth, Made from Heat Resistant “SUN Brand” Borosilicate Glass Capacity (30,60,125,250,500,1000 to 5000) ml', img: 'images/1008.jpg' },
+        { id: 1009, cat: 'Laboratory Glassware', name: 'Borosilicate Glass Bottles Wide Mouth', desc: 'Bottles, Reagent, with I/C Stopper, Wide Mouth, Made from Heat Resistant “SUN Brand” Borosilicate Glass Capacity (30,60,125,250,500,1000) ml', img: 'images/1009.jpg' },
+        { id: 1010, cat: 'Laboratory Glassware', name: 'Glass Bottles Autoclavable Cap', desc: 'Bottles, with DIN Thread, Graduated, Clear, with PP Screw & PP Pouring Ring, Autoclavable Cap upto 140o C,“SUN Brand” Capacity (25,50,100,250,500,1000 to 20000) ml', img: 'images/1010.jpg' },
+        { id: 1011, cat: 'Laboratory Glassware', name: 'Glass Bottles Autoclavable Cap AMBER COLOUR', desc: 'Bottles, with DIN Thread, Graduated, Clear, with PP Screw & PP Pouring Ring, Autoclavable Cap upto 140o C,“SUN Brand” Capacity (25,50,100,250,500,1000 to 20000) ml', img: 'images/1011.jpg' },
+        { id: 1012, cat: 'Laboratory Glassware', name: 'PP Screw Cap', desc: 'PP Screw Cap, without PP Pouring Ring for Laboratory Bottles, Steam Autoclavable upto 140o C DIN Thread GL (32,45)', img: 'images/1012.jpg' },
+        { id: 1016, cat: 'Laboratory Glassware', name: 'Relative Density Bottle', desc: 'Bottles, Relative Density with Glass Capillary I/C Stopper, Class B,Made from Heat Resistant “SUN Brand” Borosilicate Glass Capacity (10,25,50) ml', img: 'images/1016.jpg' },
+        { id: 1017, cat: 'Laboratory Glassware', name: 'Tall Form Weighing Bottle', desc: 'Bottles, Weighing, Tall Form, with I/C Stopper, Made from Heat Resistant “SUN Brand” Borosilicate Glass Capacity (5,15,25,40,60) ml', img: 'images/1017.jpg' },
+        { id: 1018, cat: 'Laboratory Glassware', name: 'Squat Form Weighing Bottle', desc: 'Bottles, Weighing, Squat Form, with I/C Stopper, Made from Heat Resistant “SUN Brand” Borosilicate Glass Capacity (15,25,40,75) ml', img: 'images/1018.jpg' },
+        { id: 1019, cat: 'Laboratory Glassware', name: 'Wash Bottle with Stopper', desc: 'Bottles, Wash, Complete with I/C stopper, made using Flat Bottom Flask.“SUN Brand” Borosilicate Glass Capacity (250,500,1000) ml', img: 'images/1019.JPg' },        
+        { id: 1020, cat: 'Laboratory Glassware', name: 'Wash Bottle Head', desc: 'Head only for Wash Bottle. Made from “SUN Brand” Borosilicate Glass Capacity (250,500,1000) ml', img: 'images/1020.jpg' },
+        { id: 1021, cat: 'Laboratory Glassware', name: 'Deshler-Type Gas Washing Bottle', desc: 'Gas Washing Bottles, Deshler's Type, I/C Joint Capacity (125,250,500) ml', img: 'images/1021.jpg' },
+        { id: 1022, cat: 'Laboratory Glassware', name: 'Gas Washing Bottle Head', desc: 'Head only for Gas Washing Bottles. Made from Heat Resistant “SUN Brand” Borosilicate Glass Capacity (125,250,500) ml', img: 'images/1022.jpg' },
+        { id: 1023, cat: 'Laboratory Glassware', name: 'Spare Gas Washing Bottle', desc: 'Spare Bottles, Gas Washing, Heavy Wall, Made from Heat Resistant “ SUN Brand” Borosilicate Glass Capacity (125,250,500) ml', img: 'images/1023.jpg' },
+        { id: 1024, cat: 'Laboratory Glassware', name: 'Squeeze Wash Bottle', desc: 'Bottles, Wash SQEEZE Type Flexible low Density Polythene Screw Cap & Delivery Tube Capacity (125,250,500,1000) ml', img: 'images/1024.JPg' },        
+        { id: 1025, cat: 'Laboratory Glassware', name: 'Graduated Air Sampling Impinger', desc: 'IMPINGER Graduated for Air Sampling, “SUN Brand” Borosilicate Glass. Capacity (35,50,80,100,150,250,275) ml', img: 'images/1025.jpg' },
+        { id: 1026, cat: 'Laboratory Glassware', name: 'Graduated Bubbler Impinger with Sintered Disc', desc: 'IMPINGER Bubbler Type, With I/C Joint, Graduated, with Sintered Disc Capacity (35,50,100,250,275) ml', img: 'images/1026.jpg' },
+        { id: 1027, cat: 'Laboratory Glassware', name: 'Plain/Amber Glass Dropper Bottle', desc: 'Dropper Bottle, with I/C Stopper and Rubber Teat Plain or Amber Color, Made from Heat Resistant “SUN Brand” Borosilicate Glass Capacity (30,60,125,250) ml', img: 'images/1027.jpg' },
+        { id: 1028, cat: 'Laboratory Glassware', name: 'Pinch Cock Burette', desc: 'Burettes, Pinch Cock with Tips for College Grade with Rubber Tube & Pinch Clip N.P Made from Heat Resistant Capacity (10,25,50,100) ml', img: 'images/1028.jpg' },        
+        { id: 1030, cat: 'Laboratory Glassware', name: 'Class B Burette', desc: 'Burettes, Class “B”, Straight Bore Glass Stopcock Made from Heat Resistant “SUN Brand” Borosilicate Glass Capacity (10,25,50,100) ml', img: 'images/1030.jpg' },        
         
-      
-        { id: 11, cat: 'Filter Papers', name: 'Millipore AN1204700 Prefilter', desc: 'Millipore 1.2µm hydrophobic polypropylene prefilter, 47mm for reliable laboratory filtration applications.', img: 'images/7.avif' },
-        
-        { id: 13, cat: 'Instruments', name: 'Erma Stage Micrometer (SM-001)', desc: 'Genuine Erma Tokyo certified micrometer. Size: 1x3 in, Scale: 1 mm, Division: 0.01 mm parameters for premium lens calibrations.', img: 'images/1.jpeg' },
-        { id: 14, cat: 'Instruments', name: 'Precision Vernier Caliper (0-150mm)', desc: 'High-accuracy dual structural calibration slide metrics tool protected cleanly within a heavy impact-resistant transport case.', img: 'images/6.png' },
-                
-        { id: 19, cat: 'Pathology Products', name: 'Rohem Silverlite Counting Chamber', desc: 'Premium dynamic Rohem India BS 748 / IS 10269 certified Improved Neubauer grid chamber slide system. Depth: 0.1mm, 1/400 mm2 accuracy layout.', img: 'images/2.webp' },
-      {
+
+        {
     id: 22,
     cat: 'Instruments',
     name: 'Lab Jack S.S.',
@@ -1004,7 +1017,7 @@ closeImage() {
         <div class="grid lg:grid-cols-12 gap-10 items-start">
             
             <div class="lg:col-span-3 lg:sticky lg:top-28 z-20 overflow-x-auto lg:overflow-x-visible hide-scrollbar flex lg:flex-col gap-2 pb-4 lg:pb-0 border-b border-slate-100 lg:border-none">
-                <template x-for="catItem in ['All', 'Chemicals', 'Glassware', 'Plasticware', 'Filter Papers', 'Instruments', 'Miscellaneous Products', 'Pathology Products']">
+                <template x-for="catItem in ['All', 'Chemicals', 'Laboratory Glassware', 'Plasticware', 'Filter Papers', 'Instruments', 'Miscellaneous Products', 'Pathology Products']">
                     <button @click="selectedCat = catItem" 
                             :class="selectedCat === catItem ? 'bg-brand-dark text-white shadow-lg shadow-brand-dark/10 border-brand-dark' : 'bg-white text-brand-gray hover:text-brand-dark hover:bg-slate-50 border-slate-200'"
                             class="whitespace-nowrap lg:whitespace-normal text-left px-4 py-3 rounded-xl border text-xs font-bold tracking-wide transition-all duration-200 flex items-center justify-between gap-3 min-w-[140px] lg:w-full group">
@@ -1029,7 +1042,7 @@ closeImage() {
                                     <span x-text="product.cat === 'Miscellaneous Products' ? 'Nexus Line' : product.cat" 
                                           :class="{
                                               'bg-blue-50 text-blue-700 border-blue-200/60': product.cat === 'Chemicals',
-                                              'bg-cyan-50 text-cyan-700 border-cyan-200/60': product.cat === 'Glassware',
+                                              'bg-blue-50 text-blue-700 border-blue-200/60': product.cat === 'Laboratory Glassware',
                                               'bg-teal-50 text-teal-700 border-teal-200/60': product.cat === 'Plasticware',
                                               'bg-indigo-50 text-indigo-700 border-indigo-200/60': product.cat === 'Filter Papers',
                                               'bg-emerald-50 text-emerald-700 border-emerald-200/60': product.cat === 'Instruments',
@@ -1039,6 +1052,21 @@ closeImage() {
                                           class="border backdrop-blur-md text-[9px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md shadow-xs select-none">
                                     </span>
                                 </div>
+                                <div class="absolute top-4 right-4 pointer-events-none">
+    <span
+        x-text="'CAT No. ' + product.id"
+        :class="{
+            'bg-blue-50 text-blue-700 border-blue-200/60': product.cat === 'Chemicals',
+            'bg-blue-50 text-blue-700 border-blue-200/60': product.cat === 'Laboratory Glassware',
+            'bg-teal-50 text-teal-700 border-teal-200/60': product.cat === 'Plasticware',
+            'bg-indigo-50 text-indigo-700 border-indigo-200/60': product.cat === 'Filter Papers',
+            'bg-emerald-50 text-emerald-700 border-emerald-200/60': product.cat === 'Instruments',
+            'bg-amber-50 text-amber-700 border-amber-200/60': product.cat === 'Miscellaneous Products',
+            'bg-red-50 text-red-700 border-red-200/60': product.cat === 'Pathology Products'
+        }"
+        class="border backdrop-blur-md text-[9px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md shadow-xs select-none">
+    </span>
+</div>
                             </div>
                             
                             <div class="p-6 flex flex-col flex-grow">
@@ -1994,7 +2022,7 @@ Pathology Products & Scientific Equipment.
     <li>
         <a href="#" class="flex items-center gap-3 hover:text-cyan-400 transition">
             <i class="fa-solid fa-wine-glass text-cyan-400 w-5"></i>
-            Glassware
+           Laboratory Glassware
         </a>
     </li>
 
