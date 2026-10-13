@@ -14,6 +14,19 @@
     --color-brand-gray: #64748B;
     --color-brand-bblue:#1d4ed8;
     --color-brand-ggreen:#0f766e;
+/* 
+    1.Laboratory glassware #0065b0
+    2.Qaurtz ware #e3161a
+    3.Microgen hygiene #d56c04
+    4.Micro Slides & Cover Glasses #7c4391
+    5.Dairy Instruments #009441
+    6.PlasticWare Products #5b6eac
+    7.Filter Papers #e73873
+    8.MISCELLANEOUS LABWARE #3d3f02
+    9.Pathology Items #0a6a73 
+    10.Nexus Metalware #87fc08 */
+
+
     /* Default Dark Mode Variables */
     /* --bg-color: #001C30;
     --text-color: #F8FAFC;
@@ -70,26 +83,6 @@ body {
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--glass-border);
 }
- .bg-brand-bblue {
-    background-color: var(--color-brand-bblue) !important;
-  }
-   .bg-brand-ggreen {
-    background-color: var(--color-brand-ggreen) !important;
-  }
-    .group-hover\:bg-brand-bblue {
-    &:is(:where(.group):hover *) {
-      @media (hover: hover) {
-        background-color: var(--color-brand-bblue);
-      }
-    }
-  }
-    .group-hover\:bg-brand-ggreen {
-    &:is(:where(.group):hover *) {
-      @media (hover: hover) {
-        background-color: var(--color-brand-ggreen);
-      }
-    }
-  }
   [x-cloak] {
     display: none !important;
 }
@@ -168,3 +161,250 @@ header, section {
     background: rgba(var(--brand-teal-rgb), 0.05);
     transform: translateY(-5px);
 }
+
+/* 1. Laboratory Glassware */
+.cat-glassware {
+    color: #0065b0;
+    background-color: #0065b020;
+}
+.cat-glassware:hover {
+    background-color: #0065b0;
+    color: #fff;
+}
+
+/* 2. Quartz Ware */
+.cat-quartz {
+    color: #e3161a;
+    background-color: #e3161a20;
+}
+.cat-quartz:hover {
+    background-color: #e3161a;
+    color: #fff;
+}
+
+/* 3. Microgen Hygiene */
+.cat-hygiene {
+    color: #d56c04;
+    background-color: #d56c0420;
+}
+.cat-hygiene:hover {
+    background-color: #d56c04;
+    color: #fff;
+}
+
+/* 4. Micro Slides & Cover Glasses */
+.cat-microslides {
+    color: #7c4391;
+    background-color: #7c439120;
+}
+.cat-microslides:hover {
+    background-color: #7c4391;
+    color: #fff;
+}
+
+/* 5. Dairy Instruments */
+.cat-dairy {
+    color: #009441;
+    background-color: #00944120;
+}
+.cat-dairy:hover {
+    background-color: #009441;
+    color: #fff;
+}
+
+/* 6. PlasticWare Products */
+.cat-plasticware {
+    color: #5b6eac;
+    background-color: #5b6eac20;
+}
+.cat-plasticware:hover {
+    background-color: #5b6eac;
+    color: #fff;
+}
+
+/* 7. Filter Papers */
+.cat-filter {
+    color: #e73873;
+    background-color: #e7387320;
+}
+.cat-filter:hover {
+    background-color: #e73873;
+    color: #fff;
+}
+
+/* 8. Miscellaneous Labware */
+.cat-misc-labware {
+    color: #3d3f02;
+    background-color: #3d3f0220;
+}
+.cat-misc-labware:hover {
+    background-color: #3d3f02;
+    color: #fff;
+}
+
+/* 9. Pathology Items */
+.cat-pathology {
+    color: #0a6a73;
+    background-color: #0a6a7320;
+}
+.cat-pathology:hover {
+    background-color: #0a6a73;
+    color: #fff;
+}
+
+/* 10. Nexus Metalware */
+.cat-metalware {
+    color: #527a00;
+    background-color: #87fc0820;
+}
+.cat-metalware:hover {
+    background-color: #87fc08;
+    color: #243500;
+}
+.cat-card.glassware:hover .cat-title { color: #0065b0; }
+.cat-card.quartz:hover .cat-title { color: #e3161a; }
+.cat-card.hygiene:hover .cat-title { color: #d56c04; }
+.cat-card.microslides:hover .cat-title { color: #7c4391; }
+.cat-card.dairy:hover .cat-title { color: #009441; }
+.cat-card.plasticware:hover .cat-title { color: #5b6eac; }
+.cat-card.filter:hover .cat-title { color: #e73873; }
+.cat-card.misc-labware:hover .cat-title { color: #3d3f02; }
+.cat-card.pathology:hover .cat-title { color: #0a6a73; }
+.cat-card.metalware:hover .cat-title { color: #527a00; }
+.group-hover\:bg-cat-glassware {
+  &:is(:where(.group):hover *) {
+    @media (hover: hover) {
+      background-color: #0065b0;
+    }
+  }
+}
+
+/* 2. Quartz Ware — #e3161a */
+.group-hover\:bg-cat-quartz {
+  &:is(:where(.group):hover *) {
+    @media (hover: hover) {
+      background-color: #e3161a;
+    }
+  }
+}
+
+/* 3. Microgen Hygiene — #d56c04 */
+.group-hover\:bg-cat-hygiene {
+  &:is(:where(.group):hover *) {
+    @media (hover: hover) {
+      background-color: #d56c04;
+    }
+  }
+}
+
+/* 4. Micro Slides & Cover Glasses — #7c4391 */
+.group-hover\:bg-cat-microslides {
+  &:is(:where(.group):hover *) {
+    @media (hover: hover) {
+      background-color: #7c4391;
+    }
+  }
+}
+
+/* 5. Dairy Instruments — #009441 */
+.group-hover\:bg-cat-dairy {
+  &:is(:where(.group):hover *) {
+    @media (hover: hover) {
+      background-color: #009441;
+    }
+  }
+}
+
+/* 6. PlasticWare Products — #5b6eac */
+.group-hover\:bg-cat-plasticware {
+  &:is(:where(.group):hover *) {
+    @media (hover: hover) {
+      background-color: #5b6eac;
+    }
+  }
+}
+
+/* 7. Filter Papers — #e73873 */
+.group-hover\:bg-cat-filter {
+  &:is(:where(.group):hover *) {
+    @media (hover: hover) {
+      background-color: #e73873;
+    }
+  }
+}
+
+/* 8. Miscellaneous Labware — #3d3f02 */
+.group-hover\:bg-cat-misc-labware {
+  &:is(:where(.group):hover *) {
+    @media (hover: hover) {
+      background-color: #3d3f02;
+    }
+  }
+}
+
+/* 9. Pathology Items — #0a6a73 */
+.group-hover\:bg-cat-pathology {
+  &:is(:where(.group):hover *) {
+    @media (hover: hover) {
+      background-color: #0a6a73;
+    }
+  }
+}
+
+/* 10. Nexus Metalware — #87fc08 */
+.group-hover\:bg-cat-metalware {
+  &:is(:where(.group):hover *) {
+    @media (hover: hover) {
+      background-color: #87fc08;
+    }
+  }
+}
+/* 1. Laboratory Glassware - #0065b0 */
+.bg-cat-glassware { background-color: #0065b01a; }
+.text-cat-glassware { color: #0065b0; }
+.border-cat-glassware { border-color: #0065b04d; }
+
+/* 2. Quartz Ware - #e3161a */
+.bg-cat-quartz { background-color: #e3161a1a; }
+.text-cat-quartz { color: #e3161a; }
+.border-cat-quartz { border-color: #e3161a4d; }
+
+/* 3. Microgen Hygiene - #d56c04 */
+.bg-cat-hygiene { background-color: #d56c041a; }
+.text-cat-hygiene { color: #d56c04; }
+.border-cat-hygiene { border-color: #d56c044d; }
+
+/* 4. Micro Slides & Cover Glasses - #7c4391 */
+.bg-cat-microslides { background-color: #7c43911a; }
+.text-cat-microslides { color: #7c4391; }
+.border-cat-microslides { border-color: #7c43914d; }
+
+/* 5. Dairy Instruments - #009441 */
+.bg-cat-dairy { background-color: #0094411a; }
+.text-cat-dairy { color: #009441; }
+.border-cat-dairy { border-color: #0094414d; }
+
+/* 6. PlasticWare Products - #5b6eac */
+.bg-cat-plasticware { background-color: #5b6eac1a; }
+.text-cat-plasticware { color: #5b6eac; }
+.border-cat-plasticware { border-color: #5b6eac4d; }
+
+/* 7. Filter Papers - #e73873 */
+.bg-cat-filter { background-color: #e738731a; }
+.text-cat-filter { color: #e73873; }
+.border-cat-filter { border-color: #e738734d; }
+
+/* 8. Miscellaneous Labware - #3d3f02 */
+.bg-cat-misc-labware { background-color: #3d3f021a; }
+.text-cat-misc-labware { color: #3d3f02; }
+.border-cat-misc-labware { border-color: #3d3f024d; }
+
+/* 9. Pathology Items - #0a6a73 */
+.bg-cat-pathology { background-color: #0a6a731a; }
+.text-cat-pathology { color: #0a6a73; }
+.border-cat-pathology { border-color: #0a6a734d; }
+
+/* 10. Nexus Metalware - #87fc08 */
+.bg-cat-metalware { background-color: #87fc0820; }
+.text-cat-metalware { color: #527a00; }
+.border-cat-metalware { border-color: #87fc0866; }
