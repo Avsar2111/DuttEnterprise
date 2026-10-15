@@ -836,6 +836,202 @@
 </div>
     </div>
 </section>
+
+<!-- ================= Product Catalogues ================= -->
+
+<section id="catalogues"
+         class="relative py-20 bg-[#091522] overflow-hidden">
+
+    <!-- Background Effects -->
+    <div class="absolute inset-0 pointer-events-none
+                bg-[radial-gradient(ellipse_at_top_left,rgba(34,211,238,.10),transparent_55%)]">
+    </div>
+
+    <div class="absolute -right-32 top-32 w-80 h-80
+                rounded-full bg-cyan-500/5 blur-3xl
+                pointer-events-none">
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6">
+
+        <!-- Section Heading -->
+        <div class="text-center mb-14" data-aos="fade-up">
+
+            <span class="inline-flex items-center gap-2 px-5 py-2
+                         rounded-full bg-cyan-400/10
+                         border border-cyan-400/20
+                         text-cyan-300 uppercase tracking-[4px]
+                         text-xs font-bold">
+
+                <i class="fa-solid fa-book-open"></i>
+                Product Resources
+
+            </span>
+
+            <h2 class="mt-6 text-4xl lg:text-5xl
+                       font-black text-white">
+
+                Explore Our
+                <span class="text-cyan-400">Catalogues</span>
+
+            </h2>
+
+            <p class="mt-5 max-w-3xl mx-auto text-slate-400
+                      leading-7 text-base">
+
+                Discover our product range through our detailed catalogues.
+                Browse product information, explore available solutions
+                and download catalogues for future reference.
+
+            </p>
+
+            <div class="w-24 h-1 bg-gradient-to-r
+                        from-cyan-500 to-blue-500
+                        rounded-full mx-auto mt-7">
+            </div>
+
+        </div>
+
+
+<!-- Compact Product Catalogue Cards + Inquiry Card -->
+<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto px-4">
+<!-- Catalogue 01 -->
+<article class="flex flex-row items-stretch gap-6 p-6 rounded-2xl
+       min-h-[230px] bg-white/[0.04] border border-white/10
+       hover:border-cyan-400/50 transition">
+
+    <!-- Left: Full Catalogue Cover -->
+    <div class="shrink-0 w-32 sm:w-36 md:w-40 self-center
+                aspect-[3/4] rounded-lg overflow-hidden bg-white">
+        <img src="./images/Document/catalogue-1-cover.png"
+             alt="Laboratory Products Catalogue Cover"
+             loading="lazy"
+             class="w-full h-full object-contain">
+    </div>
+
+    <!-- Right: Title, Description and Buttons -->
+    <div class="flex-1 min-w-0 flex flex-col justify-center">
+        <!-- <span class="text-cyan-400 text-[10px] font-bold tracking-widest">
+            CATALOGUE 01
+        </span> -->
+
+        <h3 class="mt-2 text-base md:text-lg font-bold text-white">
+            Laboratory Products
+        </h3>
+
+        <p class="mt-2 text-xs sm:text-sm leading-5 text-slate-400">
+            Explore our laboratory products and solutions.
+        </p>
+
+        <div class="mt-5 flex flex-wrap items-center gap-2">
+            <button type="button"
+                @click="$dispatch('open-catalogue', {
+                    file: './images/Document/catalogue-1.pdf',
+                    title: 'Laboratory Products Catalogue'
+                })"
+                class="inline-flex items-center gap-2 px-3 py-2 rounded-lg
+                       bg-cyan-400 text-slate-950 text-xs font-bold
+                       hover:bg-cyan-300 transition">
+                <i class="fa-solid fa-eye"></i>
+                Preview
+            </button>
+
+            <a href="./images/Document/catalogue-1.pdf"
+               download
+               aria-label="Download Laboratory Products Catalogue"
+               class="inline-flex items-center justify-center w-9 h-9
+                      rounded-lg border border-white/15 text-cyan-300
+                      hover:bg-white/10 transition">
+                <i class="fa-solid fa-download"></i>
+            </a>
+        </div>
+    </div>
+</article>
+
+
+<!-- Catalogue 02 -->
+<article class="flex flex-row items-stretch gap-6 p-6 rounded-2xl
+       min-h-[230px] bg-white/[0.04] border border-white/10
+       hover:border-cyan-400/50 transition">
+
+    <!-- Left: Full Catalogue Cover -->
+    <div class="shrink-0 w-32 sm:w-36 md:w-40 self-center
+                aspect-[3/4] rounded-lg overflow-hidden bg-white">
+        <img src="./images/Document/catalogue-2-cover.png"
+             alt="Scientific Equipment Catalogue Cover"
+             loading="lazy"
+             class="w-full h-full object-contain">
+    </div>
+
+    <!-- Right: Title, Description and Buttons -->
+    <div class="flex-1 min-w-0 flex flex-col justify-center">
+        <!-- <span class="text-blue-400 text-[10px] font-bold tracking-widest">
+            CATALOGUE 02
+        </span> -->
+
+        <h3 class="mt-2 text-base md:text-lg font-bold text-white">
+            Nexus Equipment
+        </h3>
+
+        <p class="mt-2 text-xs sm:text-sm leading-5 text-slate-400">
+            Discover our metalware Equipment.
+        </p>
+
+        <div class="mt-5 flex flex-wrap items-center gap-2">
+            <button type="button"
+                @click="$dispatch('open-catalogue', {
+                    file: './images/Document/catalogue-2.pdf',
+                    title: 'Scientific Equipment Catalogue'
+                })"
+                class="inline-flex items-center gap-2 px-3 py-2 rounded-lg
+                       bg-blue-400 text-slate-950 text-xs font-bold
+                       hover:bg-blue-300 transition">
+                <i class="fa-solid fa-eye"></i>
+                Preview
+            </button>
+
+            <a href="./images/Document/catalogue-2.pdf"
+               download
+               aria-label="Download Scientific Equipment Catalogue"
+               class="inline-flex items-center justify-center w-9 h-9
+                      rounded-lg border border-white/15 text-blue-300
+                      hover:bg-white/10 transition">
+                <i class="fa-solid fa-download"></i>
+            </a>
+        </div>
+    </div>
+</article>
+
+    <!-- Inquiry Card -->
+    <article class="flex flex-col justify-center items-center text-center p-7 rounded-xl bg-cyan-400/[0.06] border border-cyan-400/20 hover:border-cyan-400/50 transition">
+        <div class="w-11 h-11 rounded-full bg-cyan-400/10 flex items-center justify-center text-cyan-400 text-xl">
+            <i class="fa-regular fa-comments"></i>
+        </div>
+
+        <h3 class="mt-3 text-base font-bold text-white">
+            Need a Product?
+        </h3>
+
+        <p class="mt-1 text-xs leading-5 text-slate-400">
+            Contact us for product details, pricing, or a custom inquiry.
+        </p>
+
+        <a href="https://wa.me/919974863555?text=Hello%20Dutt%20Enterprise,%20I%20have%20a%20product%20inquiry."
+           target="_blank"
+           rel="noopener noreferrer"  
+           class="mt-4 bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-4 py-2.5 rounded-xl font-bold flex items-center gap-2 shadow-lg shadow-emerald-900/20 transition-all transform hover:-translate-y-0.5 ">
+            <i class="fa-brands fa-whatsapp text-base"></i>
+            Send Inquiry
+        </a>
+    </article>
+
+</div>
+
+    </div>
+
+</section>
+
+<!-- ================= End Product Catalogues ================= -->
 <!-- <section id="categories" class="py-24 bg-brand-lightBg/50 border-y border-slate-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
@@ -1535,7 +1731,7 @@
     get filteredProducts() {
         return this.allProducts.filter(p => {
             const matchCat = (selectedCat === 'All') || (p.cat === selectedCat);
-            const matchSearch = p.name.toLowerCase().includes(searchKey.toLowerCase()) || p.desc.toLowerCase().includes(searchKey.toLowerCase());
+            const matchSearch = p.name.toLowerCase().includes(searchKey.toLowerCase()) || p.desc.toLowerCase().includes(searchKey.toLowerCase()) ||  String(p.id).toLowerCase().includes(searchKey.toLowerCase());
             return matchCat && matchSearch;
         });
     }
@@ -1654,6 +1850,7 @@ closeImage() {
 
     </template>
 </div>
+
 
             <div class="lg:col-span-9">
                 <div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
@@ -1896,9 +2093,15 @@ document.addEventListener('keydown', function (event) {
 
 <section id="awards"
          x-data="{
-    certModal:false,
-    pdfFile:''
-}"
+             certModal: false,
+             pdfFile: '',
+             documentTitle: 'Document Preview'
+         }"
+         @open-catalogue.window="
+             pdfFile = $event.detail.file;
+             documentTitle = $event.detail.title;
+             certModal = true
+         "
          class="relative py-20 bg-[#071827] overflow-hidden">
 
     <!-- Background Glow -->
@@ -1923,7 +2126,10 @@ document.addEventListener('keydown', function (event) {
                 regulatory compliance and supplying genuine laboratory chemicals,
                 scientific instruments and research equipment.
             </p>
-
+ <div class="w-24 h-1 bg-gradient-to-r
+                        from-cyan-500 to-blue-500
+                        rounded-full mx-auto mt-7">
+            </div>
         </div>
 
      <!-- Cards -->
@@ -2050,9 +2256,9 @@ document.addEventListener('keydown', function (event) {
         <!-- Header -->
         <div class="flex justify-between items-center bg-slate-900 px-6 py-4 shrink-0">
 
-            <h3 class="text-white font-bold text-lg">
-                Document Preview
-            </h3>
+            <h3 class="text-white font-bold text-lg"
+    x-text="documentTitle">
+</h3>
 
             <button
                 @click="certModal=false"
