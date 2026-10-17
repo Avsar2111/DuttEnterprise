@@ -67,7 +67,7 @@
                     <a href="#categories" class="hover:text-brand-teal transition-colors">Categories</a>
                     <a href="#products" class="hover:text-brand-teal transition-colors">Products</a>
                     <a href="#why-choose" class="hover:text-brand-teal transition-colors">Why Choose Us</a>
-                    <a href="#contact" class="hover:text-brand-teal transition-colors">Branches</a>
+                    <a href="#contact" class="hover:text-brand-teal transition-colors">Contact-Us</a>
                 </div>
                 
                 <div class="hidden sm:flex items-center gap-3">
@@ -121,8 +121,7 @@
                         Welcome to <br><span class="bg-gradient-to-r from-brand-cyan via-brand-teal to-white bg-clip-text text-transparent">Dutt Enterprise</span>
                     </h1>
                    <p class="mt-4 text-slate-300 text-base sm:text-lg max-w-2xl font-light leading-relaxed">
-    Dealers in high-compliance Lab Chemicals, Glassware, and High-Precision Instruments. Trusted industrial manufacturers of the specialized <strong class="text-brand-teal font-semibold">Laboratory Nexus Brand</strong> miscellaneous apparatus utilities.
-</p>
+Manufacturers and Dealers in Laboratory Chemicals, Glassware, and High-Precision Instruments. Offering quality laboratory apparatus, equipment, and utility products under our <strong class="text-brand-teal font-semibold">Laboratory Nexus Brand</strong>, alongside a wide range of products from trusted manufacturers.</p>
                     <div class="mt-8 flex flex-col sm:flex-row gap-4">
                         <a href="#products" class="bg-gradient-to-r from-brand-cyan to-brand-teal hover:from-brand-teal hover:to-brand-cyan text-white font-bold px-8 py-4 rounded-xl shadow-lg shadow-brand-cyan/20 text-center transition-all flex items-center justify-center gap-2 group">
                             Explore Products <i class="fa-solid fa-circle-chevron-right group-hover:translate-x-1 transition-transform"></i>
@@ -2733,7 +2732,7 @@ const swiper = new Swiper(".brandSwiper", {
                             </div>
                             <div>
                                 <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Branch Desk Support</h4>
-                                <p class="text-brand-dark text-sm font-semibold mb-1">+91 99748 63556</p>
+                                <p class="text-brand-dark text-sm font-semibold mb-1">+91 99748 23555</p>
                                 <p class="text-brand-cyan text-sm font-medium">duttenterprises@gmail.com</p>
                             </div>
                         </div>
@@ -2746,7 +2745,7 @@ const swiper = new Swiper(".brandSwiper", {
                     <div class="space-y-3">
                         <div class="flex justify-between text-xs border-b border-white/10 pb-2">
                             <span class="opacity-80">Monday – Saturday</span>
-                            <span class="font-bold">09:00 AM – 07:00 PM</span>
+                            <span class="font-bold">09:00 AM – 06:30 PM</span>
                         </div>
                         <div class="flex justify-between text-xs pt-1">
                             <span class="opacity-80">Sunday</span>
@@ -2758,52 +2757,155 @@ const swiper = new Swiper(".brandSwiper", {
 
             <!-- Right Side: Professional Inquiry Terminal -->
             <div class="lg:col-span-7 bg-white rounded-3xl p-8 md:p-10 shadow-xl shadow-slate-200/50 border border-slate-100" data-aos="fade-left">
-                <form action="#" class="space-y-6">
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <!-- Full Name -->
-                        <div class="space-y-2">
-                            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide ml-1">Full Name</label>
-                            <input type="text" placeholder="e.g. John Doe" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all text-brand-dark">
-                        </div>
-                        <div class="space-y-2">
-                            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide ml-1">Email Address</label>
-                            <input type="email" placeholder="name@company.com" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all text-brand-dark">
-                        </div>
-                    </div>
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="space-y-2">
-                            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide ml-1">Route Inquiry To</label>
-                            <select class="w-full appearance-auto bg-slate-50 border border-slate-200 rounded-xl px-4 pr-10 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all appearance-none cursor-pointer text-brand-dark">
-                                <option value="Anand">Anand Head Office</option>
-                                <option value="Branch 2">Branch Office Location</option>
-                            </select>
-                            
-                        </div>
-                        <div class="space-y-2">
-                            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide ml-1">Inquiry Type</label>
-                            <select class="w-full appearance-auto bg-slate-50 border border-slate-200 rounded-xl px-4 pr-10 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all appearance-none cursor-pointer text-brand-dark">
-                                <option>Bulk Product Quotation</option>
-                                <option>Technical Specification Request</option>
-                                <option>Order Status Inquiry</option>
-                                <option>Other Support</option>
-                            </select>
-                            
-                        </div>
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide ml-1">Your Message</label>
-                        <textarea rows="4" placeholder="How can our branch assist your laboratory today?" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all resize-none text-brand-dark"></textarea>
-                    </div>
+              <form id="inquiryForm" action="#" class="space-y-6">
 
-                    <!-- Submit Action -->
-                    <button type="submit" class="w-full bg-brand-dark hover:bg-brand-cyan text-white font-bold text-xs uppercase tracking-widest py-4 rounded-xl shadow-lg shadow-brand-dark/10 transition-all transform active:scale-[0.98] flex items-center justify-center gap-2">
-                        Dispatch Inquiry <i class="fa-solid fa-paper-plane text-[10px]"></i>
-                    </button>
-                </form>
+    <!-- Full Name -->
+    <div class="space-y-2">
+        <label for="fullName"
+            class="text-[11px] font-bold text-slate-500 uppercase tracking-wide ml-1">
+            Full Name
+        </label>
+        <input
+            type="text"
+            id="fullName"
+            placeholder="e.g. John Doe"
+            required
+            class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all text-brand-dark">
+    </div>
+
+    <!-- Email Address -->
+    <div class="space-y-2">
+        <label for="email"
+            class="text-[11px] font-bold text-slate-500 uppercase tracking-wide ml-1">
+            Email Address
+        </label>
+        <input
+            type="email"
+            id="email"
+            placeholder="name@company.com"
+            required
+            class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all text-brand-dark">
+    </div>
+
+    <!-- Route Inquiry To -->
+     <div class="grid md:grid-cols-2 gap-6">
+    <div class="space-y-2">
+        <label for="inquiryRoute"
+            class="text-[11px] font-bold text-slate-500 uppercase tracking-wide ml-1">
+            Route Inquiry To
+        </label>
+        <select
+            id="inquiryRoute"
+            required
+            class="w-full appearance-auto bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all cursor-pointer text-brand-dark">
+             <option value="Anand">Anand Head Office</option>
+    <option value="Branch 2">Branch Office Location</option>
+        </select>
+    </div>
+
+    <!-- Inquiry Type -->
+    <div class="space-y-2">
+        <label for="inquiryType"
+            class="text-[11px] font-bold text-slate-500 uppercase tracking-wide ml-1">
+            Inquiry Type
+        </label>
+        <select
+            id="inquiryType"
+            required
+            class="w-full appearance-auto bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all cursor-pointer text-brand-dark">
+            <option value="Bulk Product Quotation">Bulk Product Quotation</option>
+            <option value="Technical Specification Request">Technical Specification Request</option>
+            <option value="Order Status Inquiry">Order Status Inquiry</option>
+            <option value="Other Support">Other Support</option>
+        </select>
+    </div>
+</div>
+    <!-- Your Message -->
+    <div class="space-y-2">
+        <label for="message"
+            class="text-[11px] font-bold text-slate-500 uppercase tracking-wide ml-1">
+            Your Message
+        </label>
+        <textarea
+            id="message"
+            rows="4"
+            placeholder="How can we assist your laboratory today?"
+            required
+            class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all resize-none text-brand-dark"></textarea>
+    </div>
+
+    <!-- Submit Action -->
+    <button
+        type="submit"
+        class="w-full bg-brand-dark hover:bg-brand-cyan text-white font-bold text-xs uppercase tracking-widest py-4 rounded-xl shadow-lg shadow-brand-dark/10 transition-all transform active:scale-[0.98] flex items-center justify-center gap-2">
+        Send/Share
+        <i class="fa-brands fa-whatsapp text-base"></i>
+    </button>
+
+</form>
             </div>
         </div>
     </div>
 </section>
+<script>
+document.getElementById("inquiryForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    // Branch-wise WhatsApp numbers
+    const branchNumbers = {
+        "Anand": "919974863555",
+        "Branch 2": "919974823555"
+    };
+
+    const name = document.getElementById("fullName").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const route = document.getElementById("inquiryRoute").value;
+    const inquiryType = document.getElementById("inquiryType").value;
+    const message = document.getElementById("message").value.trim();
+
+    // Select the number based on the chosen branch
+    const whatsappNumber = branchNumbers[route];
+
+    if (!whatsappNumber) {
+        alert("Please select a valid branch.");
+        return;
+    }
+
+    // Prepare inquiry message
+   const branchNames = {
+    "Anand": "Anand Head Office",
+    "Branch 2": "Branch Office Location"
+};
+
+const branchName = branchNames[route] || route;
+
+const whatsappMessage = [
+    "*NEW BUSINESS INQUIRY*",
+    "*Dutt Enterprise*",
+    "━━━━━━━━━━━━━━━━━━━━",
+    "",
+    "*CUSTOMER DETAILS*",
+    "Name: " + name,
+    "Email: " + email,
+    "",
+    "*INQUIRY DETAILS*",
+    "Branch: " + branchName,
+    "Inquiry Type: " + inquiryType,
+    "",
+    "*MESSAGE*",
+    message,
+    "",
+    "━━━━━━━━━━━━━━━━━━━━",
+    "Received via Dutt Enterprise Website"
+].join("\n");
+
+    // Open WhatsApp for the selected branch
+    const whatsappURL =
+        `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+
+    window.open(whatsappURL, "_blank");
+});
+</script>
 <footer class="relative bg-[#071827] border-t border-cyan-500/20 overflow-hidden">
 
     <!-- Background Glow -->
@@ -2893,59 +2995,84 @@ Pathology Products & Scientific Equipment.
 
               <ul class="space-y-4 text-slate-300">
 
-    <li>
-        <a href="#" class="flex items-center gap-3 hover:text-cyan-400 transition">
-            <i class="fa-solid fa-flask text-cyan-400 w-5"></i>
-            Microgen Hygiene
-        </a>
-    </li>
+   <li>
+    <a href="#products" data-category="Microgen Hygiene"
+       class="flex items-center gap-3 hover:text-cyan-400 transition">
+        <i class="fa-solid fa-flask text-cyan-400 w-5"></i>
+        Microgen Hygiene
+    </a>
+</li>
 
-    <li>
-        <a href="#" class="flex items-center gap-3 hover:text-cyan-400 transition">
-            <i class="fa-solid fa-wine-glass text-cyan-400 w-5"></i>
-           Laboratory Glassware
-        </a>
-    </li>
+<li>
+    <a href="#products" data-category="Laboratory Glassware"
+       class="flex items-center gap-3 hover:text-cyan-400 transition">
+        <i class="fa-solid fa-wine-glass text-cyan-400 w-5"></i>
+        Laboratory Glassware
+    </a>
+</li>
 
-    <li>
-        <a href="#" class="flex items-center gap-3 hover:text-cyan-400 transition">
-            <i class="fa-solid fa-microscope text-cyan-400 w-5"></i>
-            Laboratory Instruments
-        </a>
-    </li>
+<li>
+    <a href="#products" data-category="Instruments"
+       class="flex items-center gap-3 hover:text-cyan-400 transition">
+        <i class="fa-solid fa-microscope text-cyan-400 w-5"></i>
+        Laboratory Instruments
+    </a>
+</li>
 
-    <li>
-        <a href="#" class="flex items-center gap-3 hover:text-cyan-400 transition">
-            <i class="fa-solid fa-vials text-cyan-400 w-5"></i>
-            Pathology Products
-        </a>
-    </li>
+<li>
+    <a href="#products" data-category="Pathology Products"
+       class="flex items-center gap-3 hover:text-cyan-400 transition">
+        <i class="fa-solid fa-vials text-cyan-400 w-5"></i>
+        Pathology Products
+    </a>
+</li>
 
-    <li>
-        <a href="#" class="flex items-center gap-3 hover:text-cyan-400 transition">
-            <i class="fa-solid fa-prescription-bottle text-cyan-400 w-5"></i>
-            Plasticware
-        </a>
-    </li>
+<li>
+    <a href="#products" data-category="Plasticware"
+       class="flex items-center gap-3 hover:text-cyan-400 transition">
+        <i class="fa-solid fa-prescription-bottle text-cyan-400 w-5"></i>
+        Plasticware
+    </a>
+</li>
 
-    <li>
-        <a href="#" class="flex items-center gap-3 hover:text-cyan-400 transition">
-            <i class="fa-solid fa-file-lines text-cyan-400 w-5"></i>
-            Filter Papers
-        </a>
-    </li>
+<li>
+    <a href="#products" data-category="Filter Papers"
+       class="flex items-center gap-3 hover:text-cyan-400 transition">
+        <i class="fa-solid fa-file-lines text-cyan-400 w-5"></i>
+        Filter Papers
+    </a>
+</li>
 
 </ul>
 
             </div>
+<script>
+document.querySelectorAll('a[data-category]').forEach(link => {
+    link.addEventListener('click', function () {
+        const category = this.dataset.category;
 
+        // Wait for Alpine.js to access the product filter
+        setTimeout(() => {
+            const productsSection = document.querySelector('#products');
+
+            if (!productsSection) return;
+
+            const alpineData = Alpine.$data(productsSection);
+
+            if (alpineData) {
+                alpineData.selectedCat = category;
+            }
+        }, 100);
+    });
+});
+</script>
             <!-- ================= BRANDS ================= -->
 
             <div>
 
                 <h3 class="text-white font-bold text-xl mb-6">
 
-                    Authorized Brands
+                    Authorized Dealer
 
                 </h3>
 
@@ -3087,7 +3214,7 @@ Pathology Products & Scientific Equipment.
 
             <div class="flex items-center gap-2">
                 <i class="fa-solid fa-clock text-cyan-400"></i>
-                <span>Mon – Sat | 9:00 AM – 7:00 PM</span>
+                <span>Mon – Sat | 9:00 AM – 6:30 PM</span>
             </div>
 
         </div>
