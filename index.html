@@ -723,7 +723,17 @@ Manufacturers and Dealers in Laboratory Chemicals, Glassware, and High-Precision
             Laboratory Glassware
         </h3>
     </div>
-
+<!-- 6. PlasticWare Products -->
+    <div @click="selectedCat = 'Plasticware'; document.getElementById('products').scrollIntoView();"
+         class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 duration-300 transition-all cursor-pointer group border border-slate-200/60"
+         data-aos="zoom-in" data-aos-delay="150">
+        <div class="w-14 h-14 mx-auto bg-[#5b6eac]/10 text-[#5b6eac] rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-cat-plasticware group-hover:text-white transition-all">
+            <i class="fa-solid fa-prescription-bottle"></i>
+        </div>
+        <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-[#5b6eac] transition-colors">
+            Plasticware Products
+        </h3>
+    </div>
     <!-- 2. Quartz Ware -->
     <div @click="selectedCat = 'Qaurtz ware'; document.getElementById('products').scrollIntoView();"
          class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 duration-300 transition-all cursor-pointer group border border-slate-200/60"
@@ -736,6 +746,18 @@ Manufacturers and Dealers in Laboratory Chemicals, Glassware, and High-Precision
         </h3>
     </div>
 
+    <!-- 9. Pathology Items -->
+    <div @click="selectedCat = 'Pathology Products'; document.getElementById('products').scrollIntoView();"
+         class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 duration-300 transition-all cursor-pointer group border border-slate-200/60"
+         data-aos="zoom-in" data-aos-delay="300">
+        <div class="w-14 h-14 mx-auto bg-[#0a6a73]/10 text-[#0a6a73] rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-cat-pathology group-hover:text-white transition-all">
+            <i class="fa-solid fa-droplet"></i>
+        </div>
+        <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-[#0a6a73] transition-colors">
+            Pathology Items
+        </h3>
+    </div>
+    
     <!-- 3. Microgen Hygiene -->
     <div @click="selectedCat = 'Microgen Hygiene'; document.getElementById('products').scrollIntoView();"
          class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 duration-300 transition-all cursor-pointer group border border-slate-200/60"
@@ -747,7 +769,17 @@ Manufacturers and Dealers in Laboratory Chemicals, Glassware, and High-Precision
             Microgen Hygiene
         </h3>
     </div>
-
+<!-- 8. Miscellaneous Labware -->
+    <div @click="selectedCat = 'Miscellaneous Labware'; document.getElementById('products').scrollIntoView();"
+         class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 duration-300 transition-all cursor-pointer group border border-slate-200/60"
+         data-aos="zoom-in" data-aos-delay="200">
+        <div class="w-14 h-14 mx-auto bg-[#3d3f02]/10 text-[#3d3f02] rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-cat-misc-labware group-hover:text-white transition-all">
+            <i class="fa-solid fa-toolbox"></i>
+        </div>
+        <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-[#3d3f02] transition-colors">
+            Miscellaneous Labware
+        </h3>
+    </div>
     <!-- 4. Micro Slides & Cover Glasses -->
     <div @click="selectedCat = 'Micro Slides & Cover Glasses'; document.getElementById('products').scrollIntoView();"
          class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 duration-300 transition-all cursor-pointer group border border-slate-200/60"
@@ -772,17 +804,7 @@ Manufacturers and Dealers in Laboratory Chemicals, Glassware, and High-Precision
         </h3>
     </div>
 
-    <!-- 6. PlasticWare Products -->
-    <div @click="selectedCat = 'Plasticware'; document.getElementById('products').scrollIntoView();"
-         class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 duration-300 transition-all cursor-pointer group border border-slate-200/60"
-         data-aos="zoom-in" data-aos-delay="150">
-        <div class="w-14 h-14 mx-auto bg-[#5b6eac]/10 text-[#5b6eac] rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-cat-plasticware group-hover:text-white transition-all">
-            <i class="fa-solid fa-prescription-bottle"></i>
-        </div>
-        <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-[#5b6eac] transition-colors">
-            Plasticware Products
-        </h3>
-    </div>
+    
 
     <!-- 7. Filter Papers -->
     <div @click="selectedCat = 'Filter Papers'; document.getElementById('products').scrollIntoView();"
@@ -796,29 +818,8 @@ Manufacturers and Dealers in Laboratory Chemicals, Glassware, and High-Precision
         </h3>
     </div>
 
-    <!-- 8. Miscellaneous Labware -->
-    <div @click="selectedCat = 'Miscellaneous Labware'; document.getElementById('products').scrollIntoView();"
-         class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 duration-300 transition-all cursor-pointer group border border-slate-200/60"
-         data-aos="zoom-in" data-aos-delay="200">
-        <div class="w-14 h-14 mx-auto bg-[#3d3f02]/10 text-[#3d3f02] rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-cat-misc-labware group-hover:text-white transition-all">
-            <i class="fa-solid fa-toolbox"></i>
-        </div>
-        <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-[#3d3f02] transition-colors">
-            Miscellaneous Labware
-        </h3>
-    </div>
+    
 
-    <!-- 9. Pathology Items -->
-    <div @click="selectedCat = 'Pathology Products'; document.getElementById('products').scrollIntoView();"
-         class="glass-card rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-1.5 duration-300 transition-all cursor-pointer group border border-slate-200/60"
-         data-aos="zoom-in" data-aos-delay="300">
-        <div class="w-14 h-14 mx-auto bg-[#0a6a73]/10 text-[#0a6a73] rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-cat-pathology group-hover:text-white transition-all">
-            <i class="fa-solid fa-droplet"></i>
-        </div>
-        <h3 class="font-bold text-sm tracking-tight text-brand-dark group-hover:text-[#0a6a73] transition-colors">
-            Pathology Items
-        </h3>
-    </div>
 
     <!-- 10. Nexus Metalware -->
     <div @click="selectedCat = 'Miscellaneous Products'; document.getElementById('products').scrollIntoView();"
@@ -1812,14 +1813,14 @@ closeImage() {
     <template x-for="catItem in [
         'All',
         'Laboratory Glassware',
+                'Plasticware',
         'Qaurtz ware',
+         'Pathology Products',
         'Microgen Hygiene',
+        'Miscellaneous Labware',
         'Micro Slides & Cover Glasses',
         'Instruments',
-        'Plasticware',
         'Filter Papers',
-        'Miscellaneous Labware',
-        'Pathology Products',
         'Nexus Metalware'
     ]" :key="catItem">
 
