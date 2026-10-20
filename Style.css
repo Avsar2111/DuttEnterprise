@@ -254,12 +254,12 @@ header, section {
 
 /* 10. Nexus Metalware */
 .cat-metalware {
-    color: #02007a;
-    background-color: #87fc0820;
+    color: #131bb1;
+    background-color: #131bb14e;
 }
 .cat-metalware:hover {
-    background-color: #000dff;
-    color: #243500;
+    background-color: #131bb1;
+    color: #fff;
 }
 .cat-card.glassware:hover .cat-title { color: #0065b0; }
 .cat-card.quartz:hover .cat-title { color: #e3161a; }
@@ -270,7 +270,7 @@ header, section {
 .cat-card.filter:hover .cat-title { color: #e73873; }
 .cat-card.misc-labware:hover .cat-title { color: #3d3f02; }
 .cat-card.pathology:hover .cat-title { color: #0a6a73; }
-.cat-card.metalware:hover .cat-title { color: #02007a; }
+.cat-card.metalware:hover .cat-title { color: #131bb1; }
 .group-hover\:bg-cat-glassware {
   &:is(:where(.group):hover *) {
     @media (hover: hover) {
@@ -355,7 +355,7 @@ header, section {
 .group-hover\:bg-cat-metalware {
   &:is(:where(.group):hover *) {
     @media (hover: hover) {
-      background-color: #000dff;
+      background-color: #131bb1;
     }
   }
 }
@@ -405,6 +405,6 @@ header, section {
 .border-cat-pathology { border-color: #0a6a734d; }
 
 /* 10. Nexus Metalware - #87fc08 */
-.bg-cat-metalware { background-color: #87fc0820; }
-.text-cat-metalware { color: #02007a; }
-.border-cat-metalware { border-color: #02007aa2; }
+.bg-cat-metalware { background-color: #00044742; }
+.text-cat-metalware { color: #131bb1; }
+.border-cat-metalware { border-color: #131bb14e; }
