@@ -408,3 +408,7 @@ header, section {
 .bg-cat-metalware { background-color: #00044742; }
 .text-cat-metalware { color: #131bb1; }
 .border-cat-metalware { border-color: #131bb14e; }
+
+.max-w-7xl {
+  max-width: 90rem !important;
+}
