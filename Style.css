@@ -255,7 +255,7 @@ header, section {
 /* 10. Nexus Metalware */
 .cat-metalware {
     color: #131bb1;
-    background-color: #131bb14e;
+    background-color: #131bb16c;
 }
 .cat-metalware:hover {
     background-color: #131bb1;
@@ -405,7 +405,7 @@ header, section {
 .border-cat-pathology { border-color: #0a6a734d; }
 
 /* 10. Nexus Metalware - #87fc08 */
-.bg-cat-metalware { background-color: #00044742; }
+.bg-cat-metalware { background-color: #131bb128; }
 .text-cat-metalware { color: #131bb1; }
 .border-cat-metalware { border-color: #131bb14e; }
 
