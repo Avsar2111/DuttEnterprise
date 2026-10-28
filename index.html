@@ -2251,7 +2251,7 @@ document.addEventListener('keydown', function (event) {
     </div>
 
     <!-- Distributor -->
-    <div @click="pdfFile='./images/Document/Registration Certificate.pdf'; certModal=true"
+    <!-- <div @click="pdfFile='./images/Document/Registration Certificate.pdf'; certModal=true"
         class="group cursor-pointer bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-green-400 hover:-translate-y-2 transition duration-300 flex flex-col">
 
         <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-3xl text-white shadow-lg">
@@ -2278,7 +2278,36 @@ document.addEventListener('keydown', function (event) {
 
         </div>
 
+    </div> -->
+
+<div @click="pdfFile='./images/Document/Registration Certificate.pdf'; certModal=true"
+    class="group cursor-pointer bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-green-400 hover:-translate-y-2 transition duration-300 flex flex-col">
+
+    <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-3xl text-white shadow-lg">
+        <i class="fa-solid fa-file-invoice"></i>
     </div>
+
+    <h3 class="mt-5 text-xl font-bold text-white">
+        GST Certificate
+    </h3>
+
+    <p class="text-cyan-400 text-sm font-semibold mt-1">
+        Goods and Services Tax Registration
+    </p>
+
+    <p class="mt-4 text-slate-400 text-[15px] leading-7 flex-grow">
+Official GST certificate confirming business registration and tax compliance.
+
+
+    </p>
+
+    <div class="mt-6">
+        <span class="text-cyan-400 font-semibold">
+            GST Registered Business
+        </span>
+    </div>
+
+</div>
 
     <!-- Import-Export -->
 <div
@@ -2907,6 +2936,7 @@ const swiper = new Swiper(".brandSwiper", {
             <option value="Bulk Product Quotation">Bulk Product Quotation</option>
             <option value="Technical Specification Request">Technical Specification Request</option>
             <option value="Order Status Inquiry">Order Status Inquiry</option>
+            <option value="Order Status Inquiry">Delivery Status Inquiry</option>
             <option value="Other Support">Other Support</option>
         </select>
     </div>
@@ -2920,7 +2950,7 @@ const swiper = new Swiper(".brandSwiper", {
         <textarea
             id="message"
             rows="4"
-            placeholder="How can we assist your laboratory today?"
+            placeholder="How can we assist you today?"
             required
             class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan/20 focus:border-brand-cyan transition-all resize-none text-brand-dark"></textarea>
     </div>
