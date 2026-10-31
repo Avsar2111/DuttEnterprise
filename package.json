@@ -1,0 +1,25 @@
+{
+  "name": "duttenterprise",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Avsar2111/DuttEnterprise.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Avsar2111/DuttEnterprise/issues"
+  },
+  "homepage": "https://github.com/Avsar2111/DuttEnterprise#readme",
+  "description": "",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "tailwindcss": "^4.3.3"
+  }
+}
