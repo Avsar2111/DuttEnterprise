@@ -6,28 +6,8 @@
     <title>Dutt Enterprise | Laboratory Chemicals, Glassware & Instruments Supplier</title>
         <link rel="icon" type="image/png" href="images/Dutt_Enterprise_Logo_PNG.png">
 <link rel="apple-touch-icon" href="images/Dutt_Enterprise_Logo_PNG.png">
- <link rel="stylesheet" href="style.css"></link>
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
      <link rel="stylesheet" href="css/tailwind.css">
-    <!-- <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            blue: '#0A4D68',
-                            cyan: '#088395',
-                            teal: '#05BFDB',
-                            lightBg: '#EBF4F6',
-                            dark: '#001C30',
-                            gray: '#64748B'
-                        }
-                    }
-                }
-            }
-        }
-    </script> -->
-
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -229,12 +209,7 @@ Manufacturers and Dealers in Laboratory Chemicals, Glassware, and High-Precision
   <!-- Base -->
   <path d="M 534 1051 L 452 1082 L 452 1110 Q 600 1125 748 1110 L 748 1082 L 666 1051"/>
   <path d="M 452 1082 Q 600 1100 748 1082"/>
-  <!-- Measurement graduations -->
-  <g stroke-width="2.5">
-    {#each Array.from({length: 91}, (_, i) => i) as i}
-      <path d={`M ${i % 10 === 0 ? 568 : 583} ${468 + i * 6.1} H 634`}/>
-    {/each}
-  </g>
+
   <!-- Cylinder label -->
   <g fill="#ffffff" stroke="none" font-family="Arial, sans-serif">
     <text x="580" y="335" font-size="52">B</text>
@@ -2052,8 +2027,6 @@ Manufacturers and Dealers in Laboratory Chemicals, Glassware, and High-Precision
 { id: 1219, cat: 'Laboratory Glassware', name: 'Essential Oil Determination Apparatus (Clevenger Type)', desc: 'Essential Oil Determination Apparatus, Clevenger Type, for Determination of Volatile Oils Lighter Than Water, Made from Heat-Resistant SUN Brand Borosilicate Glass, Consisting of 1000ml Round Bottom Flask with B24 Joint and Oil Separatory Tube with B24–19 Joints', img: 'images/1219.jpg' },
 { id: 1220, cat: 'Laboratory Glassware', name: 'Water Steel Glass Boiler with Immersion Heater', desc: 'Water Steel Glass Boiler with Immersion Heater, Output Capacity of 4 Litres per Hour', img: 'images/1220.jpg' },
 { id: 1221, cat: 'Laboratory Glassware', name: 'Single Stage Water Distillation Unit', desc: 'Single Stage Water Distillation Unit with Borosilicate Glass Condenser, Available in Output Capacities of 2.5, 5.0 and 10.0 Litres per Hour, with Different Cooling Water Consumption and Power Ratings', img: 'images/1221.jpg' },
-{ id: '1221A', cat: 'Laboratory Glassware', name: 'Spares for Water Distillation Units', desc: 'Replacement Borosilicate Glass Condensers for Water Distillation Units, Available for 2.5 and 5.0 Litres per Hour Capacities', img: 'images/1221.jpg' },
-{ id: '1221B', cat: 'Laboratory Glassware', name: 'Safety Cut Off for Water Distillation Units', desc: 'Safety Cut-Off Devices for Water Distillation Units, Available with Thermal Sensors for 2.5, 5.0 and 10.0 Litres per Hour Capacities, and a Digital LCD Display Option', img: 'images/1221.jpg' },
 { id: 1231, cat: 'Laboratory Glassware', name: 'Gas Sampling Tubes with Two Straight Borosilicate Stopcocks', desc: 'Gas Sampling Tubes Made from Heat-Resistant SUN Brand Borosilicate Glass, Fitted with Two Straight Borosilicate Stopcocks, Available in 125ml, 250ml, 500ml and 1000ml Capacities', img: 'images/1231.jpg' },
 { id: 1234, cat: 'Laboratory Glassware', name: 'Filter Pump College Pattern', desc: 'College Pattern Filter Pump Made from Heat-Resistant SUN Brand Borosilicate Glass', img: 'images/1234.jpg' },
 { id: 1235, cat: 'Laboratory Glassware', name: 'Industrial Filter Pump College Pattern', desc: 'Industrial College Pattern Filter Pump Made from Heat-Resistant SUN Brand Borosilicate Glass', img: 'images/1235.jpg' },
@@ -2124,6 +2097,14 @@ Manufacturers and Dealers in Laboratory Chemicals, Glassware, and High-Precision
         { id: '2013-A', cat: 'Qaurtz ware', name: 'Spares for All Quartz Double Distillation Units', desc: 'Lower Boiler Capacity(1.5,2.5,4.0,5.0 Ltr./hr) Upper Boiler with Condenser for Cat No. 2013-1, 2013-2, 2013-3, 2013-4', img: 'images/2013.jpg' },
         { id: 2014, cat: 'Qaurtz ware', name: 'All Quartz Double Distillation (Horizontal Model)', desc: 'All Quartz Double Distillation Horizontal Model Output(1.5,2.5,4.0,5.0 Ltr./hr) Power Rating(3.0,5.0,8.0,9.0 Kw) Cooling Water Consumption(50,70,120,150 Ltr./hr) 3 Phase Power Supply', img: 'images/2014.jpg' },
         { id: 2015, cat: 'Qaurtz ware', name: 'Horizontal Single Stage Distillation (Boiler & Condenser Quartz Type)', desc: 'Horizontal Single Stage Distillation Boiler & Condenser Quartz Type Output(2,5 Ltr./hr) Power Rating(1.7,3.5 Kw) Safety Cut Off(Yes)', img: 'images/2015.jpg' },
+      
+        { id: '4001', cat: 'Micro Slides', name: 'Blue Star Frosted Micro Slides', desc: 'Micro Slide Size(75mm x 25mm) Available Thickness(1.35mm, 1.25mm, 1.10mm) Pack(50 Nos.)', img: 'images/4001.avif' },
+       { id: '4001-1', cat: 'Micro Slides', name: 'Blue Star Micro Slide (PIC – 2)', desc: 'Micro Slide Size(75mm x 25mm) Thickness(1.45mm) Pack(50 Nos.) Manufactured from best selected and optically flat glass sheets with uniform size and ground edges, most suitable for microscopic works.', img: 'images/4001a.webp' },
+       { id: '4001-2', cat: 'Micro Slides', name: 'Blue Star Micro Slide (PIC – 1)', desc: 'Micro Slide Size(75mm x 25mm) Thickness(1.35mm) Pack(50 Nos.) Manufactured from best selected and optically flat glass sheets with uniform size and ground edges, most suitable for microscopic works.', img: 'images/4001b.webp' },
+     { id: '4002-1', cat: 'Micro Slides', name: 'Square Cover Glass', desc: 'Available Sizes(18mm x 18mm, 19mm x 19mm, 22mm x 22mm, 24mm x 24mm, 25mm x 25mm). Cat Nos.(4002-1a, 4002-1b, 4002-1c, 4002-1d, 4002-1e).', img: 'images/40021.webp' },
+{ id: '4002-2', cat: 'Micro Slides', name: 'Rectangular Cover Glass', desc: 'Available Sizes(22mm x 25mm, 22mm x 30mm, 22mm x 40mm, 22mm x 50mm, 22mm x 60mm, 24mm x 40mm, 24mm x 50mm, 24mm x 60mm, 25mm x 50mm). Cat Nos.(4002-2a, 4002-2b, 4002-2c, 4002-2d, 4002-3a, 4002-3b, 4002-3c, 4002-3d, 4002-3e).', img: 'images/40022.webp' },
+{ id: '4002-3', cat: 'Micro Slides', name: 'Circular Cover Glass', desc: 'Available Sizes(18mm, 19mm, 22mm, 24mm, 12mm). Cat Nos.(4002-4a, 4002-4b, 4002-4c, 4002-4d, 4002-5a).', img: 'images/40023.webp' },
+
         { id: 6000, cat: 'Plasticware', name: 'Beaker', desc: 'Beaker, Capacity (50,100,250,500,1000,2000) ml', img: 'images/6000.jpg' },
         { id: 6001, cat: 'Plasticware', name: 'Beaker (Euro Design)', desc: 'Beaker (Euro Design), Capacity (25,50,100,250,500,1000,2000,5000) ml', img: 'images/6001.jpg' },
         { id: 6002, cat: 'Plasticware', name: 'Beaker (Printed Graduation)', desc: 'Beaker (Printed Graduation), Capacity (50,100,250,500,1000,2000,5000,10000) ml, Stackable Beaker Capacity (50,100,250,600) ml', img: 'images/6002.jpg' },
@@ -2193,7 +2174,7 @@ Manufacturers and Dealers in Laboratory Chemicals, Glassware, and High-Precision
 { id: 6067, cat: 'Plasticware', name: 'Rack For Scintillation Vial', desc: 'Rack For Scintillation Vial, Capacity (90 Vials of 8 ml, 50 Vials of 20 ml)', img: 'images/6067.jpg' },
 { id: 6068, cat: 'Plasticware', name: 'Test Tube Rack', desc: 'Test Tube Rack, Size (13 mm x 84, 168, 252 Tubes), (16 mm x 60, 120, 180 Tubes), (20 mm x 40, 80, 120 Tubes)', img: 'images/6068.jpg' },
 { id: 6069, cat: 'Plasticware', name: 'Cryovial', desc: 'Cryovial, Capacity (1.8,4.5) ml', img: 'images/6069.jpg' },
-{ id: 6070, cat: 'Plasticware', name: 'Cryovial Cap', desc: 'Cryovial Cap, Type (Flat Bottom, U Bottom)', img: 'images/6070.jpg' },
+{ id: 6070, cat: 'Plasticware', name: 'Micro Test Plate', desc: 'Micro Test Plate, Type (Flat Bottom, U Bottom)', img: 'images/6070.jpg' },
 { id: 6071, cat: 'Plasticware', name: 'Cryo Rack', desc: 'Cryo Rack', img: 'images/6071.jpg' },
 { id: 6072, cat: 'Plasticware', name: 'Cryovial Rack', desc: 'Cryovial Rack, Capacity (50,81,100) Places for 1 ml or 1.8 ml Cryovials, 81 Places for 4.5 ml Cryovials', img: 'images/6072.jpg' },
 { id: 6073, cat: 'Plasticware', name: 'Cryovial Storage Box', desc: 'Cryovial Storage Box, Capacity (50,81,100) Places for 1 ml or 1.8 ml Cryovials', img: 'images/6073.jpg' },
@@ -2206,7 +2187,7 @@ Manufacturers and Dealers in Laboratory Chemicals, Glassware, and High-Precision
 { id: 6080, cat: 'Plasticware', name: 'Nestler Cylinder Stand', desc: 'Nestler Cylinder Stand, Capacity (50,100) ml', img: 'images/6080.jpg' },
 { id: 6081, cat: 'Plasticware', name: 'Test Tube Stand', desc: 'Test Tube Stand, For (16 mm & 25 mm Ø Tubes, 25 mm Ø Tubes)', img: 'images/6081.jpg' },
 { id: 6082, cat: 'Plasticware', name: 'Test Tube Stand (Round)', desc: 'Test Tube Stand (Round), For (19 mm & 25 mm Ø Tubes)', img: 'images/6082.jpg' },
-{ id: 6083, cat: 'Plasticware', name: 'Test Tube Stand', desc: 'Test Tube Stand, Capacity (24,48) Tubes', img: 'images/6083.jpg' },
+{ id: 6083, cat: 'Plasticware', name: 'Micro Centrifuge Tube Rack', desc: 'Tube Rack, Capacity (24,48) Tubes', img: 'images/6083.jpg' },
 { id: 6084, cat: 'Plasticware', name: 'Test Tube Stand (3 Tier)', desc: 'Test Tube Stand (3 Tier), Size (13 mm x 31, 16 mm x 31, 20 mm x 20, 25 mm x 12, 25 mm x 18, 32 mm x 12, 25 mm x 36, 13 mm x 18, 15 mm x 18, 18 mm x 12, 13 mm x 62, 16 mm x 62, 20 mm x 40, 13 mm x 48, 13 mm x 72, 25 mm x 24) Tubes', img: 'images/6084.jpg' },
 { id: 6085, cat: 'Plasticware', name: 'Test Tube Peg Rack', desc: 'Test Tube Peg Rack, Capacity (96 Places for 13 mm Tubes, 50 Places for 16 mm Tubes)', img: 'images/6085.jpg' },
 { id: 6086, cat: 'Plasticware', name: 'Test Tube Stand (3 Tier) (P.C)', desc: 'Test Tube Stand (3 Tier) (P.C), Size (13 mm x 31, 16 mm x 31, 20 mm x 20, 25 mm x 12, 25 mm x 18, 32 mm x 12, 25 mm x 36, 13 mm x 18, 15 mm x 18, 18 mm x 12, 13 mm x 62, 16 mm x 62, 20 mm x 40, 13 mm x 48, 13 mm x 72, 25 mm x 24) Tubes', img: 'images/6086.jpg' },
@@ -2432,7 +2413,7 @@ Manufacturers and Dealers in Laboratory Chemicals, Glassware, and High-Precision
 { id: 8138, cat: 'Miscellaneous Labware', name: 'Filter Paper (Indian, Handmade)', desc: 'White Indian Handmade Filter Paper, Suitable for School-Grade Applications, Sheet Size: 46 x 57 cm, Pack of 100 Sheets', img: 'images/8138.jpg' },
 { id: 8139, cat: 'Miscellaneous Labware', name: 'Indian Filter Paper (Loose Sheets)', desc: 'White Indian Handmade Filter Paper, Loose Sheets, Sheet Size: 46 x 57 cm, Pack of 500 Sheets', img: 'images/8139.jpg' },
 { id: 8141, cat: 'Miscellaneous Labware', name: 'Filter Paper (Superior Quality)', desc: 'Superior-Quality Filter Paper, Extra White and Soft, Suitable for Laboratory Applications, Sheet Size: 46 x 57 cm, Pack of 500 Sheets', img: 'images/8141.jpg' },
-{ id: 8142, cat: 'Miscellaneous Labware', name: 'Filter Paper (White Circular)', desc: 'White Filter Paper, No. 1 Grade, Round Circles, Available Diameters: 9 cm, 11 cm, 12.5 cm, 15 cm and 18 cm, Pack of 100 Circles', img: 'images/8142.jpg' },
+{ id: 8142, cat: 'Miscellaneous Labware', name: 'Filter Paper (White Colour)', desc: 'White Filter Paper, No. 1 Grade, Round Circles, Available Diameters: 9 cm, 11 cm, 12.5 cm, 15 cm and 18 cm, Pack of 100 Circles', img: 'images/8142.jpg' },
 { id: 8143, cat: 'Miscellaneous Labware', name: 'Butter Paper (White)', desc: 'White Butter Paper Sheets, Available as Large Sheets and Loose Individual Sheets', img: 'images/8143.jpg' },
 { id: 8144, cat: 'Miscellaneous Labware', name: 'Blotting Paper', desc: 'White or Pink Blotting Paper, Sheet Size: 45 x 55 cm, Supplied in Reams of 500 Sheets', img: 'images/8144.jpg' },
 { id: 8145, cat: 'Miscellaneous Labware', name: 'Lint-Free Wipes (Kimwipes)', desc: 'Imported Kimtech/Kimwipes Lint-Free Cleaning Wipes, Soft, Absorbent and Non-Abrasive, Suitable for Glassware, Instruments, Microscope Lenses and Clean Areas, Available in Case Packs', img: 'images/8145.jpg' },
@@ -2686,7 +2667,7 @@ closeImage() {
          'Pathology Products',
         'Microgen Hygiene',
         'Miscellaneous Labware',
-        'Micro Slides & Cover Glasses',
+        'Micro Slides',
         'Instruments',
         'Filter Papers',
         'Nexus Metalware'
@@ -2705,6 +2686,7 @@ closeImage() {
                 catItem === 'Instruments' ? 'Dairy Instruments' :
                 catItem === 'Plasticware' ? 'PlasticWare Products' :
                 catItem === 'Pathology Products' ? 'Pathology Items' :
+                catItem === 'Micro Slides' ? 'Micro Slides & Cover Glasses' :
                 catItem === 'Nexus Metalware' ? 'Nexus Metalware' :
                 catItem
             "></span>
@@ -2745,7 +2727,7 @@ closeImage() {
             product.cat === 'Microgen Hygiene',
 
         'bg-cat-microslides text-cat-microslides border-cat-microslides':
-            product.cat === 'Micro Slides & Cover Glasses',
+            product.cat === 'Micro Slides & Cover Glasses' || product.cat === 'Micro Slides',
 
         'bg-cat-dairy text-cat-dairy border-cat-dairy':
             product.cat === 'Instruments' || product.cat === 'Dairy Instruments',
@@ -2782,7 +2764,7 @@ closeImage() {
             product.cat === 'Microgen Hygiene',
 
         'bg-cat-microslides text-cat-microslides border-cat-microslides':
-            product.cat === 'Micro Slides & Cover Glasses',
+            product.cat === 'Micro Slides & Cover Glasses' || product.cat === 'Micro Slides',
 
         'bg-cat-dairy text-cat-dairy border-cat-dairy':
             product.cat === 'Instruments' || product.cat === 'Dairy Instruments',
