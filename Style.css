@@ -412,3 +412,17 @@ header, section {
 .max-w-7xl {
   max-width: 90rem !important;
 }
+
+@font-face {
+    font-family: 'SienaBlack';
+    src: url('./css/DS Siena Black.ttf') format('truetype');
+    font-weight: normal;
+}
+
+.siena-heading {
+    font-family: 'SienaBlack', serif !important;
+}
+.siena-title {
+    font-family: 'SienaBlack', serif !important;
+        font-weight: 400 !important;
+}
