@@ -415,7 +415,7 @@ header, section {
 
 @font-face {
     font-family: 'SienaBlack';
-    src: url('./css/DS Siena Black.ttf') format('truetype');
+  src: url('./css/DS%20Siena%20Black.ttf') format('truetype');
     font-weight: normal;
 }
 
